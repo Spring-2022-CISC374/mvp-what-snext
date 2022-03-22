@@ -37,10 +37,24 @@ class TraverseMap extends Phaser.Scene {
     //TODO: checks if you click on a door, if you do it changes the room accordingly
     //gameSettings.headRoom = gameSettings.headRoom.<the door that you clicked>
     //loadRoom()
+    this.Room.door = this.add.door().setInteractive();
+    this.Room.door.on('pointerdown', function (pointer){
+        
+        gameSettings.headRoom = roomA;
+        loadRoom();
+
+    });
+    
   }
 
   checkNPCs(){
     //TODO: checks if npc is clicked, if it is, triggers corresponding dialogue scene 
+    this.Room.npc = this.add.npc().setInteractive();
+    this.Room.npc.on('pointerdown', function (pointer){
+      
+      this.scene.start("dialogue");
+
+    })
   }
 
   movePlayerManager(){
@@ -61,7 +75,12 @@ class TraverseMap extends Phaser.Scene {
         this.player.setVelocityY(0);
       }
 
+      
       //TODO: add go to mouse click 
+      if(this.pointer.Down){
+        this.player.setX(pointer.worldX);
+        this.player.setY(pointer.worldY);
+      }
   }
 
 
