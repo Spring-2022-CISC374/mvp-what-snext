@@ -4,6 +4,7 @@ Contributions:
 Bonnie
 - Created main menu
 - Created loading screen
+- Created map traversal
 
 Anika
 - Created storyline
@@ -12,4 +13,3 @@ Anika
 
 Diou
 - Created room graphics
-- Created map traversal
