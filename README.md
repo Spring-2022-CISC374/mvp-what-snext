@@ -1,4 +1,4 @@
-# first-phaser-game-based-on-tutorials-bonnieskiena
+# first-phaser-game-based-on-tutorials
 Contributions: 
 
 Bonnie
