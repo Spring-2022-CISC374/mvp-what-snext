@@ -12,3 +12,4 @@ Anika
 
 Diou
 - Created room graphics
+- Created map traversal
