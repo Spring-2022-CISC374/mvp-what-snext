@@ -1,11 +1,13 @@
-var roomA = new Room("grass")
-var roomB = new Room("background")
+var ship1 = new npc("ship1", "ship.png", ['hello', 'world'] );
+
+var roomB = new Room("background");
+var roomA = new Room("grass",[roomB],[ship1]);
 
 var gameSettings = {
   //All numbers here
     playerSpeed: 200,
     playerSize: window.innerWidth / 25,
-    headRoom: roomB
+    headRoom: roomA
 }
 
 var config = {

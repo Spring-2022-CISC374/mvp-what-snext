@@ -27,34 +27,40 @@ class TraverseMap extends Phaser.Scene {
     this.physics.world.setBoundsCollision();
 
     this.player = this.physics.add.sprite(config.width / 2 - 8, config.height - 64, "player");
-    this.player.play("thrust");
+    //this.player.play("thrust");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
-  
+    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+    var pointer = this.input.activePointer;
   }
 
   changeRoom(){
     //TODO: checks if you click on a door, if you do it changes the room accordingly
-    //gameSettings.headRoom = gameSettings.headRoom.<the door that you clicked>
-    //loadRoom()
-    this.Room.door = this.add.door().setInteractive();
+    /*this.Room.door = this.add.door().setInteractive();
     this.Room.door.on('pointerdown', function (pointer){
         
         gameSettings.headRoom = roomA;
         loadRoom();
 
     });
+    */
+    this.input.on('pointerdown', function () { 
+      console.log("hi1");
+      //gameSettings.headRoom = gameSettings.headRoom.doors[0];
+      //this.loadRoom();
+    });
     
   }
 
   checkNPCs(){
     //TODO: checks if npc is clicked, if it is, triggers corresponding dialogue scene 
-    this.Room.npc = this.add.npc().setInteractive();
+    /*this.Room.npc = this.add.npc().setInteractive();
     this.Room.npc.on('pointerdown', function (pointer){
       
       this.scene.start("dialogue");
 
-    })
+    })*/
   }
 
   movePlayerManager(){
@@ -77,10 +83,10 @@ class TraverseMap extends Phaser.Scene {
 
       
       //TODO: add go to mouse click 
-      if(this.pointer.Down){
+      /*if(this.pointer.Down){
         this.player.setX(pointer.worldX);
         this.player.setY(pointer.worldY);
-      }
+      }*/
   }
 
 

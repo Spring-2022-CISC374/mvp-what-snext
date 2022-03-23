@@ -1,10 +1,12 @@
 class Room {
     //contains doors which are linked lists to other rooms
-    door;
-    npc;
+    doors;
+    npcs;
     //contains npcs
-    constructor(background){
+    constructor(background='background', doors=[], npcs = []){
         this.background = background;
+        this.doors = doors;
+        this.npcs = npcs;
     }
 
 }
