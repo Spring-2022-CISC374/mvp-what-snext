@@ -2,7 +2,6 @@ var ship1 = new npc("ship1", "ship.png", ['hello', 'world'] );
 
 var roomB = new Room("background");
 var roomA = new Room("grass",[roomB],[ship1]);
-
 var gameSettings = {
   //All numbers here
     playerSpeed: 200,
@@ -11,6 +10,8 @@ var gameSettings = {
 }
 
 var config = {
+  mouseclick: false,
+  mousedown: false,
   width: window.innerWidth,
   height: window.innerHeight,
   backgroundColor: 0x10AA44,

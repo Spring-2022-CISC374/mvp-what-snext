@@ -8,17 +8,21 @@ class TraverseMap extends Phaser.Scene {
   }
 
   update() {
-
+    
     this.movePlayerManager();
     this.checkNPCs();
     this.changeRoom();
-    
+    if (config.mouseclick == true){
+      gameSettings.headRoom = gameSettings.headRoom.doors[0];
+      config.mouseclick = false;
+      this.loadRoom();
+    }
   }
 
   loadRoom(){
     this.background = this.add.tileSprite(0, 0, config.width, config.height , gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
-
+    
     this.add.text(20, 20, "Playing game", {
       font: "25px Arial",
       fill: "yellow"
@@ -31,10 +35,12 @@ class TraverseMap extends Phaser.Scene {
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-    var pointer = this.input.activePointer;
+    
+    //var pointer = this.input.activePointer;
+    //this.mousedown = false;
+    //this.mouseclick = false;
   }
-
+  
   changeRoom(){
     //TODO: checks if you click on a door, if you do it changes the room accordingly
     /*this.Room.door = this.add.door().setInteractive();
@@ -46,10 +52,16 @@ class TraverseMap extends Phaser.Scene {
     });
     */
     this.input.on('pointerdown', function () { 
-      console.log("hi1");
-      //gameSettings.headRoom = gameSettings.headRoom.doors[0];
-      //this.loadRoom();
+      config.mousedown = true;
     });
+    this.input.on('pointerup', function () { 
+      if (config.mousedown == true){
+        config.mouseclick = true;
+      }
+    
+      config.mousedown = false;
+    });
+    
     
   }
 
