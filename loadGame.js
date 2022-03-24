@@ -18,6 +18,10 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
+    this.load.spritesheet("door1", "assets/images/woodendoor.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
 
   }
 

@@ -1,4 +1,5 @@
 class TraverseMap extends Phaser.Scene {
+  text;
   constructor() {
     super("playGame");
   }
@@ -12,18 +13,21 @@ class TraverseMap extends Phaser.Scene {
     this.movePlayerManager();
     this.checkNPCs();
     this.changeRoom();
-    if (config.mouseclick == true){
-      gameSettings.headRoom = gameSettings.headRoom.doors[0];
-      config.mouseclick = false;
-      this.loadRoom();
-    }
+
   }
 
   loadRoom(){
     this.background = this.add.tileSprite(0, 0, config.width, config.height , gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
     
-    this.add.text(20, 20, "Playing game", {
+
+
+    this.ship1 = this.add.sprite(config.width / 2 - 50, config.height / 2, "npc1");
+    this.door1 = this.add.sprite(config.width / 10, config.height / 2, "door1");
+    this.door2 = this.add.sprite(config.width - config.width / 10, config.height / 2, "door1");
+
+
+    this.text = this.add.text(20, 20, "Playing game", {
       font: "25px Arial",
       fill: "yellow"
     });
@@ -43,14 +47,7 @@ class TraverseMap extends Phaser.Scene {
   
   changeRoom(){
     //TODO: checks if you click on a door, if you do it changes the room accordingly
-    /*this.Room.door = this.add.door().setInteractive();
-    this.Room.door.on('pointerdown', function (pointer){
-        
-        gameSettings.headRoom = roomA;
-        loadRoom();
-
-    });
-    */
+/*
     this.input.on('pointerdown', function () { 
       config.mousedown = true;
     });
@@ -62,8 +59,12 @@ class TraverseMap extends Phaser.Scene {
       config.mousedown = false;
     });
     
-    
-  }
+    if (config.mouseclick == true){
+      gameSettings.headRoom = gameSettings.headRoom.doors[0];
+      config.mouseclick = false;
+      this.loadRoom();
+    }
+  */  }
 
   checkNPCs(){
     //TODO: checks if npc is clicked, if it is, triggers corresponding dialogue scene 
@@ -73,6 +74,27 @@ class TraverseMap extends Phaser.Scene {
       this.scene.start("dialogue");
 
     })*/
+    this.input.on('pointerdown', function () { 
+      config.mousedown = true;
+    });
+    this.input.on('pointerup', function () { 
+      if (config.mousedown == true){
+        config.mouseclick = true;
+      }
+    
+      config.mousedown = false;
+    });
+
+    if (config.mouseclick == true){
+      config.mouseclick = false;
+      
+      this.text.destroy();
+      this.text = this.add.text(20, 20, config.dialogue[0], {
+        font: "25px Arial",
+        fill: "yellow"
+      });
+      config.dialogue = config.dialogue.slice(1,config.dialogue.length - 1);
+    }
   }
 
   movePlayerManager(){
