@@ -13,7 +13,7 @@ class TraverseMap extends Phaser.Scene {
   update() {
     
     this.movePlayerManager();
-    this.checkNPCs();
+    this.checkNPCDialogue();
     this.changeRoom();
   }
 
@@ -36,7 +36,6 @@ class TraverseMap extends Phaser.Scene {
               this.doors[r].destroy();
           }
           gameSettings.headRoom = location[2];
-          //todo: remove npcs
           gameSettings.changeRoom = true;
         });
       }
@@ -46,7 +45,7 @@ class TraverseMap extends Phaser.Scene {
     if (gameSettings.headRoom.npcs){
       for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
 
-        this.npcs[name] = this.add.sprite(info[0],info[1],"npc1").setInteractive(); //change door 1 to custom door graphic
+        this.npcs[name] = this.add.sprite(info[0],info[1],name).setInteractive(); 
         var sentenceNum = 0;
         this.npcs[name].on('pointerdown', function(pointer){
           /*
@@ -89,7 +88,7 @@ class TraverseMap extends Phaser.Scene {
     }
   }
 
-  checkNPCs(){
+  checkNPCDialogue(){
     //Creates necesary dialogue
   
     if (this.text){
@@ -102,10 +101,11 @@ class TraverseMap extends Phaser.Scene {
         gameSettings.dialogue = choices[0];
       }
       this.text = this.add.text(20,locations.top,gameSettings.dialogue, {fill:"black"});
-      
+
+      /*
       for (c in choices){
         this.add.sprite(20,locations.top,)
-      }
+      }*/
     } 
   }
 

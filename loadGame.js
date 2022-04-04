@@ -19,6 +19,14 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
+    this.load.spritesheet("ship1", "assets/spritesheets/ship.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
+    this.load.spritesheet("ship2", "assets/spritesheets/ship2.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
     this.load.spritesheet("door1", "assets/images/woodendoor.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
