@@ -3,7 +3,7 @@ class Room {
     doors;
     npcs;
     //contains npcs
-    constructor(background='background', doors=[], npcs = []){
+    constructor(background='background', doors={}, npcs = []){
         this.background = background;
         this.doors = doors;
         this.npcs = npcs;

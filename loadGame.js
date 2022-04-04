@@ -5,6 +5,7 @@ class LoadGame extends Phaser.Scene {
 
   preload(){
     this.load.image("background", "assets/images/background.png");
+    this.load.image("woodendoor", "assets/images/woodendoor.png");
     this.load.image("grass", "assets/images/grass.png");
     
     this.load.spritesheet("player", "assets/spritesheets/power-up.png",{
@@ -27,13 +28,6 @@ class LoadGame extends Phaser.Scene {
 
   create() {
     this.add.text(20, 20, "Loading game...");
-
-    this.anims.create({
-      key: "thrust",
-      frames: this.anims.generateFrameNumbers("player"),
-      frameRate: 20,
-      repeat: -1
-    });
 
     //add death gifs and animations here
     

@@ -1,5 +1,7 @@
 class TraverseMap extends Phaser.Scene {
   text;
+  npcs;
+  doors;
   constructor() {
     super("playGame");
   }
@@ -13,24 +15,60 @@ class TraverseMap extends Phaser.Scene {
     this.movePlayerManager();
     this.checkNPCs();
     this.changeRoom();
-
   }
 
   loadRoom(){
     this.background = this.add.tileSprite(0, 0, config.width, config.height , gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
     
+    //console.log(gameSettings.headRoom.background);
 
+    this.textBox =  this.add.tileSprite(locations.midWidth,locations.top,config.width,locations.top, "woodendoor");
 
-    this.ship1 = this.add.sprite(config.width / 2 - 50, config.height / 2, "npc1");
-    this.door1 = this.add.sprite(config.width / 10, config.height / 2, "door1");
-    this.door2 = this.add.sprite(config.width - config.width / 10, config.height / 2, "door1");
+    this.doors = new Object();
+    if (gameSettings.headRoom.doors){
+      for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
 
+        this.doors[room] = this.add.sprite(location[0],location[1],"door1").setInteractive(); //change door 1 to custom door graphic
+        this.doors[room].on('pointerdown', function(pointer){
 
-    this.text = this.add.text(20, 20, "Playing game", {
-      font: "25px Arial",
-      fill: "yellow"
-    });
+          for (var r in this.doors){
+              this.doors[r].destroy();
+          }
+          gameSettings.headRoom = location[2];
+          //todo: remove npcs
+          gameSettings.changeRoom = true;
+        });
+      }
+    }
+
+    this.npcs = new Object();
+    if (gameSettings.headRoom.npcs){
+      for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
+
+        this.npcs[name] = this.add.sprite(info[0],info[1],"npc1").setInteractive(); //change door 1 to custom door graphic
+        var sentenceNum = 0;
+        this.npcs[name].on('pointerdown', function(pointer){
+          /*
+          for (var n in npcs){
+              doors[n].destroy();
+          }
+          gameSettings.headRoom = location[2];
+          //todo: remove npcs
+          gameSettings.changeRoom = true;*/
+          gameSettings.dialogue = info[2].dialogue[sentenceNum];
+          gameSettings.showDialogue = true;
+          sentenceNum++;
+                    
+          if (sentenceNum > info[2].dialogue.length ){
+            sentenceNum = 0;
+            gameSettings.showDialogue = false;
+          }
+
+        });
+      }
+    }
+    
 
     this.physics.world.setBoundsCollision();
 
@@ -38,63 +76,37 @@ class TraverseMap extends Phaser.Scene {
     //this.player.play("thrust");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
-    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    
-    //var pointer = this.input.activePointer;
-    //this.mousedown = false;
-    //this.mouseclick = false;
+    //this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+ 
   }
   
   changeRoom(){
     //TODO: checks if you click on a door, if you do it changes the room accordingly
-/*
-    this.input.on('pointerdown', function () { 
-      config.mousedown = true;
-    });
-    this.input.on('pointerup', function () { 
-      if (config.mousedown == true){
-        config.mouseclick = true;
-      }
-    
-      config.mousedown = false;
-    });
-    
-    if (config.mouseclick == true){
-      gameSettings.headRoom = gameSettings.headRoom.doors[0];
-      config.mouseclick = false;
+    if (gameSettings.changeRoom){
+      console.log("change room");
       this.loadRoom();
+      gameSettings.changeRoom = false;
     }
-  */  }
+  }
 
   checkNPCs(){
-    //TODO: checks if npc is clicked, if it is, triggers corresponding dialogue scene 
-    /*this.Room.npc = this.add.npc().setInteractive();
-    this.Room.npc.on('pointerdown', function (pointer){
-      
-      this.scene.start("dialogue");
-
-    })*/
-    this.input.on('pointerdown', function () { 
-      config.mousedown = true;
-    });
-    this.input.on('pointerup', function () { 
-      if (config.mousedown == true){
-        config.mouseclick = true;
-      }
-    
-      config.mousedown = false;
-    });
-
-    if (config.mouseclick == true){
-      config.mouseclick = false;
-      
+    //Creates necesary dialogue
+  
+    if (this.text){
       this.text.destroy();
-      this.text = this.add.text(20, 20, config.dialogue[0], {
-        font: "25px Arial",
-        fill: "yellow"
-      });
-      config.dialogue = config.dialogue.slice(1,config.dialogue.length - 1);
     }
+    if (gameSettings.showDialogue){
+      if (gameSettings.dialogue.includes("**")){
+        //checks if it is a multiple choice question
+        var choices = gameSettings.dialogue.split("**");
+        gameSettings.dialogue = choices[0];
+      }
+      this.text = this.add.text(20,locations.top,gameSettings.dialogue, {fill:"black"});
+      
+      for (c in choices){
+        this.add.sprite(20,locations.top,)
+      }
+    } 
   }
 
   movePlayerManager(){
@@ -115,12 +127,6 @@ class TraverseMap extends Phaser.Scene {
         this.player.setVelocityY(0);
       }
 
-      
-      //TODO: add go to mouse click 
-      /*if(this.pointer.Down){
-        this.player.setX(pointer.worldX);
-        this.player.setY(pointer.worldY);
-      }*/
   }
 
 
