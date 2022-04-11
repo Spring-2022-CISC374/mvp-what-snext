@@ -17,13 +17,48 @@ class TraverseMap extends Phaser.Scene {
     this.changeRoom();
   }
 
+
   loadRoom(){
     this.background = this.add.tileSprite(0, 0, config.width, config.height , gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
-    
     //console.log(gameSettings.headRoom.background);
 
-    this.textBox =  this.add.tileSprite(locations.midWidth,locations.top,config.width,locations.top, "woodendoor");
+
+    //Scaling rooms
+    var bg = this.background;
+    if(gameSettings.headRoom.background == "cityBG") {
+      bg.x=0;
+      bg.y=0;
+      Align.scaleToGameW(this.background,1.1);
+      
+    }
+    else if (gameSettings.headRoom.background == "elevatorBG") {
+      bg.x=-30;
+      bg.y=-30;
+      Align.scaleToGameW(this.background,1.2);  
+    }
+    else if(gameSettings.headRoom.background == "tenthFloorBG") {
+      bg.x=0;
+      bg.y=0;
+      Align.scaleToGameW(this.background,2);
+    }
+    else if(gameSettings.headRoom.background == "friendRoomBG") {
+      bg.x=0;
+      bg.y=-10;
+      Align.scaleToGameW(this.background,2.5);
+    }
+    else if(gameSettings.headRoom.background == "stairsAndElevatorBG") {
+      bg.x=-20;
+      bg.y=-200;
+      Align.scaleToGameW(this.background,1.6);
+    }
+    else if(gameSettings.headRoom.background == "stairsBG") {
+      bg.x=0;
+      bg.y=-60;
+      Align.scaleToGameW(this.background,1.8);
+    }
+
+    //this.textBox =  this.add.tileSprite(locations.midWidth,locations.top,config.width,locations.top, "woodendoor");
 
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
@@ -100,7 +135,12 @@ class TraverseMap extends Phaser.Scene {
         var choices = gameSettings.dialogue.split("**");
         gameSettings.dialogue = choices[0];
       }
+      if (gameSettings.dialogue.includes(".")){     
       this.text = this.add.text(20,locations.top,gameSettings.dialogue, {fill:"black"});
+      }
+      else {
+        this.text = this.add.text(20,locations.top,gameSettings.dialogue, {fontStyle:"italic",fill:"black"});
+      }
 
       /*
       for (c in choices){
