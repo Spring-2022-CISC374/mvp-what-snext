@@ -2,14 +2,14 @@
 Contributions: 
 
 Bonnie
-- Created main menu
+- Created base template of each file
 - Created loading screen
 - Created map traversal
 
 Anika
-- Created storyline
-- Created character development
+- Created storyline/characters
 - Created dialogue script
+- - Created room graphics
 
 Diou
-- Created room graphics
+- Created main menu
