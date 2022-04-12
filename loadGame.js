@@ -45,7 +45,7 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
-    this.load.spritesheet("creepyDude", "assets/spritesheets/creepSprite.png",{
+    this.load.spritesheet("creepyDude", "assets/spritesheets/creep2Sprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
@@ -57,6 +57,23 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize*4,
       frameHeight: gameSettings.playerSize*2
     });
+    this.load.spritesheet("crowd1", "assets/spritesheets/crowd1Sprite.png",{
+      frameWidth: gameSettings.playerSize*2,
+      frameHeight: gameSettings.playerSize*2
+    });
+    this.load.spritesheet("crowd2", "assets/spritesheets/crowd2Sprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
+    this.load.spritesheet("crowd3", "assets/spritesheets/crowd3Sprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
+    this.load.spritesheet("click", "assets/spritesheets/clickSprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });    
+
   }
 
   create() {
