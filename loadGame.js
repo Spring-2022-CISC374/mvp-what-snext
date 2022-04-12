@@ -53,6 +53,10 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
+    this.load.spritesheet("car", "assets/spritesheets/carSprite.png",{
+      frameWidth: gameSettings.playerSize*4,
+      frameHeight: gameSettings.playerSize*2
+    });
   }
 
   create() {
