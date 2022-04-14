@@ -10,6 +10,8 @@ class TraverseMap extends Phaser.Scene {
 
   create() {
     this.loadRoom();
+    
+    
   }
 
   update() {
@@ -19,11 +21,23 @@ class TraverseMap extends Phaser.Scene {
     this.changeRoom();
   }
 
+  restart(){
+    gameSettings.headRoom = city;
+    gameSettings.changeRoom = true;
+
+  }
 
   loadRoom(){
     this.background = this.add.tileSprite(0, 0, config.width, config.height, gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
-
+    const button = this.add.text(45, 15, 'Restart')
+            .setOrigin(0.5)
+            .setPadding(10)
+            .setStyle({ backgroundColor: '#111' })
+            .setInteractive({ useHandCursor: true })
+            .on('pointerdown', () => this.restart())
+            .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
+            .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
     //Scaling rooms
    var bg = this.background;
    if (gameSettings.headRoom.background == "elevatorBG") {

@@ -4,13 +4,13 @@ class MainMenu extends Phaser.Scene {
     }
 
     create() {
-      this.add.text(20, 20, "Main Menu: Press spacebar to play game");
-      const button = this.add.text(window.innerWidth/2, window.innerHeight/2, 'Mode')
+      this.add.text(20, 20, "Main Menu");
+      const button = this.add.text(110, 80, 'Press Here to Play')
             .setOrigin(0.5)
             .setPadding(10)
             .setStyle({ backgroundColor: '#111' })
             .setInteractive({ useHandCursor: true })
-            .on('pointerdown', () => console.log('game is started'))
+            .on('pointerdown', () => this.scene.start("playGame"))
             .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
             .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
         
