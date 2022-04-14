@@ -25,44 +25,38 @@ class TraverseMap extends Phaser.Scene {
     this.background.setOrigin(0, 0);
 
     //Scaling rooms
-    var bg = this.background;
-    if(gameSettings.headRoom.background == "cityBG") {
-      bg.x=0;
-      bg.y=0;
-      Align.scaleToGameW(this.background,1.1);
-      
-    }
-    else if (gameSettings.headRoom.background == "elevatorBG") {
-      bg.x=-30;
-      bg.y=-30;
+   var bg = this.background;
+   if (gameSettings.headRoom.background == "elevatorBG") {
+      bg.x=-50;
+      bg.y=-120;
       Align.scaleToGameW(this.background,1.2);  
     }
     else if(gameSettings.headRoom.background == "tenthFloorBG") {
-      bg.x=0;
+      bg.x=-50;
       bg.y=0;
-      Align.scaleToGameW(this.background,2);
+      Align.scaleToGameW(this.background,1.6);
     }
     else if(gameSettings.headRoom.background == "friendRoomBG") {
       bg.x=0;
       bg.y=-10;
-      Align.scaleToGameW(this.background,2.5);
+      Align.scaleToGameW(this.background,1.7);
     }
     else if(gameSettings.headRoom.background == "stairsAndElevatorBG") {
-      bg.x=-20;
-      bg.y=-200;
-      Align.scaleToGameW(this.background,1.6);
+      bg.x=-140;
+      bg.y=-120;
+      Align.scaleToGameW(this.background,1.2);
     }
     else if(gameSettings.headRoom.background == "stairsBG") {
       bg.x=0;
       bg.y=-60;
-      Align.scaleToGameW(this.background,1.8);
-    }
+      Align.scaleToGameW(this.background,1.3);
+    } 
 
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
       for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
         //Adds doors and door click listener to change room
-        this.doors[room] = this.add.sprite(location[0],location[1],"rightArrow").setInteractive(); //TODO: change rightArrow to custom door graphic
+        this.doors[room] = this.add.sprite(location[0],location[1],"click").setInteractive(); //TODO: change rightArrow to custom door graphic
         this.doors[room].on('pointerdown', function(pointer){
 
           for (var r in this.doors){
@@ -95,7 +89,7 @@ class TraverseMap extends Phaser.Scene {
       }
     }
 
-    this.dialogueBox =  this.add.tileSprite(locations.mid,locations.top,config.width,locations.top, "whiteSquare").setInteractive();
+    this.dialogueBox =  this.add.tileSprite(locations.left,locations.top,config.width*1.5,locations.top, "whiteSquare").setInteractive();
     /*this.dialogueBox.visible = false;
     this.dialogueBox.on('pointerdown', function(pointer){
       //TODO: make this advance the dialogue
@@ -114,7 +108,7 @@ class TraverseMap extends Phaser.Scene {
 *///
     this.physics.world.setBoundsCollision();
 
-    this.player = this.physics.add.sprite(config.width / 2 - 8, config.height - 64, "player");
+    this.player = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player");
     //this.player.play("thrust");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
@@ -149,7 +143,10 @@ class TraverseMap extends Phaser.Scene {
           
         
       } 
-      if (gameSettings.dialogue.includes(".")){     
+      if ((gameSettings.dialogue.includes(".")) || (gameSettings.dialogue.includes("!!")) || (gameSettings.dialogue.includes("??"))){     
+        this.text = this.add.text(20,locations.top,choices[0], {fill:"black"});
+      }
+      else if(gameSettings.dialogue.includes("**")){
         this.text = this.add.text(20,locations.top,choices[0], {fill:"black"});
       }
       else {
