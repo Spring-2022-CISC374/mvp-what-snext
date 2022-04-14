@@ -20,59 +20,37 @@ class LoadGame extends Phaser.Scene {
     });
 
     //load in npcs here
-/*
-    this.load.spritesheet("npc1", "assets/spritesheets/ship.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    this.load.spritesheet("ship1", "assets/spritesheets/ship.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    this.load.spritesheet("ship2", "assets/spritesheets/ship2.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-     
-this.load.spritesheet("door1", "assets/images/woodendoor.png",{
-      frameWidth: gameSettings.playerSize/2,
-      frameHeight: gameSettings.playerSize/2
-    }); 
-//new sprites
-/*     this.load.spritesheet("theCar", "assets/spritesheets/carSprite.png",{
-      frameWidth: gameSettings.playerSize*2,
-      frameHeight: gameSettings.playerSize*2
-    }); */
+
     this.load.spritesheet("whiteSquareSprite", "assets/spritesheets/whiteSquareS.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
 
+    this.load.spritesheet("phone", "assets/spritesheets/phoneSprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    }); 
      this.load.spritesheet("concernedMom", "assets/spritesheets/momSprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
     this.load.spritesheet("creepyDude", "assets/spritesheets/creep2Sprite.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    this.load.spritesheet("creepyDude2", "assets/spritesheets/creep2Sprite.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    this.load.spritesheet("car", "assets/spritesheets/carSprite.png",{
-      frameWidth: gameSettings.playerSize*4,
-      frameHeight: gameSettings.playerSize*2
-    });
-    this.load.spritesheet("crowd1", "assets/spritesheets/crowd1Sprite.png",{
       frameWidth: gameSettings.playerSize*2,
       frameHeight: gameSettings.playerSize*2
     });
-    this.load.spritesheet("crowd2", "assets/spritesheets/crowd2Sprite.png",{
+    this.load.spritesheet("creepyDude2", "assets/spritesheets/creep2Sprite.png",{
+      frameWidth: gameSettings.playerSize*2,
+      frameHeight: gameSettings.playerSize*2
+    });
+    this.load.spritesheet("car", "assets/spritesheets/carSprite.png",{
+      frameWidth: gameSettings.playerSize*5,
+      frameHeight: gameSettings.playerSize*5
+    });
+    this.load.spritesheet("girl", "assets/spritesheets/girlSprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
-    this.load.spritesheet("crowd3", "assets/spritesheets/crowd3Sprite.png",{
+    this.load.spritesheet("boy", "assets/spritesheets/boySprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
@@ -80,8 +58,12 @@ this.load.spritesheet("door1", "assets/images/woodendoor.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });    
+    this.load.spritesheet("people", "assets/spritesheets/peopleSprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });    
 
-  }
+  }   
 
   create() {
 
