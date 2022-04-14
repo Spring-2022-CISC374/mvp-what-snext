@@ -13,18 +13,24 @@ var config = {
   }
 }
 
+if (config.width > config.height){
+  config.width = config.height;
+} else {
+  config.height = config.width;
+}
+//TODO: Its a square, width and height are the same
 var locations = {
   left: config.width / 10,
   right: config.width - config.width / 10,
-  midHeight: config.height / 2,
+  mid: config.height / 2,
   midLowerHeight: config.height / 1.5,
   lowHeight: config.height / 1.2,
   lowerHeight: config.height / 1.1,
-  midWidth: config.width / 2,
-  midWidthLeft: config.width / 2.05,
-  midWidthRight: config.width / 1.95,
+  midLeft: config.width / 2.05,
+  midRight: config.width / 1.95,
   niceWidth: config.width - (config.width / 5),
-  top: config.height / 10
+  top: config.height / 10,
+  oneThird: config.width / 3
 }
 
 var phone = new npc("phone", "assets/spritesheets/phoneSprite.png", []);
@@ -39,22 +45,22 @@ var creepyDude = new npc("creepyDude2","assets/spritesheets/creep2Sprite.png",["
 
 var stairs = new Room("stairsBG",{},{});
 var elevator2 = new Room("elevatorBG",{},{});
-var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight,this.stairs], elevator2:[locations.right, locations.midHeight,this.elevator2]});
-var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight,this.stairsAndElevator]});
-var friendRoom = new Room("friendRoomBG",{tenthFloor2:[locations.right, locations.midHeight,this.tenthFloor2]});
-var tenthFloor = new Room("tenthFloorBG",{friendRoom:[locations.left, locations.midHeight,this.friendRoom]},{creepyDude:[locations.right,locations.midLowerHeight,this.creepyDude]}, {crowd1:[locations.midWidth,locations.midHeight,this.crowd1]}, {crowd2:[locations.midWidthRight,locations.midHeight,this.crowd2]}, {crowd3:[locations.midWidthLeft,locations.midHeight,this.crowd3]});
-var elevator = new Room("elevatorBG",{tenthFloor:[locations.left, locations.midHeight,this.tenthFloor]},{creepyDude2:[locations.midWidth,locations.lowHeight,this.creepyDude2]});
+var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.mid,this.stairs], elevator2:[locations.right, locations.mid,this.elevator2]});
+var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.mid,this.stairsAndElevator]});
+var friendRoom = new Room("friendRoomBG",{tenthFloor2:[locations.right, locations.mid,this.tenthFloor2]});
+var tenthFloor = new Room("tenthFloorBG",{friendRoom:[locations.left, locations.mid,this.friendRoom]},{creepyDude:[locations.right,locations.midLowerHeight,this.creepyDude]}, {crowd1:[locations.mid,locations.mid,this.crowd1]}, {crowd2:[locations.midRight,locations.mid,this.crowd2]}, {crowd3:[locations.midLeft,locations.mid,this.crowd3]});
+var elevator = new Room("elevatorBG",{tenthFloor:[locations.left, locations.mid,this.tenthFloor]},{creepyDude2:[locations.mid,locations.lowHeight,this.creepyDude2]});
 var city = new Room("cityBG"
-  ,{elevator:[locations.left, locations.midHeight,this.elevator]}
-  ,{concernedMom:[locations.niceWidth, locations.lowHeight, this.concernedMom],car:[locations.midWidth, locations.lowerHeight, this.car]});
+  ,{elevator:[locations.left, locations.mid,this.elevator]}
+  ,{concernedMom:[locations.niceWidth, locations.lowHeight, this.concernedMom],car:[locations.mid, locations.lowerHeight, this.car]});
 
 var gameSettings = {
   //All numbers here
     playerSpeed: 200,
-    playerSize: window.innerWidth / 10,
+    playerSize: config.width / 10,
     headRoom: city,
-    showDialogue: false,
-    dialogue: "",
+    showDialogue: false, //TODO: switch this out for visible if possible
+    dialogue: "", //TODO: is this neccesary?
     changeRoom: true
 }
 

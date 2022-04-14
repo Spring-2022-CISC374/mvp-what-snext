@@ -11,6 +11,8 @@ class LoadGame extends Phaser.Scene {
     this.load.image("stairsAndElevatorBG", "assets/images/stairsElevator.png");
     this.load.image("stairsBG", "assets/images/stairs.png");
     this.load.image("grass", "assets/images/grass.png");
+    this.load.image("whiteSquare", "assets/images/whiteSquare.png"); 
+    //this.load.image("rightArrow", "assets/images/rightArrow.png"); 
     
     this.load.spritesheet("player", "assets/spritesheets/youSprite.png",{
       frameWidth: gameSettings.playerSize,
@@ -18,7 +20,7 @@ class LoadGame extends Phaser.Scene {
     });
 
     //load in npcs here
-
+/*
     this.load.spritesheet("npc1", "assets/spritesheets/ship.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
@@ -31,16 +33,21 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
-    this.load.spritesheet("door1", "assets/images/woodendoor.png",{
+     
+this.load.spritesheet("door1", "assets/images/woodendoor.png",{
       frameWidth: gameSettings.playerSize/2,
       frameHeight: gameSettings.playerSize/2
-    });  
-
+    }); 
 //new sprites
 /*     this.load.spritesheet("theCar", "assets/spritesheets/carSprite.png",{
       frameWidth: gameSettings.playerSize*2,
       frameHeight: gameSettings.playerSize*2
     }); */
+    this.load.spritesheet("whiteSquareSprite", "assets/spritesheets/whiteSquareS.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    }); 
+
      this.load.spritesheet("concernedMom", "assets/spritesheets/momSprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize

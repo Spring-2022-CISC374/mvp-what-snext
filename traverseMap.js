@@ -2,6 +2,8 @@ class TraverseMap extends Phaser.Scene {
   text;
   npcs;
   doors;
+  dialogueBox;
+  //sentenceNum;//TODO: fix this so its not shared with multiple npcs
   constructor() {
     super("playGame");
   }
@@ -19,10 +21,8 @@ class TraverseMap extends Phaser.Scene {
 
 
   loadRoom(){
-    this.background = this.add.tileSprite(0, 0, config.width, config.height , gameSettings.headRoom.background);
+    this.background = this.add.tileSprite(0, 0, config.width, config.height, gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
-    //console.log(gameSettings.headRoom.background);
-
 
     //Scaling rooms
     var bg = this.background;
@@ -58,13 +58,11 @@ class TraverseMap extends Phaser.Scene {
       Align.scaleToGameW(this.background,1.8);
     }
 
-    //this.textBox =  this.add.tileSprite(locations.midWidth,locations.top,config.width,locations.top, "woodendoor");
-
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
       for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
-
-        this.doors[room] = this.add.sprite(location[0],location[1],"door1").setInteractive(); //change door 1 to custom door graphic
+        //Adds doors and door click listener to change room
+        this.doors[room] = this.add.sprite(location[0],location[1],"rightArrow").setInteractive(); //TODO: change rightArrow to custom door graphic
         this.doors[room].on('pointerdown', function(pointer){
 
           for (var r in this.doors){
@@ -76,20 +74,14 @@ class TraverseMap extends Phaser.Scene {
       }
     }
 
+    //this.sentenceNum = 0;
     this.npcs = new Object();
     if (gameSettings.headRoom.npcs){
       for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
-
+        //Adds npcs and npc click listeners to change dialogue
         this.npcs[name] = this.add.sprite(info[0],info[1],name).setInteractive(); 
         var sentenceNum = 0;
         this.npcs[name].on('pointerdown', function(pointer){
-          /*
-          for (var n in npcs){
-              doors[n].destroy();
-          }
-          gameSettings.headRoom = location[2];
-          //todo: remove npcs
-          gameSettings.changeRoom = true;*/
           gameSettings.dialogue = info[2].dialogue[sentenceNum];
           gameSettings.showDialogue = true;
           sentenceNum++;
@@ -102,8 +94,24 @@ class TraverseMap extends Phaser.Scene {
         });
       }
     }
-    
 
+    this.dialogueBox =  this.add.tileSprite(locations.mid,locations.top,config.width,locations.top, "whiteSquare").setInteractive();
+    /*this.dialogueBox.visible = false;
+    this.dialogueBox.on('pointerdown', function(pointer){
+      //TODO: make this advance the dialogue
+      console.log("change dialogue");
+    });
+    //
+    /*
+    var sprite = this.add.sprite(200, 200, 'whiteSquare');
+    sprite.inputEnabled = true;
+    sprite.input.enableDrag();
+
+    var style = { font: "32px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: sprite.width, align: "center", backgroundColor: "#ffff00" };
+
+    var text = this.add.text(0, 0, "- text on a sprite -\ndrag me", style);
+    text.anchor.set(0.5);
+*///
     this.physics.world.setBoundsCollision();
 
     this.player = this.physics.add.sprite(config.width / 2 - 8, config.height - 64, "player");
@@ -115,7 +123,7 @@ class TraverseMap extends Phaser.Scene {
   }
   
   changeRoom(){
-    //TODO: checks if you click on a door, if you do it changes the room accordingly
+    //checks if you click on a door, if you do it changes the room accordingly
     if (gameSettings.changeRoom){
       console.log("change room");
       this.loadRoom();
@@ -124,33 +132,44 @@ class TraverseMap extends Phaser.Scene {
   }
 
   checkNPCDialogue(){
-    //Creates necesary dialogue
+    //Creates necesary charactor dialogue
   
     if (this.text){
       this.text.destroy();
-    }
+      this.dialogueBox.visible = true;
+    } 
+    
     if (gameSettings.showDialogue){
+      var choices = [gameSettings.dialogue];
+      console.log(gameSettings.dialogue);
       if (gameSettings.dialogue.includes("**")){
         //checks if it is a multiple choice question
-        var choices = gameSettings.dialogue.split("**");
-        gameSettings.dialogue = choices[0];
-      }
+        //choices = gameSettings.dialogue.split("**");
+        choices[0] = gameSettings.dialogue.replaceAll("**","\n");//todo:temporary
+          
+        
+      } 
       if (gameSettings.dialogue.includes(".")){     
-      this.text = this.add.text(20,locations.top,gameSettings.dialogue, {fill:"black"});
+        this.text = this.add.text(20,locations.top,choices[0], {fill:"black"});
       }
       else {
-        this.text = this.add.text(20,locations.top,gameSettings.dialogue, {fontStyle:"italic",fill:"black"});
+        this.text = this.add.text(20,locations.top,choices[0], {fontStyle:"italic",fill:"black"});
       }
 
-      /*
-      for (c in choices){
-        this.add.sprite(20,locations.top,)
-      }*/
-    } 
+      //console.log(choices);
+      //TODO: Fix this
+     /* for (let i=1;i<choices.length;i++){
+        //console.log(c);
+        this.add.sprite(locations.oneThird * i,locations.mid, choices[i] , "whiteSquareSprite", "whiteSquareSprite");
+      }
+*/
+    } else {
+      this.dialogueBox.visible = false;
+    }
   }
 
   movePlayerManager(){
-    
+    //allows player movement with arrow keys
       if(this.cursorKeys.left.isDown){
           this.player.setVelocityX(-gameSettings.playerSpeed);
       }else if(this.cursorKeys.right.isDown){
@@ -167,6 +186,7 @@ class TraverseMap extends Phaser.Scene {
         this.player.setVelocityY(0);
       }
 
+      //TODO: Add hit detection, so you can go through doors without clicking on them
   }
 
 
