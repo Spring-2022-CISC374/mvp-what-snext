@@ -1,17 +1,22 @@
 class TraverseMap extends Phaser.Scene {
-  text;
   npcs;
   doors;
   dialogueBox;
-  //sentenceNum;//TODO: fix this so its not shared with multiple npcs
+  answer1;
+  answer2;
+  answer3;
+
   constructor() {
     super("playGame");
   }
 
   create() {
+    this.dialogueBox = new textSprite(this,locations.left,locations.top,config.width*1.5,locations.top, "whiteSquare");
+    this.answer1 = new textSprite(this, locations.left,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
+    this.answer2 = new textSprite(this, locations.midWidth,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
+    this.answer3 = new textSprite(this, locations.right,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
+    this.restart();
     this.loadRoom();
-    
-    
   }
 
   update() {
@@ -22,14 +27,14 @@ class TraverseMap extends Phaser.Scene {
   }
 
   restart(){
-    gameSettings.headRoom = city;
+    gameSettings.headRoom = gameSettings.defaultHeadRoom;
     gameSettings.changeRoom = true;
-
   }
 
   loadRoom(){
     this.background = this.add.tileSprite(0, 0, config.width, config.height, gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
+
     const button = this.add.text(45, 15, 'Restart')
             .setOrigin(0.5)
             .setPadding(10)
@@ -38,7 +43,8 @@ class TraverseMap extends Phaser.Scene {
             .on('pointerdown', () => this.restart())
             .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
             .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
-    //Scaling rooms
+    
+   //Scaling rooms
    var bg = this.background;
    if (gameSettings.headRoom.background == "elevatorBG") {
       bg.x=-50;
@@ -66,6 +72,15 @@ class TraverseMap extends Phaser.Scene {
       Align.scaleToGameW(this.background,1.3);
     } 
 
+    //Initialize Room Objects
+    if (this.dialogueBox.text){
+      this.dialogueBox.addText();
+      this.answer1.addText();
+      this.answer2.addText();
+      this.answer3.addText();
+    } 
+
+    //TODO: Add back button/door
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
       for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
@@ -82,51 +97,47 @@ class TraverseMap extends Phaser.Scene {
       }
     }
 
-    //this.sentenceNum = 0;
     this.npcs = new Object();
     if (gameSettings.headRoom.npcs){
       for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
         //Adds npcs and npc click listeners to change dialogue
         this.npcs[name] = this.add.sprite(info[0],info[1],name).setInteractive(); 
-        var sentenceNum = 0;
         this.npcs[name].on('pointerdown', function(pointer){
-          gameSettings.dialogue = info[2].dialogue[sentenceNum];
-          gameSettings.showDialogue = true;
-          sentenceNum++;
-                    
-          if (sentenceNum > info[2].dialogue.length ){
-            sentenceNum = 0;
-            gameSettings.showDialogue = false;
+          gameSettings.activeNpc = info[2];
+          if (gameSettings.activeNpc.sentenceNum >= gameSettings.activeNpc.dialogue.length){
+            gameSettings.activeNpc.sentenceNum = 0;
+            gameSettings.dialogue = undefined;
+          } else {
+            gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+            gameSettings.activeNpc.sentenceNum++;
           }
 
         });
       }
     }
 
-    this.dialogueBox =  this.add.tileSprite(locations.left,locations.top,config.width*1.5,locations.top, "whiteSquare").setInteractive();
-    /*this.dialogueBox.visible = false;
-    this.dialogueBox.on('pointerdown', function(pointer){
-      //TODO: make this advance the dialogue
-      console.log("change dialogue");
+    //TODO: Abstract this
+    this.dialogueBox.sprite.on('pointerdown',function(pointer){
+      if (!this.answer1.sprite.visible){
+        gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+      }
     });
-    //
-    /*
-    var sprite = this.add.sprite(200, 200, 'whiteSquare');
-    sprite.inputEnabled = true;
-    sprite.input.enableDrag();
+    this.answer1.sprite.on('pointerdown',function(pointer){
+      gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+    });
+    this.answer2.sprite.on('pointerdown',function(pointer){
+      gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 1];
+      gameSettings.activeNpc.sentenceNum += 1;
+    });
+    this.answer3.sprite.on('pointerdown',function(pointer){
+      gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 2];
+      gameSettings.activeNpc.sentenceNum += 2;
+    });
 
-    var style = { font: "32px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: sprite.width, align: "center", backgroundColor: "#ffff00" };
-
-    var text = this.add.text(0, 0, "- text on a sprite -\ndrag me", style);
-    text.anchor.set(0.5);
-*///
     this.physics.world.setBoundsCollision();
-
     this.player = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player");
-    //this.player.play("thrust");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
-    //this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
  
   }
   
@@ -136,47 +147,35 @@ class TraverseMap extends Phaser.Scene {
       console.log("change room");
       this.loadRoom();
       gameSettings.changeRoom = false;
+      gameSettings.dialogue = undefined;
     }
   }
 
   checkNPCDialogue(){
     //Creates necesary charactor dialogue
-  
-    if (this.text){
-      this.text.destroy();
-      this.dialogueBox.visible = true;
-    } 
-    
-    if (gameSettings.showDialogue){
-      var choices = [gameSettings.dialogue];
-      console.log(gameSettings.dialogue);
+        
+    var choices = [gameSettings.dialogue];
+    var textStyle = {fill:"black"};
+    if (gameSettings.dialogue){
       if (gameSettings.dialogue.includes("**")){
         //checks if it is a multiple choice question
-        //choices = gameSettings.dialogue.split("**");
-        choices[0] = gameSettings.dialogue.replaceAll("**","\n");//todo:temporary
-          
-        
+        choices = gameSettings.dialogue.split("**");
       } 
-      if ((gameSettings.dialogue.includes(".")) || (gameSettings.dialogue.includes("!!")) || (gameSettings.dialogue.includes("??"))){     
-        this.text = this.add.text(20,locations.top,choices[0], {fill:"black"});
+      //TODO: move all this fun text parsing stuff to the textSprite function?
+      if (!((gameSettings.dialogue.includes(".")) 
+          || (gameSettings.dialogue.includes("!!")) 
+          || (gameSettings.dialogue.includes("??"))     
+          || (gameSettings.dialogue.includes("**")))){  
+        textStyle = {fontStyle:"italic",fill:"black"};          
       }
-      else if(gameSettings.dialogue.includes("**")){
-        this.text = this.add.text(20,locations.top,choices[0], {fill:"black"});
-      }
-      else {
-        this.text = this.add.text(20,locations.top,choices[0], {fontStyle:"italic",fill:"black"});
-      }
-
-      //console.log(choices);
-      //TODO: Fix this
-     /* for (let i=1;i<choices.length;i++){
-        //console.log(c);
-        this.add.sprite(locations.oneThird * i,locations.mid, choices[i] , "whiteSquareSprite", "whiteSquareSprite");
-      }
-*/
-    } else {
-      this.dialogueBox.visible = false;
+      
     }
+      
+    this.dialogueBox.addText(choices[0],textStyle);
+    this.answer3.addText(choices[3]);
+    this.answer2.addText(choices[2]);
+    this.answer1.addText(choices[1]);
+    
   }
 
   movePlayerManager(){

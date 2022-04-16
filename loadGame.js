@@ -4,6 +4,7 @@ class LoadGame extends Phaser.Scene {
   }
 
   preload(){
+    
     this.load.image("friendRoomBG", "assets/images/friendRoom.png");
     this.load.image("tenthFloorBG", "assets/images/tenthFloor.png");
     this.load.image("elevatorBG", "assets/images/insideElevator.png");

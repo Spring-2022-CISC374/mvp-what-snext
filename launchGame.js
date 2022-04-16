@@ -14,12 +14,7 @@ var config = {
 }
 config.width = 960;
 config.height = 640;
-//if (config.width > config.height){
- // config.width = config.height;
-//} else {
-//  config.height = config.width;
-//}
-//TODO: Its a square, width and height are the same
+//TODO: make scalable
 
 var locations = {
   left: config.width / 10,
@@ -27,6 +22,7 @@ var locations = {
   furtherRight: config.width  - config.width / 15,
   midHeight: config.height / 2,
   midLowerHeight: config.height / 1.5,
+  midUpperHeight: config.height / 2.5,
   lowHeight: config.height / 1.2,
   lowerHeight: config.height / 1.15,
   lowestHeight: config.height / 1,
@@ -38,9 +34,11 @@ var locations = {
   top: config.height / 10
 }
 
+
+//Initializes story
 var phone = new npc("phone", "assets/spritesheets/phoneSprite.png", []);
 var people = new npc("people", "assets/spritesheets/peopleSprite.png", ["I could try to capture their attention, so he leaves"]);
-var concernedMom = new npc("concernedMom", "assets/spritesheets/momSprite.png", ['CONCERNED MOM: I charged your phone, call me if you need anything.', "YOU: Ill be fine mom.",'CONCERNED MOM: Just be careful, Honey.','CONCERNED MOM: Remember to use your arrow keys to move.', 'YOU: I know how to cross the street, Mom.', 'CONCERNED MOM: I know, but its your first sleepover.','CONCERNED MOM: I want you to be prepared.', 'YOU: Dont worry, Im not a little kid anymore.', 'CONCERNED MOM: Just promise me that you will click on things if you ever need help.', 'YOU: I promise.', 'CONCERNED MOM: You can even click on people!!', 'YOU: Bye Mom!!']);
+var concernedMom = new npc("concernedMom", "assets/spritesheets/momSprite.png", ['j ** a1 **a2 **aa3','a1a','a2a','a3a','next']);//['CONCERNED MOM: I charged your phone, call me if you need anything.', "YOU: Ill be fine mom.",'CONCERNED MOM: Just be careful, Honey.','CONCERNED MOM: Remember to use your arrow keys to move.', 'YOU: I know how to cross the street, Mom.', 'CONCERNED MOM: I know, but its your first sleepover.','CONCERNED MOM: I want you to be prepared.', 'YOU: Dont worry, Im not a little kid anymore.', 'CONCERNED MOM: Just promise me that you will click on things if you ever need help.', 'YOU: I promise.', 'CONCERNED MOM: You can even click on people!!', 'YOU: Bye Mom!!']);
 var creepyDude2 = new npc("creepyDude","assets/spritesheets/creep2Sprite.png",['Who is this guy?', "Why is he so close?", "He's been following me ever since I left Mom", "I better get out quick"]);
 var creepyDude = new npc("creepyDude2","assets/spritesheets/creep2Sprite.png",["He's still here, this is getting weird.", "What should I do? \n\n**-> Go over to crowd and start yelling. \n**-> Call Mom. \n**-> Pretend not to notice and walk to bestie's house."]);
 var girl = new npc("girl","assets/spritesheets/girlSprite.png", []);
@@ -59,20 +57,15 @@ var city = new Room("cityBG"
 //var characterSelect = new Room("selectionBG",{city:[locations.midWidth,locations.lowHeight,this.city]},{girl:[locations.left, locations.midHeight,this.girl],boy:[locations.left, locations.midHeight,this.boy]});
 
 
-
-
-
-
-
-
 var gameSettings = {
   //All numbers here
     playerSpeed: 200,
     playerSize: config.width / 10,
-    headRoom: city,
-    showDialogue: false, //TODO: switch this out for visible if possible
-    dialogue: "", //TODO: is this neccesary?
-    changeRoom: true
+    headRoom: undefined,
+    defaultHeadRoom: city,
+    dialogue: undefined, 
+    changeRoom: true,
+    activeNpc: undefined
 }
 
 var game = new Phaser.Game(config);
