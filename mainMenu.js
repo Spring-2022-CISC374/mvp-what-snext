@@ -5,6 +5,8 @@ class MainMenu extends Phaser.Scene {
 
     create() {
       this.add.text(20, 20, "Main Menu");
+      this.background = this.add.image(-70,0,"titleScreenBG");
+      this.background.setOrigin(0,0);
       const button = this.add.text(110, 80, 'Press Here to Play')
             .setOrigin(0.5)
             .setPadding(10)
