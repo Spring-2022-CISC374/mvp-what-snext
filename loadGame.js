@@ -13,7 +13,7 @@ class LoadGame extends Phaser.Scene {
     this.load.image("stairsAndElevatorBG", "assets/images/stairsElevator.png");
     this.load.image("stairsBG", "assets/images/stairs.png");
     this.load.image("whiteSquare", "assets/images/whiteSquare.png"); 
-    
+    this.load.image("title", "assets/images/title.png");
     this.load.spritesheet("player", "assets/spritesheets/youSprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
