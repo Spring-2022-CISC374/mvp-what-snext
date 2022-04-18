@@ -5,15 +5,14 @@ class LoadGame extends Phaser.Scene {
 
   preload(){
     
+    this.load.image("titleScreenBG", "assets/images/titleScreen.png"); 
     this.load.image("friendRoomBG", "assets/images/friendRoom.png");
     this.load.image("tenthFloorBG", "assets/images/tenthFloor.png");
     this.load.image("elevatorBG", "assets/images/insideElevator.png");
     this.load.image("cityBG", "assets/images/cityBackground.png");
     this.load.image("stairsAndElevatorBG", "assets/images/stairsElevator.png");
     this.load.image("stairsBG", "assets/images/stairs.png");
-    this.load.image("grass", "assets/images/grass.png");
     this.load.image("whiteSquare", "assets/images/whiteSquare.png"); 
-    //this.load.image("rightArrow", "assets/images/rightArrow.png"); 
     
     this.load.spritesheet("player", "assets/spritesheets/youSprite.png",{
       frameWidth: gameSettings.playerSize,
@@ -46,10 +45,6 @@ class LoadGame extends Phaser.Scene {
     this.load.spritesheet("car", "assets/spritesheets/carSprite.png",{
       frameWidth: gameSettings.playerSize*5,
       frameHeight: gameSettings.playerSize*5
-    });
-    this.load.spritesheet("girl", "assets/spritesheets/girlSprite.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
     });
     this.load.spritesheet("boy", "assets/spritesheets/boySprite.png",{
       frameWidth: gameSettings.playerSize,
