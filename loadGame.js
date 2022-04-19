@@ -8,12 +8,12 @@ class LoadGame extends Phaser.Scene {
     //audio
     this.load.audio("titleMusic", ["assets/sounds/titleMusic.mp3"]);
     this.load.audio("BGM", ["assets/sounds/BGM.mp3"]);
-    
-    //Background images
+
     this.load.image("titleScreenBG", "assets/images/titleScreen.png"); 
     this.load.image("friendRoomBG", "assets/images/friendRoom.png");
     this.load.image("tenthFloorBG", "assets/images/tenthFloor.png");
     this.load.image("elevatorBG", "assets/images/insideElevator.png");
+    this.load.image("blackBG", "assets/images/black.png"); 
     this.load.image("cityBG", "assets/images/cityBackground.png");
     this.load.image("stairsAndElevatorBG", "assets/images/stairsElevator.png");
     this.load.image("stairsBG", "assets/images/stairs.png");
