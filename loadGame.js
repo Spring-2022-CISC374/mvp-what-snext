@@ -7,6 +7,7 @@ class LoadGame extends Phaser.Scene {
     
     //audio
     this.load.audio("titleMusic", ["assets/sounds/titleMusic.mp3"]);
+    this.load.audio("BGM", ["assets/sounds/BGM.mp3"]);
     
     //Background images
     this.load.image("titleScreenBG", "assets/images/titleScreen.png"); 
