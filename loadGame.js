@@ -5,6 +5,10 @@ class LoadGame extends Phaser.Scene {
 
   preload(){
     
+    //audio
+    this.load.audio("titleMusic", ["assets/sounds/titleMusic.mp3"]);
+    
+    //Background images
     this.load.image("titleScreenBG", "assets/images/titleScreen.png"); 
     this.load.image("friendRoomBG", "assets/images/friendRoom.png");
     this.load.image("tenthFloorBG", "assets/images/tenthFloor.png");
