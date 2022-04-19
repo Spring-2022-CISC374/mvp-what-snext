@@ -9,7 +9,8 @@ Bonnie
 Anika
 - Created storyline/characters
 - Created dialogue script
-- Created room graphics
+- Created room/npc graphics
+- - Created main menu
 
 Diou
-- Created main menu
+- Created buttons
