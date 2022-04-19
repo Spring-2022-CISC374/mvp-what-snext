@@ -5,12 +5,13 @@ Bonnie
 - Created base template of each file
 - Created loading screen
 - Created map traversal
+- Created choice mechanics
 
 Anika
 - Created storyline/characters
 - Created dialogue script
 - Created room/npc graphics
-- - Created main menu
+- Created main menu
 
 Diou
 - Created buttons
