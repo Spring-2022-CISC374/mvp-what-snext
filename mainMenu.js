@@ -4,6 +4,20 @@ class MainMenu extends Phaser.Scene {
     }
 
     create() {
+      function touchStarted() {
+        getAudioContext().resume();
+      }
+      this.titleMusic = this.sound.add("titleMusic");
+      var musicConfig = {
+        mute: false,
+        volume: 1,
+        rate: 1,
+        detune: 0,
+        seek: 0,
+        loop: true,
+        delay: 0
+      }
+      this.titleMusic.play(musicConfig);
       this.add.text(20, 20, "Main Menu");
       this.background = this.add.tileSprite(0,0,config.width,config.height,"titleScreenBG");
       this.background.setOrigin(0,0);
@@ -14,6 +28,7 @@ class MainMenu extends Phaser.Scene {
             .setStyle({ backgroundColor: '#111' })
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => this.scene.start("playGame"))
+            .on('pointerdown', () => this.titleMusic.stop())
             .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
             .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
         
@@ -25,7 +40,8 @@ class MainMenu extends Phaser.Scene {
     update() {
         this.background.tilePositionX += 0.6;
         if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
-            this.scene.start("playGame");        }
+          this.titleMusic.stop();
+          this.scene.start("playGame");        }
         }
     
   }
