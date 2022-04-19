@@ -17,6 +17,9 @@ class MainMenu extends Phaser.Scene {
         loop: true,
         delay: 0
       }
+
+      this.BGM= this.sound.add("BGM");
+
       this.titleMusic.play(musicConfig);
       this.add.text(20, 20, "Main Menu");
       this.background = this.add.tileSprite(0,0,config.width,config.height,"titleScreenBG");
@@ -29,6 +32,7 @@ class MainMenu extends Phaser.Scene {
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => this.scene.start("playGame"))
             .on('pointerdown', () => this.titleMusic.stop())
+            .on('pointerdown', () => this.BGM.play(musicConfig))
             .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
             .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
         
