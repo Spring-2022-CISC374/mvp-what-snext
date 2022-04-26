@@ -15,7 +15,7 @@ class TraverseMap extends Phaser.Scene {
     this.answer1 = new textSprite(this, locations.left,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
     this.answer2 = new textSprite(this, locations.midWidth,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
     this.answer3 = new textSprite(this, locations.right,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
-    this.restart();
+    gameSettings.headRoom = gameSettings.defaultHeadRoom;
     this.loadRoom();
   }
 

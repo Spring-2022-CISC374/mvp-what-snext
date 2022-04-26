@@ -63,8 +63,8 @@ var gameSettings = {
     playerSize: config.width / 10,
     headRoom: undefined,
     defaultHeadRoom: city,
-    dialogue: undefined, 
-    changeRoom: true,
+    dialogue: "I should talk to mom, she always helps me get my bearings", 
+    changeRoom: false,
     activeNpc: undefined
 }
 
