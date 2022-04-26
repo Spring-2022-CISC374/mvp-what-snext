@@ -5,26 +5,27 @@ class LoadGame extends Phaser.Scene {
 
   preload(){
     
-    //audio
+    //load audio files
     this.load.audio("titleMusic", ["assets/sounds/titleMusic.mp3"]);
     this.load.audio("BGM", ["assets/sounds/BGM.mp3"]);
 
+    //load background images
     this.load.image("titleScreenBG", "assets/images/titleScreen.png"); 
     this.load.image("friendRoomBG", "assets/images/friendRoom.png");
     this.load.image("tenthFloorBG", "assets/images/tenthFloor.png");
     this.load.image("elevatorBG", "assets/images/insideElevator.png");
-    this.load.image("blackBG", "assets/images/black.png"); 
     this.load.image("cityBG", "assets/images/cityBackground.png");
     this.load.image("stairsAndElevatorBG", "assets/images/stairsElevator.png");
     this.load.image("stairsBG", "assets/images/stairs.png");
     this.load.image("whiteSquare", "assets/images/whiteSquare.png"); 
     this.load.image("title", "assets/images/title.png");
+
+    //load in charactors here
+
     this.load.spritesheet("player", "assets/spritesheets/youSprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
-
-    //load in npcs here
 
     this.load.spritesheet("whiteSquareSprite", "assets/spritesheets/whiteSquareS.png",{
       frameWidth: gameSettings.playerSize,
@@ -71,10 +72,6 @@ class LoadGame extends Phaser.Scene {
     this.add.text(20, 20, "Loading game...");
     //add death gifs and animations here
     this.scene.start("mainMenu");
-
-    //Align.scaleToGameW(background, .1);
-
-
     
   }
 }

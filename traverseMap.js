@@ -20,7 +20,6 @@ class TraverseMap extends Phaser.Scene {
   }
 
   update() {
-    
     this.movePlayerManager();
     this.checkNPCDialogue();
     this.changeRoom();
@@ -45,7 +44,7 @@ class TraverseMap extends Phaser.Scene {
             .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
     
    //Scaling rooms
-   var bg = this.background;
+   var bg = this.background; 
    if (gameSettings.headRoom.background == "elevatorBG") {
       bg.x=-50;
       bg.y=-120;
@@ -93,6 +92,7 @@ class TraverseMap extends Phaser.Scene {
           }
           gameSettings.headRoom = location[2];
           gameSettings.changeRoom = true;
+
         });
       }
     }
@@ -139,17 +139,32 @@ class TraverseMap extends Phaser.Scene {
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
  
+    /*
+    this.physics.add.overlap(this.player, this.npcs, function(player, npc) {
+      console.log(npc.name);
+    }, null, this);
+    */
   }
   
   changeRoom(){
     //checks if you click on a door, if you do it changes the room accordingly
     if (gameSettings.changeRoom){
-      console.log("change room");
-      this.loadRoom();
+      //deletes previous room
       gameSettings.changeRoom = false;
       gameSettings.dialogue = undefined;
+
+      if (this.npcs){
+        for (var name in this.npcs){
+          this.npcs[name].destroy();
+        }
+      }
+
+      this.background.destroy();
+
+      //creates new room
+      this.loadRoom();
     }
-  }
+  } 
 
   checkNPCDialogue(){
     //Creates necesary charactor dialogue
