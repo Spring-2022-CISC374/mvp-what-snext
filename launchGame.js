@@ -36,7 +36,7 @@ var locations = {
 
 
 //Initializes story
-var phone = new npc("phone", "assets/spritesheets/phoneSprite.png", ["Contacts: \n**Call No One \n**Call Mom. \n**Call 911."]);
+var phone = new npc("phone", "assets/spritesheets/phoneSprite.png", ["Contacts: \n**Call No One \n**Call Mom. \n**Call 911.","a1","a2","a3","blah"]);
 var people = new npc("people", "assets/spritesheets/peopleSprite.png", ["I could try to capture their attention, so he leaves"]);
 var concernedMom = new npc("concernedMom", "assets/spritesheets/momSprite.png", ['CONCERNED MOM: I charged your phone, call me if you need anything.', "YOU: Ill be fine mom.",'CONCERNED MOM: Just be careful, Honey.','CONCERNED MOM: Remember to use your arrow keys to move.', 'YOU: I know how to cross the street, Mom.', 'CONCERNED MOM: I know, but its your first sleepover.','CONCERNED MOM: I want you to be prepared.', 'YOU: Dont worry, Im not a little kid anymore.', 'CONCERNED MOM: Just promise me that you will click on things if you ever need help.', 'YOU: I promise.', 'CONCERNED MOM: You can even click on people!!', 'YOU: Bye Mom!!', 'Its justa sleepover','What could go wrong?']);
 var creepyDude2 = new npc("creepyDude","assets/spritesheets/creep2Sprite.png",['Who is this guy?', "Why is he so close?", "He's been following me ever since I left Mom", "I better get out quick"]);
