@@ -22,10 +22,31 @@ class LoadGame extends Phaser.Scene {
 
     //load in charactors here
 
-    this.load.spritesheet("player", "assets/spritesheets/youSprite.png",{
+    this.load.spritesheet("player_right", "assets/spritesheets/youSprite/legsTogetherFacingRight.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
+    this.load.spritesheet("player_left", "assets/spritesheets/youSprite/legsTogetherFacingLeft.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
+    this.load.spritesheet("player_left_left", "assets/spritesheets/youSprite/leftLegFrontFacingLeft.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
+    this.load.spritesheet("player_left_right", "assets/spritesheets/youSprite/leftLegFrontFacingRight.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });    
+    this.load.spritesheet("player_right_left", "assets/spritesheets/youSprite/rightLegFrontFacingLeft.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
+    this.load.spritesheet("player_right_right", "assets/spritesheets/youSprite/rightLegFrontFacingRight.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
+    
 
     this.load.spritesheet("whiteSquareSprite", "assets/spritesheets/whiteSquareS.png",{
       frameWidth: gameSettings.playerSize,

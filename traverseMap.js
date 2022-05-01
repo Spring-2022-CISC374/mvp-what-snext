@@ -5,6 +5,7 @@ class TraverseMap extends Phaser.Scene {
   answer1;
   answer2;
   answer3;
+  timePlayerSteps = 0;
 
   constructor() {
     super("playGame");
@@ -20,7 +21,7 @@ class TraverseMap extends Phaser.Scene {
   }
 
   update() {
-    this.movePlayerManager();
+    this.movePlayerManager(this.player);
     this.checkNPCDialogue();
     this.changeRoom();
   }
@@ -135,7 +136,7 @@ class TraverseMap extends Phaser.Scene {
     });
 
     this.physics.world.setBoundsCollision();
-    this.player = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player");
+    this.player = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player_left");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
  
@@ -160,6 +161,7 @@ class TraverseMap extends Phaser.Scene {
       }
 
       this.background.destroy();
+      this.player.destroy();
 
       //creates new room
       this.loadRoom();
@@ -193,25 +195,57 @@ class TraverseMap extends Phaser.Scene {
     
   }
 
-  movePlayerManager(){
+  movePlayerManager(player){
     //allows player movement with arrow keys
-      if(this.cursorKeys.left.isDown){
-          this.player.setVelocityX(-gameSettings.playerSpeed);
-      }else if(this.cursorKeys.right.isDown){
-          this.player.setVelocityX(gameSettings.playerSpeed);
-      } else {
-        this.player.setVelocityX(0);
-      }
 
-      if(this.cursorKeys.up.isDown){
-          this.player.setVelocityY(-gameSettings.playerSpeed);
-      }else if(this.cursorKeys.down.isDown){
-          this.player.setVelocityY(gameSettings.playerSpeed);
-      } else {
-        this.player.setVelocityY(0);
-      }
+    if (this.timePlayerSteps > 40){
+      this.timePlayerSteps = 0;
+    }
+
+    if (this.cursorKeys.left.isDown){
+        player.setVelocityX(-gameSettings.playerSpeed);
+
+        if ( this.timePlayerSteps < 10){
+          //TODO: abstract this
+          player.setTexture('player_left_left');
+        } else if ( this.timePlayerSteps < 20){
+          player.setTexture('player_left');
+        } else if ( this.timePlayerSteps < 30) {
+          player.setTexture('player_right_left');
+        } else {
+          player.setTexture('player_left');
+        }
+
+    } else if(this.cursorKeys.right.isDown){
+
+        player.setVelocityX(gameSettings.playerSpeed);
+
+        if ( this.timePlayerSteps < 10){
+          player.setTexture('player_left_right');
+        } else if ( this.timePlayerSteps < 20){
+          player.setTexture('player_right');
+        } else if ( this.timePlayerSteps < 30) {
+          player.setTexture('player_right_right');
+        } else {
+          player.setTexture('player_right');
+        }
+
+    } else {
+        player.setVelocityX(0);
+
+        if (player.texture.key.endsWith('right')){
+          player.setTexture('player_right');
+        } else {
+          player.setTexture('player_left');
+        }
+
+    }
+
+    this.timePlayerSteps++;
 
       //TODO: Add hit detection, so you can go through doors without clicking on them
+
+      //Shows player as walking
   }
 
 
