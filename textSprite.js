@@ -25,4 +25,8 @@ class textSprite {
             this.sprite.visible = false;
         }
     }
+
+    getVisibility(){
+        return this.sprite.visible;
+    }
 }

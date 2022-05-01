@@ -65,7 +65,13 @@ var gameSettings = {
     defaultHeadRoom: city,
     dialogue: "I should talk to mom, she always helps me get my bearings", 
     changeRoom: false,
-    activeNpc: undefined
+    activeNpc: undefined,
+    txtBox: {
+      dialogueBox: undefined,
+      answer1: undefined,
+      answer2: undefined,
+      answer3: undefined
+    }
 }
 
 var game = new Phaser.Game(config);

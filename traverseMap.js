@@ -1,10 +1,6 @@
 class TraverseMap extends Phaser.Scene {
   npcs;
   doors;
-  dialogueBox;
-  answer1;
-  answer2;
-  answer3;
   timePlayerSteps = 0;
 
   constructor() {
@@ -12,10 +8,10 @@ class TraverseMap extends Phaser.Scene {
   }
 
   create() {
-    this.dialogueBox = new textSprite(this,locations.left,locations.top,config.width*1.5,locations.top, "whiteSquare");
-    this.answer1 = new textSprite(this, locations.left,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
-    this.answer2 = new textSprite(this, locations.midWidth,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
-    this.answer3 = new textSprite(this, locations.right,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
+    gameSettings.txtBox.dialogueBox = new textSprite(this,locations.left,locations.top,config.width*1.5,locations.top, "whiteSquare");
+    gameSettings.txtBox.answer1 = new textSprite(this, locations.left,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
+    gameSettings.txtBox.answer2 = new textSprite(this, locations.midWidth,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
+    gameSettings.txtBox.answer3 = new textSprite(this, locations.right,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
     gameSettings.headRoom = gameSettings.defaultHeadRoom;
     this.loadRoom();
   }
@@ -73,12 +69,12 @@ class TraverseMap extends Phaser.Scene {
     } 
 
     //Initialize Room Objects
-    if (this.dialogueBox.text){
-      this.dialogueBox.addText();
-      this.answer1.addText();
-      this.answer2.addText();
-      this.answer3.addText();
-    } 
+    //if (gameSettings.txtBox.dialogueBox.text){
+      gameSettings.txtBox.dialogueBox.addText();
+      gameSettings.txtBox.answer1.addText();
+      gameSettings.txtBox.answer2.addText();
+      gameSettings.txtBox.answer3.addText();
+    //} 
 
     //TODO: Add back button/door
     this.doors = new Object();
@@ -117,34 +113,41 @@ class TraverseMap extends Phaser.Scene {
       }
     }
 
-    //TODO: Abstract this
-    this.dialogueBox.sprite.on('pointerdown',function(pointer){
-      if (!this.answer1.sprite.visible){
+      //TODO: Abstract this
+      gameSettings.txtBox.dialogueBox.sprite.on('pointerdown',function(pointer){
+        if (!gameSettings.txtBox.answer1.sprite.visible){
+          gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+        }
+      });
+    
+      gameSettings.txtBox.answer1.sprite.on('pointerdown',function(pointer){
         gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
-      }
-    });
-    this.answer1.sprite.on('pointerdown',function(pointer){
-      gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
-    });
-    this.answer2.sprite.on('pointerdown',function(pointer){
-      gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 1];
-      gameSettings.activeNpc.sentenceNum += 1;
-    });
-    this.answer3.sprite.on('pointerdown',function(pointer){
-      gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 2];
-      gameSettings.activeNpc.sentenceNum += 2;
-    });
+        if (gameSettings.txtBox.answer3.sprite.visible) {
+          gameSettings.activeNpc.sentenceNum += 3;
+        } else if (gameSettings.txtBox.answer2.sprite.visible) {
+          gameSettings.activeNpc.sentenceNum += 2;
+        }
+      });
+      gameSettings.txtBox.answer2.sprite.on('pointerdown',function(pointer){
+        gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 1];
+        if (gameSettings.txtBox.answer3.sprite.visible) {
+          gameSettings.activeNpc.sentenceNum += 3;
+        } else {
+          gameSettings.activeNpc.sentenceNum += 2;
+        }
+      });
+      gameSettings.txtBox.answer3.sprite.on('pointerdown',function(pointer){
+        gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 2];
+        gameSettings.activeNpc.sentenceNum += 2;
+      });
+   
 
     this.physics.world.setBoundsCollision();
     this.player = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player_left");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
  
-    /*
-    this.physics.add.overlap(this.player, this.npcs, function(player, npc) {
-      console.log(npc.name);
-    }, null, this);
-    */
+   
   }
   
   changeRoom(){
@@ -188,10 +191,10 @@ class TraverseMap extends Phaser.Scene {
       
     }
       
-    this.dialogueBox.addText(choices[0],textStyle);
-    this.answer3.addText(choices[3]);
-    this.answer2.addText(choices[2]);
-    this.answer1.addText(choices[1]);
+    gameSettings.txtBox.dialogueBox.addText(choices[0],textStyle);
+    gameSettings.txtBox.answer3.addText(choices[3]);
+    gameSettings.txtBox.answer2.addText(choices[2]);
+    gameSettings.txtBox.answer1.addText(choices[1]);
     
   }
 
