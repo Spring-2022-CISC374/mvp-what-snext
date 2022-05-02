@@ -151,6 +151,8 @@ class TraverseMap extends Phaser.Scene {
   }
   
   changeRoom(){
+
+
     //checks if you click on a door, if you do it changes the room accordingly
     if (gameSettings.changeRoom){
       //deletes previous room
@@ -240,6 +242,28 @@ class TraverseMap extends Phaser.Scene {
           player.setTexture('player_right');
         } else {
           player.setTexture('player_left');
+        }
+
+        //checks if you're standing still on a door and switches rooms
+        for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
+          if (location[0] > this.player.x - 10 
+              && location[0] < this.player.x + 10 ){//todo: abstract the 10 to scale
+            gameSettings.headRoom = location[2];
+            gameSettings.changeRoom = true;
+          }
+        }
+
+        //checks if you're standing still on a npc and starts a conversation
+        for (const [name,location] of Object.entries(gameSettings.headRoom.npcs)){
+          if (location[0] > this.player.x - 10 
+              && location[0] < this.player.x + 10 ){//todo: abstract the 10 to scale
+            if (gameSettings.activeNpc != location[2] && location[2].sentenceNum == 0) { 
+              // only starts conversations to keep things from getting confusing
+              gameSettings.activeNpc = location[2];
+              gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+
+            }
+          }
         }
 
     }

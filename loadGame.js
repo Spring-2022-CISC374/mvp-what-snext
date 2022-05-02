@@ -46,7 +46,6 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
-    
 
     this.load.spritesheet("whiteSquareSprite", "assets/spritesheets/whiteSquareS.png",{
       frameWidth: gameSettings.playerSize,
