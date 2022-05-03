@@ -5,7 +5,8 @@ class textSprite {
     y;
     context;
     constructor(context,x,y,xSize,ySize,background){
-        this.sprite = context.add.tileSprite(x,y,xSize,ySize,background).setInteractive();
+        this.sprite = context.add.tileSprite(x,y,xSize,ySize,background)
+            .setInteractive();
         this.sprite.depth = 1;
         this.sprite.visible = false;
         this.x = x;

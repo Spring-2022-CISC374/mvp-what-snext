@@ -4,12 +4,14 @@ class npc {
     dialogue;
     name;
     sentenceNum;
+    maxFollowingDistance;
 
-    constructor(name, skin, dialogue){//, context=null, width=gameSettings.playerSize, height=gameSettings.playerSize){
+    constructor(name=null, skin=null, dialogue=[], maxFollowingDistance=-999){//, context=null, width=gameSettings.playerSize, height=gameSettings.playerSize){
         this.name = name;
         this.skin = skin;
         this.dialogue = dialogue;
         this.sentenceNum = 0;
+        this.maxFollowingDistance = maxFollowingDistance;
         //this.loadSpritesheet(context,width,height);
     }
 

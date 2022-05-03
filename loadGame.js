@@ -22,6 +22,7 @@ class LoadGame extends Phaser.Scene {
 
     //load in charactors here
 
+    //load player
     this.load.spritesheet("player_right", "assets/spritesheets/youSprite/legsTogetherFacingRight.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
@@ -46,6 +47,33 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });
+    
+    //load creep
+    this.load.spritesheet("creep_right", "assets/spritesheets/creepSprite/legsTogetherFacingRight.png",{
+      frameWidth: gameSettings.playerSize*2,
+      frameHeight: gameSettings.playerSize*2
+    });
+    this.load.spritesheet("creep_left", "assets/spritesheets/creepSprite/legsTogetherFacingLeft.png",{
+      frameWidth: gameSettings.playerSize*2,
+      frameHeight: gameSettings.playerSize*2
+    });
+    this.load.spritesheet("creep_left_left", "assets/spritesheets/creepSprite/leftLegFrontFacingLeft.png",{
+      frameWidth: gameSettings.playerSize*2,
+      frameHeight: gameSettings.playerSize*2
+    });
+    this.load.spritesheet("creep_left_right", "assets/spritesheets/creepSprite/leftLegFrontFacingRight.png",{
+      frameWidth: gameSettings.playerSize*2,
+      frameHeight: gameSettings.playerSize*2
+    });    
+    this.load.spritesheet("creep_right_left", "assets/spritesheets/creepSprite/rightLegFrontFacingLeft.png",{
+      frameWidth: gameSettings.playerSize*2,
+      frameHeight: gameSettings.playerSize*2
+    });
+    this.load.spritesheet("creep_right_right", "assets/spritesheets/creepSprite/rightLegFrontFacingRight.png",{
+      frameWidth: gameSettings.playerSize*2,
+      frameHeight: gameSettings.playerSize*2
+    });
+
 
     this.load.spritesheet("whiteSquareSprite", "assets/spritesheets/whiteSquareS.png",{
       frameWidth: gameSettings.playerSize,

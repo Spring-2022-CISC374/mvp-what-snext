@@ -13,11 +13,30 @@ class TraverseMap extends Phaser.Scene {
     gameSettings.txtBox.answer2 = new textSprite(this, locations.midWidth,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
     gameSettings.txtBox.answer3 = new textSprite(this, locations.right,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
     gameSettings.headRoom = gameSettings.defaultHeadRoom;
+    this.cursorKeys = this.input.keyboard.createCursorKeys();
+    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.loadRoom();
   }
 
   update() {
-    this.movePlayerManager(this.player);
+    this.movePlayerManager(this.player,'player');
+    this.timePlayerSteps++;
+
+    //checks for and moves following npcs
+    if (gameSettings.headRoom.npcs){
+      for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
+        if (info[2].maxFollowingDistance != -999 && this.npcs[name]){
+          if (info[2].maxFollowingDistance < Math.abs(this.npcs[name].x - this.player.x)){
+            this.movePlayerManager(this.npcs[name], name,
+                      this.npcs[name].x > this.player.x,
+                      this.npcs[name].x < this.player.x );
+          }
+
+        }
+      }
+    }
+
+    this.checkForCollisions();
     this.checkNPCDialogue();
     this.changeRoom();
   }
@@ -98,7 +117,9 @@ class TraverseMap extends Phaser.Scene {
     if (gameSettings.headRoom.npcs){
       for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
         //Adds npcs and npc click listeners to change dialogue
-        this.npcs[name] = this.add.sprite(info[0],info[1],name).setInteractive(); 
+        this.npcs[name] = this.physics.add.sprite(info[0],info[1],name).setInteractive(); 
+        this.npcs[name].setCollideWorldBounds(true);
+
         this.npcs[name].on('pointerdown', function(pointer){
           gameSettings.activeNpc = info[2];
           if (gameSettings.activeNpc.sentenceNum >= gameSettings.activeNpc.dialogue.length){
@@ -144,14 +165,12 @@ class TraverseMap extends Phaser.Scene {
 
     this.physics.world.setBoundsCollision();
     this.player = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player_left");
-    this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
  
    
   }
   
   changeRoom(){
-
 
     //checks if you click on a door, if you do it changes the room accordingly
     if (gameSettings.changeRoom){
@@ -171,6 +190,7 @@ class TraverseMap extends Phaser.Scene {
       //creates new room
       this.loadRoom();
     }
+    
   } 
 
   checkNPCDialogue(){
@@ -200,49 +220,51 @@ class TraverseMap extends Phaser.Scene {
     
   }
 
-  movePlayerManager(player){
+  movePlayerManager(player,name,left=true,right=true){
     //allows player movement with arrow keys
 
     if (this.timePlayerSteps > 40){
       this.timePlayerSteps = 0;
     }
 
-    if (this.cursorKeys.left.isDown){
+    var frontLeg = '';
+
+    if ( this.timePlayerSteps < 10){
+      frontLeg = '_left';
+    } else if ( this.timePlayerSteps < 20){
+      frontLeg = '';
+    } else if ( this.timePlayerSteps < 30) {
+      frontLeg ='_right';
+    } else {
+      frontLeg = '';
+    }
+    
+    var direction = '';
+
+    if (this.cursorKeys.left.isDown && left){
         player.setVelocityX(-gameSettings.playerSpeed);
-
-        if ( this.timePlayerSteps < 10){
-          //TODO: abstract this
-          player.setTexture('player_left_left');
-        } else if ( this.timePlayerSteps < 20){
-          player.setTexture('player_left');
-        } else if ( this.timePlayerSteps < 30) {
-          player.setTexture('player_right_left');
-        } else {
-          player.setTexture('player_left');
-        }
-
-    } else if(this.cursorKeys.right.isDown){
-
+        direction = '_left';
+    } else if(this.cursorKeys.right.isDown && right){
         player.setVelocityX(gameSettings.playerSpeed);
-
-        if ( this.timePlayerSteps < 10){
-          player.setTexture('player_left_right');
-        } else if ( this.timePlayerSteps < 20){
-          player.setTexture('player_right');
-        } else if ( this.timePlayerSteps < 30) {
-          player.setTexture('player_right_right');
-        } else {
-          player.setTexture('player_right');
-        }
-
+        direction = '_right';
     } else {
         player.setVelocityX(0);
+        frontLeg = '';
 
         if (player.texture.key.endsWith('right')){
-          player.setTexture('player_right');
+          direction = '_right';
         } else {
-          player.setTexture('player_left');
+          direction = '_left';
         }
+
+    }
+    player.setTexture(name + frontLeg + direction);
+
+  }
+
+
+  checkForCollisions(){
+    if (!this.cursorKeys.right.isDown && this.cursorKeys.left.isDown){
 
         //checks if you're standing still on a door and switches rooms
         for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
@@ -254,28 +276,21 @@ class TraverseMap extends Phaser.Scene {
         }
 
         //checks if you're standing still on a npc and starts a conversation
-        for (const [name,location] of Object.entries(gameSettings.headRoom.npcs)){
-          if (location[0] > this.player.x - 10 
-              && location[0] < this.player.x + 10 ){//todo: abstract the 10 to scale
-            if (gameSettings.activeNpc != location[2] && location[2].sentenceNum == 0) { 
+        for (const [room,location] of Object.entries(gameSettings.headRoom.npcs)){
+          //console.log(this.npcs[room].x);
+          if (location[2].x > this.player.x - 10 
+              && location[2].x < this.player.x + 10 ){//todo: abstract the 10 to scale
+            if (gameSettings.activeNpc != this.npcs[room] && this.npcs[room].sentenceNum == 0) { 
               // only starts conversations to keep things from getting confusing
-              gameSettings.activeNpc = location[2];
+              gameSettings.activeNpc = this.npcs[room];
               gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
 
             }
           }
         }
-
     }
 
-    this.timePlayerSteps++;
-
-      //TODO: Add hit detection, so you can go through doors without clicking on them
-
-      //Shows player as walking
   }
-
-
 
 
 }

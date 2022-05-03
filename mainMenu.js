@@ -45,8 +45,9 @@ class MainMenu extends Phaser.Scene {
         this.background.tilePositionX += 0.6;
         if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
           this.titleMusic.stop();
-          this.scene.start("playGame");        }
+          this.scene.start("playGame");        
         }
+    }
     
   }
   
