@@ -8,10 +8,10 @@ class TraverseMap extends Phaser.Scene {
   }
 
   create() {
-    gameSettings.txtBox.dialogueBox = new textSprite(this,locations.left,locations.top,config.width*1.5,locations.top, "whiteSquare");
-    gameSettings.txtBox.answer1 = new textSprite(this, locations.left,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
-    gameSettings.txtBox.answer2 = new textSprite(this, locations.midWidth,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
-    gameSettings.txtBox.answer3 = new textSprite(this, locations.right,locations.midUpperHeight,config.width/3,locations.top, "whiteSquare");
+    gameSettings.txtBox.dialogueBox = new textSprite(this,locations.left,locations.top,config.width*.75,locations.top, "whiteSquare");
+    gameSettings.txtBox.answer1 = new textSprite(this, locations.left,locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
+    gameSettings.txtBox.answer2 = new textSprite(this, locations.midWidth - locations.left,locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
+    gameSettings.txtBox.answer3 = new textSprite(this, locations.right - (locations.left * 2),locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
     gameSettings.headRoom = gameSettings.defaultHeadRoom;
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -60,42 +60,41 @@ class TraverseMap extends Phaser.Scene {
             .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
     
    //Scaling rooms
-   var bg = this.background; 
+
    if (gameSettings.headRoom.background == "elevatorBG") {
-      bg.x=-50;
-      bg.y=-120;
+      this.background.x=-50;
+      this.background.y=-120;
       Align.scaleToGameW(this.background,1.2);  
     }
     else if(gameSettings.headRoom.background == "tenthFloorBG") {
-      bg.x=-50;
-      bg.y=0;
+      this.background.x=-50;
+      this.background.y=0;
       Align.scaleToGameW(this.background,1.6);
     }
     else if(gameSettings.headRoom.background == "friendRoomBG") {
-      bg.x=0;
-      bg.y=-10;
+      this.background.x=0;
+      this.background.y=-10;
       Align.scaleToGameW(this.background,1.7);
     }
     else if(gameSettings.headRoom.background == "stairsAndElevatorBG") {
-      bg.x=-140;
-      bg.y=-120;
+      this.background.x=-140;
+      this.background.y=-120;
       Align.scaleToGameW(this.background,1.2);
     }
     else if(gameSettings.headRoom.background == "stairsBG") {
-      bg.x=0;
-      bg.y=-60;
+      this.background.x=0;
+      this.background.y=-60;
       Align.scaleToGameW(this.background,1.3);
     } 
 
     //Initialize Room Objects
-    //if (gameSettings.txtBox.dialogueBox.text){
+    if (gameSettings.txtBox.dialogueBox.text){
       gameSettings.txtBox.dialogueBox.addText();
       gameSettings.txtBox.answer1.addText();
       gameSettings.txtBox.answer2.addText();
       gameSettings.txtBox.answer3.addText();
-    //} 
+    } 
 
-    //TODO: Add back button/door
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
       for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
@@ -129,7 +128,6 @@ class TraverseMap extends Phaser.Scene {
             gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
             gameSettings.activeNpc.sentenceNum++;
           }
-
         });
       }
     }
@@ -137,7 +135,13 @@ class TraverseMap extends Phaser.Scene {
       //TODO: Abstract this
       gameSettings.txtBox.dialogueBox.sprite.on('pointerdown',function(pointer){
         if (!gameSettings.txtBox.answer1.sprite.visible){
-          gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+          if (gameSettings.activeNpc.sentenceNum >= gameSettings.activeNpc.dialogue.length){
+            gameSettings.activeNpc.sentenceNum = 0;
+            gameSettings.dialogue = undefined;
+          } else {
+            gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+            gameSettings.activeNpc.sentenceNum ++;
+          }
         }
       });
     
@@ -151,6 +155,7 @@ class TraverseMap extends Phaser.Scene {
       });
       gameSettings.txtBox.answer2.sprite.on('pointerdown',function(pointer){
         gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 1];
+
         if (gameSettings.txtBox.answer3.sprite.visible) {
           gameSettings.activeNpc.sentenceNum += 3;
         } else {
@@ -158,6 +163,7 @@ class TraverseMap extends Phaser.Scene {
         }
       });
       gameSettings.txtBox.answer3.sprite.on('pointerdown',function(pointer){
+
         gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 2];
         gameSettings.activeNpc.sentenceNum += 2;
       });
@@ -203,12 +209,17 @@ class TraverseMap extends Phaser.Scene {
         //checks if it is a multiple choice question
         choices = gameSettings.dialogue.split("**");
       } 
+
       //TODO: move all this fun text parsing stuff to the textSprite function?
       if (!((gameSettings.dialogue.includes(".")) 
           || (gameSettings.dialogue.includes("!!")) 
           || (gameSettings.dialogue.includes("??"))     
           || (gameSettings.dialogue.includes("**")))){  
-        textStyle = {fontStyle:"italic",fill:"black"};          
+          //change text style
+          textStyle = {fontStyle:"italic",fill:"black"};          
+      } if (gameSettings.dialogue.includes("&&&")){
+        //this indicates a conditional which could require a special function call
+        //TODO: implement this
       }
       
     }
@@ -258,6 +269,7 @@ class TraverseMap extends Phaser.Scene {
         }
 
     }
+
     player.setTexture(name + frontLeg + direction);
 
   }
@@ -275,6 +287,7 @@ class TraverseMap extends Phaser.Scene {
           }
         }
 
+        /*
         //checks if you're standing still on a npc and starts a conversation
         for (const [room,location] of Object.entries(gameSettings.headRoom.npcs)){
           //console.log(this.npcs[room].x);
@@ -288,6 +301,7 @@ class TraverseMap extends Phaser.Scene {
             }
           }
         }
+        */
     }
 
   }

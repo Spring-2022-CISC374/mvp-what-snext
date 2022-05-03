@@ -22,7 +22,7 @@ var locations = {
   furtherRight: config.width  - config.width / 15,
   midHeight: config.height / 2,
   midLowerHeight: config.height / 1.5,
-  midUpperHeight: config.height / 2.5,
+  midUpperHeight: config.height / 3.5,
   lowHeight: config.height / 1.2,
   lowerHeight: config.height / 1.15,
   lowestHeight: config.height / 1,
