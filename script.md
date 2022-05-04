@@ -68,17 +68,55 @@ YOU: Bye Mom!!
 
 - Ignore.
 
-  - I'm sure he just lives in the building.
+  - *I'm sure he just lives in the building.*
 
-  - Screaming for help would be embarrassing anyways.
+  - *Screaming for help would be embarrassing anyways.*
+
+**Killer Animation [scene 3.5]**
+
+(stabbing gif)
+
+REPORTER: Two small bodies found at the Bestie residence at 5pm on a Friday.
+
+REPORTER: Suspect was seen, following one of the children into the apartment.
+
+REPORTER: The child remained oblivious to the suspicious man behind them.
 
 **Best Friend's House [scene 4]**
 
+BESTIE: You made it!!
+
+YOU: It was hard but I'm here in one piece.
+
+BESTIE: Of course you are, we have the best security out there.
+
+BESTIE: Absolutely nothing can go wrong.
+
+FIRE ALARM: BEEP BEEP BEEEEEEEEP BEEPERS BEEPING BEP!!
+
+BESTIE: Well then...
+
+BESTIE: Gotta blast! 
+
+(bestie runs away)
+
 **Floor 10 Hallway After Alarm [scene 5]**
+
+*Where'd he go?*
+
+*Note to self, take applications for a new bestie*
+
+*Now, I need to get out of this building.*
 
 **Elevator and Stairs Hallway [scene 6]**
 
+*Hmm, stairs or elevator?*
+
 **Elevator Animation [scene 6.5 - bad choice]**
+
+**
+**
+**
 
 **Stairs Hallway [scene 7]**
 
