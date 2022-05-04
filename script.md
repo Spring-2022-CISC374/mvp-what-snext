@@ -155,9 +155,11 @@ BABY: Yes!
 *Okay maybe this baby can't talk...*
 
 - Help baby.
+
 (transported to floor 7)
 
 - Ignore baby
+
 (transported to floor 6)
 
 **Floor 7 Hallway [scene 7.5 - optional choice]**
@@ -217,22 +219,41 @@ BABY: Yes!
   - POLICE OFFICER: Alright, we are sending the firemen over, now!
 
 - Ignore
+
  (transported to lobby)
  
 - Go inside
 
   - *There's no time, I must save them!*
+  
     (transported to fire room animation)
 
 **Fire Room Animation [scene 9.5 - optional choice]**
 
+- REPORTER: Breaking News!
+
 - REPORTER:
+
 - REPORTER:
-- REPORTER:
+
 - REPORTER:
 
 **Lobby Floor [scene 9]**
 
+*What was that?*
+
+*Earthquake - magnitude 6.5!*
+
+*Thank you ominous voice*
+
+*I don't know what to do.*
+
+- Hide under table
+
+- Hide next to bookcase
+
+- Go outside
+  (transported to outside earthquake animation)
 
 **Outside Earthquake Animation [scene 9.5 - bad choice]**
 
