@@ -25,12 +25,52 @@ CONCERNED MOM: You can even click on people!!
 YOU: Bye Mom!!
 
 **Transition black screen**
+
 *Its just a sleepover...*
+
 *What could go wrong?*
 
 **Elevator [scene 2]**
 
+*Who is this guy?*
+
+*Why is he so close?* 
+
+*He's been following me ever since I left Mom* 
+
+*I better get out quick*
+
 **Floor 10 Hallway [scene 3]**
+
+*He's still here, this is getting weird.* 
+
+*What should I do?* 
+
+- Start yelling. 
+
+- - YOU: WHY ARE YOU FOLLOWING ME?
+
+- - RANDOM GUY: Dude I think that kid is being harrassed.
+
+- - OTHER RANDOM GUY: Maybe we should keep an eye on him.
+
+- Call Mom. 
+
+- - CONCERNED MOM: Hi Sweetie, is everything alright?
+
+- - YOU: I don't know
+
+- - CONCERNED MOM: Do you want me to come get you?
+
+- - YOU: No, I'm almost at Bestie's house.
+
+- - CONCERNED MOM: Okay, I'll stay on the phone with you, until you get there then.
+
+- Ignore.
+
+- - I'm sure he just lives in the building.
+
+- - Screaming for help would be embarrassing anyways.
 
 **Best Friend's House [scene 4]**
 
