@@ -48,29 +48,29 @@ YOU: Bye Mom!!
 
 - Start yelling. 
 
-- - YOU: WHY ARE YOU FOLLOWING ME?
+  - YOU: WHY ARE YOU FOLLOWING ME?
 
-- - RANDOM GUY: Dude I think that kid is being harrassed.
+  - RANDOM GUY: Dude I think that kid is being harrassed.
 
-- - OTHER RANDOM GUY: Maybe we should keep an eye on him.
+  - OTHER RANDOM GUY: Maybe we should keep an eye on him.
 
 - Call Mom. 
 
-- - CONCERNED MOM: Hi Sweetie, is everything alright?
+  - CONCERNED MOM: Hi Sweetie, is everything alright?
 
-- - YOU: I don't know
+  - YOU: I don't know
 
-- - CONCERNED MOM: Do you want me to come get you?
+  - CONCERNED MOM: Do you want me to come get you?
 
-- - YOU: No, I'm almost at Bestie's house.
+  - YOU: No, I'm almost at Bestie's house.
 
-- - CONCERNED MOM: Okay, I'll stay on the phone with you, until you get there then.
+  - CONCERNED MOM: Okay, I'll stay on the phone with you, until you get there then.
 
 - Ignore.
 
-- - I'm sure he just lives in the building.
+  - I'm sure he just lives in the building.
 
-- - Screaming for help would be embarrassing anyways.
+  - Screaming for help would be embarrassing anyways.
 
 **Best Friend's House [scene 4]**
 
