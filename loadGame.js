@@ -10,6 +10,9 @@ class LoadGame extends Phaser.Scene {
     this.load.audio("BGM", ["assets/sounds/BGM.mp3"]);
 
     //load background images
+    this.load.image("eighthFloorBG", "assets/images/eighthFloor.png");
+    this.load.image("sixthFloorBG", "assets/images/sixthFloor.png");
+    this.load.image("fifthFloorBG", "assets/images/fifthFloor.png");
     this.load.image("titleScreenBG", "assets/images/titleScreen.png"); 
     this.load.image("friendRoomBG", "assets/images/friendRoom.png");
     this.load.image("tenthFloorBG", "assets/images/tenthFloor.png");
@@ -112,6 +115,22 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     });    
+    this.load.spritesheet("baby", "assets/spritesheets/babySprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    }); 
+    this.load.spritesheet("babyStanding", "assets/spritesheets/baby2Sprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    }); 
+    this.load.spritesheet("anxiousMom", "assets/spritesheets/anxiousMomSprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    }); 
+    this.load.spritesheet("helplessMan", "assets/spritesheets/helplessManSprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    }); 
 
   }   
 
