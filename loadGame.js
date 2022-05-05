@@ -10,6 +10,7 @@ class LoadGame extends Phaser.Scene {
     this.load.audio("BGM", ["assets/sounds/BGM.mp3"]);
 
     //load background images
+    this.load.image("killerAnimBG", "assets/images/killerAnim.png");
     this.load.image("eighthFloorBG", "assets/images/eighthFloor.png");
     this.load.image("sixthFloorBG", "assets/images/sixthFloor.png");
     this.load.image("fifthFloorBG", "assets/images/fifthFloor.png");
@@ -119,19 +120,42 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
+    this.load.spritesheet("babyAgain", "assets/spritesheets/babySprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    }); 
     this.load.spritesheet("babyStanding", "assets/spritesheets/baby2Sprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
-    this.load.spritesheet("anxiousMom", "assets/spritesheets/anxiousMomSprite.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
+    this.load.spritesheet("pettyMom", "assets/spritesheets/pettyMomSprite.png",{
+      frameWidth: gameSettings.playerSize*2,
+      frameHeight: gameSettings.playerSize*2
     }); 
     this.load.spritesheet("helplessMan", "assets/spritesheets/helplessManSprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
-
+    this.load.spritesheet("helplessManAgain", "assets/spritesheets/helplessManSprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    }); 
+    this.load.spritesheet("smoke", "assets/spritesheets/smokeSprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    }); 
+    this.load.spritesheet("speech", "assets/spritesheets/speechSprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
+    this.load.spritesheet("speechAgain", "assets/spritesheets/speechSprite.png",{
+      frameWidth: gameSettings.playerSize,
+      frameHeight: gameSettings.playerSize
+    });
+    this.load.spritesheet("killerAnim", "assets/spritesheets/killerAnimSprite.png",{
+      frameWidth: gameSettings.playerSize*8,
+      frameHeight: gameSettings.playerSize*8
+    });
   }   
 
   create() {
