@@ -51,9 +51,9 @@ var baby = new npc("baby","assets/spritesheets/babySprite.png",["BABY: Goo goo g
 
 
 var fifthFloor = new Room("fifthFloorBG",{},{phone:[locations.furtherRight, locations.top,this.phone]});
-var sixthFloor = new Room("sixthFloorBG",{},{phone:[locations.furtherRight, locations.top,this.phone]});
-var eighthFloor = new Room("eighthFloorBG",{},{phone:[locations.furtherRight, locations.top,this.phone]});
-var stairs = new Room("stairsBG",{},{phone:[locations.furtherRight, locations.top,this.phone], baby:[locations.right, locations.lowHeight, this.baby]});
+var sixthFloor = new Room("sixthFloorBG",{fifthFloor:[locations.midWidthLeft, locations.midHeight,this.fifthFloor]},{phone:[locations.furtherRight, locations.top,this.phone]});
+var eighthFloor = new Room("eighthFloorBG",{sixthFloor:[locations.midWidthLeft, locations.midHeight,this.sixthFloor]},{phone:[locations.furtherRight, locations.top,this.phone]});
+var stairs = new Room("stairsBG",{eighthFloor:[locations.midWidthLeft, locations.midHeight,this.eighthFloor]},{phone:[locations.furtherRight, locations.top,this.phone], baby:[locations.right, locations.lowHeight, this.baby]});
 var elevator2 = new Room("elevatorBG",{},{phone:[locations.furtherRight, locations.top,this.phone]});
 var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.midWidthLeft, locations.midHeight,this.stairs], elevator2:[locations.right, locations.midHeight,this.elevator2]}, {phone:[locations.furtherRight, locations.top,this.phone]});
 var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight,this.stairsAndElevator]},{phone:[locations.furtherRight, locations.top,this.phone]});
