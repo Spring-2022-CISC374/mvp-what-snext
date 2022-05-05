@@ -44,8 +44,13 @@ var creepyDude = new npc("creepyDude2","assets/spritesheets/creep2Sprite.png",["
 var girl = new npc("girl","assets/spritesheets/girlSprite.png", []);
 var boy = new npc("boy","assets/spritesheets/boySprite.png", ["BESTIE: You made it!!","YOU: It was hard but I'm here in one piece.","BESTIE: Of course you did, we have the best security out there.","BESTIE: Absolutely nothing can go wrong.","FIRE ALARM: BEEP BEEP BEEEEEEEEP BEEPERS BEEPING BEP!!"]);
 var car = new npc();
+var baby = new npc("baby","assets/spritesheets/babySprite.png",["BABY: Goo goo ga ga", "\n**Talk to baby. \n**Help baby. \n**Ignore baby.","YOU: Are you lost?", "Yes!","Wow this baby can talk??", "YOU: Where is your mom?", "BABY: Yes!", "YOU: Is yes the only word you can say?","BABY: Yes!","Okay maybe this baby can't talk..."]);
 
-var stairs = new Room("stairsBG",{},{phone:[locations.furtherRight, locations.top,this.phone]});
+
+var fifthFloor = new Room("fifthFloorBG",{},{phone:[locations.furtherRight, locations.top,this.phone]});
+var sixthFloor = new Room("sixthFloorBG",{},{phone:[locations.furtherRight, locations.top,this.phone]});
+var eighthFloor = new Room("eighthFloorBG",{},{phone:[locations.furtherRight, locations.top,this.phone]});
+var stairs = new Room("stairsBG",{},{phone:[locations.furtherRight, locations.top,this.phone], baby:[locations.right, locations.lowHeight, this.baby]});
 var elevator2 = new Room("elevatorBG",{},{phone:[locations.furtherRight, locations.top,this.phone]});
 var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.midWidthLeft, locations.midHeight,this.stairs], elevator2:[locations.right, locations.midHeight,this.elevator2]}, {phone:[locations.furtherRight, locations.top,this.phone]});
 var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight,this.stairsAndElevator]},{phone:[locations.furtherRight, locations.top,this.phone]});
