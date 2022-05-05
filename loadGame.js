@@ -88,7 +88,7 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
-    this.load.spritesheet("creepyDude", "assets/spritesheets/creep2Sprite.png",{
+    this.load.spritesheet("creep", "assets/spritesheets/creep2Sprite.png",{
       frameWidth: gameSettings.playerSize*2,
       frameHeight: gameSettings.playerSize*2
     });

@@ -15,6 +15,78 @@ class TraverseMap extends Phaser.Scene {
     gameSettings.headRoom = gameSettings.defaultHeadRoom;
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+
+    const button = this.add.text(45, 15, 'Restart')
+            .setOrigin(0.5)
+            .setPadding(10)
+            .setStyle({ backgroundColor: '#111' })
+            .setInteractive({ useHandCursor: true })
+            .on('pointerdown', () => this.restart())
+            .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
+            .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
+    
+  
+          //TODO: Abstract this
+          
+    gameSettings.txtBox.dialogueBox.sprite.on('pointerdown',function(pointer){      
+      if (!gameSettings.txtBox.answer1.sprite.visible){
+              if (gameSettings.activeNpc.sentenceNum >= gameSettings.activeNpc.dialogue.length){
+                gameSettings.activeNpc.sentenceNum = 0;
+                gameSettings.dialogue = undefined;
+              } else {
+                gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+                gameSettings.activeNpc.sentenceNum ++;
+              }
+            } else {}
+    });
+        
+    gameSettings.txtBox.answer1.sprite.on('pointerdown',function(pointer){
+        if (typeof(gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum]) == typeof(["a","b"])){
+              gameSettings.activeNpc.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+              gameSettings.activeNpc.sentenceNum = 1;
+              gameSettings.dialogue = gameSettings.activeNpc.dialogue[0];
+    
+        } else {
+              
+              gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+              if (gameSettings.txtBox.answer3.sprite.visible) {
+                gameSettings.activeNpc.sentenceNum += 3;
+              } else if (gameSettings.txtBox.answer2.sprite.visible) {
+                gameSettings.activeNpc.sentenceNum += 2;
+              }
+        }
+    });
+
+    gameSettings.txtBox.answer2.sprite.on('pointerdown',function(pointer){
+      if (typeof(gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum]) == typeof(["a","b"])){
+        gameSettings.activeNpc.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 1];
+        gameSettings.activeNpc.sentenceNum = 1;
+        gameSettings.dialogue = gameSettings.activeNpc.dialogue[0];
+
+      } else {
+            gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 1];
+    
+            if (gameSettings.txtBox.answer3.sprite.visible) {
+              gameSettings.activeNpc.sentenceNum += 3;
+            } else {
+              gameSettings.activeNpc.sentenceNum += 2;
+            }
+      }
+    });
+    
+    gameSettings.txtBox.answer3.sprite.on('pointerdown',function(pointer){
+      if (typeof(gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum]) == typeof(["a","b"])){
+        gameSettings.activeNpc.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 2];
+        gameSettings.activeNpc.sentenceNum = 1;
+        gameSettings.dialogue = gameSettings.activeNpc.dialogue[0];
+
+      } else {
+            gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 2];
+            gameSettings.activeNpc.sentenceNum += 2;
+      }
+    });
+       
     this.loadRoom();
   }
 
@@ -50,16 +122,7 @@ class TraverseMap extends Phaser.Scene {
     this.background = this.add.tileSprite(0, 0, config.width, config.height, gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
 
-    const button = this.add.text(45, 15, 'Restart')
-            .setOrigin(0.5)
-            .setPadding(10)
-            .setStyle({ backgroundColor: '#111' })
-            .setInteractive({ useHandCursor: true })
-            .on('pointerdown', () => this.restart())
-            .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
-            .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
-    
-   //Scaling rooms
+    //Scaling rooms
 
    if (gameSettings.headRoom.background == "elevatorBG") {
       this.background.x=-50;
@@ -117,57 +180,22 @@ class TraverseMap extends Phaser.Scene {
       for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
         //Adds npcs and npc click listeners to change dialogue
         this.npcs[name] = this.physics.add.sprite(info[0],info[1],name).setInteractive(); 
-        this.npcs[name].setCollideWorldBounds(true);
 
         this.npcs[name].on('pointerdown', function(pointer){
           gameSettings.activeNpc = info[2];
-          if (gameSettings.activeNpc.sentenceNum >= gameSettings.activeNpc.dialogue.length){
-            gameSettings.activeNpc.sentenceNum = 0;
-            gameSettings.dialogue = undefined;
-          } else {
-            gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
-            gameSettings.activeNpc.sentenceNum++;
+          if (!gameSettings.txtBox.answer1.sprite.visible){
+
+            if (gameSettings.activeNpc.sentenceNum >= gameSettings.activeNpc.dialogue.length){
+              gameSettings.activeNpc.sentenceNum = 0;
+              gameSettings.dialogue = undefined;
+            } else {
+              gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+              gameSettings.activeNpc.sentenceNum++;
+            }
           }
         });
       }
     }
-
-      //TODO: Abstract this
-      gameSettings.txtBox.dialogueBox.sprite.on('pointerdown',function(pointer){
-        if (!gameSettings.txtBox.answer1.sprite.visible){
-          if (gameSettings.activeNpc.sentenceNum >= gameSettings.activeNpc.dialogue.length){
-            gameSettings.activeNpc.sentenceNum = 0;
-            gameSettings.dialogue = undefined;
-          } else {
-            gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
-            gameSettings.activeNpc.sentenceNum ++;
-          }
-        }
-      });
-    
-      gameSettings.txtBox.answer1.sprite.on('pointerdown',function(pointer){
-        gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
-        if (gameSettings.txtBox.answer3.sprite.visible) {
-          gameSettings.activeNpc.sentenceNum += 3;
-        } else if (gameSettings.txtBox.answer2.sprite.visible) {
-          gameSettings.activeNpc.sentenceNum += 2;
-        }
-      });
-      gameSettings.txtBox.answer2.sprite.on('pointerdown',function(pointer){
-        gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 1];
-
-        if (gameSettings.txtBox.answer3.sprite.visible) {
-          gameSettings.activeNpc.sentenceNum += 3;
-        } else {
-          gameSettings.activeNpc.sentenceNum += 2;
-        }
-      });
-      gameSettings.txtBox.answer3.sprite.on('pointerdown',function(pointer){
-
-        gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 2];
-        gameSettings.activeNpc.sentenceNum += 2;
-      });
-   
 
     this.physics.world.setBoundsCollision();
     this.player = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player_left");

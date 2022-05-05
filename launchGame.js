@@ -8,7 +8,7 @@ var config = {
   physics: {
     default: "arcade",
     arcade:{
-        debug: false
+        debug: true
     }
   }
 }
@@ -40,7 +40,10 @@ var phone = new npc("phone", "assets/spritesheets/phoneSprite.png", ["Contacts: 
 var people = new npc("people", "assets/spritesheets/peopleSprite.png", ["I could try to capture their attention, so he leaves"]);
 var concernedMom = new npc("concernedMom", "assets/spritesheets/momSprite.png", ['CONCERNED MOM: I charged your phone, call me if you need anything.', "YOU: Ill be fine mom.",'CONCERNED MOM: Just be careful, Honey.','CONCERNED MOM: Remember to use your arrow keys to move.', 'YOU: I know how to cross the street, Mom.', 'CONCERNED MOM: I know, but its your first sleepover.','CONCERNED MOM: I want you to be prepared.', 'YOU: Dont worry, Im not a little kid anymore.', 'CONCERNED MOM: Just promise me that you will click on things if you ever need help.', 'YOU: I promise.', 'CONCERNED MOM: You can even click on people!!', 'YOU: Bye Mom!!', 'Its justa sleepover','What could go wrong?']);
 var creepyDude2 = new npc("creep","assets/spritesheets/creep2Sprite.png",['Who is this guy?', "Why is he so close?", "He's been following me ever since I left Mom", "I better get out quick"],100);
-var creepyDude = new npc("creepyDude2","assets/spritesheets/creep2Sprite.png",["He's still here, this is getting weird.", "What should I do? \n**Start yelling. \n**Call Mom. \n**Ignore."],100);
+var creepyDude = new npc("creep","assets/spritesheets/creep2Sprite.png",["He's still here, this is getting weird.", "What should I do? \n**Start yelling. \n**Call Mom. \n**Ignore.",
+                      ["YOU: WHY ARE YOU FOLLOWING ME?","RANDOM GUY: Dude I think that kid is being harrassed.","OTHER RANDOM GUY: Maybe we should keep an eye on him."],
+                      ["CONCERNED MOM: Hi Sweetie, is everything alright?","CONCERNED MOM: Do you want me to come get you?","YOU: No, I'm almost at Bestie's house.","CONCERNED MOM: Okay, I'll stay on the phone with you, until you get there then."],
+                      ["I'm sure he just lives in the building.","Screaming for help would be embarrassing anyways."]],100);
 var girl = new npc("girl","assets/spritesheets/girlSprite.png", []);
 var boy = new npc("boy","assets/spritesheets/boySprite.png", ["BESTIE: You made it!!","YOU: It was hard but I'm here in one piece.","BESTIE: Of course you did, we have the best security out there.","BESTIE: Absolutely nothing can go wrong.","FIRE ALARM: BEEP BEEP BEEEEEEEEP BEEPERS BEEPING BEP!!"]);
 var car = new npc();
