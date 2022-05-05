@@ -122,6 +122,7 @@ class TraverseMap extends Phaser.Scene {
     this.background = this.add.tileSprite(0, 0, config.width, config.height, gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
 
+    
     //Scaling rooms
 
    if (gameSettings.headRoom.background == "elevatorBG") {
@@ -145,6 +146,7 @@ class TraverseMap extends Phaser.Scene {
       Align.scaleToGameW(this.background,1.2);
     }
     else if(gameSettings.headRoom.background == "stairsBG") {
+      this.dialogue = "A baby?";
       this.background.x=0;
       this.background.y=-60;
       Align.scaleToGameW(this.background,1.3);
@@ -156,6 +158,11 @@ class TraverseMap extends Phaser.Scene {
     }
     else if(gameSettings.headRoom.background == "fifthFloorBG") {
       this.background.x=0;
+      this.background.y=0;
+      Align.scaleToGameW(this.background,1.5);
+    }
+    else if(gameSettings.headRoom.background == "killerAnimBG") {
+      this.background.x=-100;
       this.background.y=0;
       Align.scaleToGameW(this.background,1.5);
     }
@@ -183,7 +190,10 @@ class TraverseMap extends Phaser.Scene {
 
         });
       }
+      
     }
+
+
 
     this.npcs = new Object();
     if (gameSettings.headRoom.npcs){
