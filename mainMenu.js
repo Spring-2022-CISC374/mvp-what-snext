@@ -27,14 +27,14 @@ class MainMenu extends Phaser.Scene {
       this.title = this.add.image(450,300,"title");
 
       const musicButton = this.add.text(75, 130, 'Play Music')
-      .setOrigin(0.5)
-      .setPadding(10)
-      .setStyle({ backgroundColor: '#111' })
-      .setInteractive({ useHandCursor: true })
-      .on('pointerdown', () => this.titleMusic.play(musicConfig))
-      .on('pointerover', () => playButton.setStyle({ fill: '#f39c12' }))
-      .on('pointerout', () => playButton.setStyle({ fill: '#FFF' }));
-      
+            .setOrigin(0.5)
+            .setPadding(10)
+            .setStyle({ backgroundColor: '#111' })
+            .setInteractive({ useHandCursor: true })
+            .on('pointerdown', () => this.titleMusic.play(musicConfig))
+            .on('pointerover', () => musicButton.setStyle({ fill: '#f39c12' }))
+            .on('pointerout', () => musicButton.setStyle({ fill: '#FFF' })); 
+            
       const playButton = this.add.text(110, 80, 'Press Here to Play')
             .setOrigin(0.5)
             .setPadding(10)
@@ -53,10 +53,11 @@ class MainMenu extends Phaser.Scene {
 
     update() {
         this.background.tilePositionX += 0.6;
-/*         if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
+        if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
+          //I like having this here
           this.titleMusic.stop();
           this.scene.start("playGame");        
-        } */
+        } 
     }
     
   }

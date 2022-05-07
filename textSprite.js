@@ -5,7 +5,7 @@ class textSprite {
     y; ySize;
     color;
     context;
-    constructor(context,x,y,xSize,ySize,color=0xFFFFFF){
+    constructor(context,x,y,xSize,ySize,color=0x000000){
 
         this.x = x;
         this.y = y;
@@ -16,30 +16,19 @@ class textSprite {
 
         this.drawRect(color);
 
-        /*
-        this.sprite = context.add.graphics();
-        this.sprite.fillStyle(0xFFFFFF);
-        this.sprite.fillRoundedRect(x - 50, y, xSize, ySize, 32);
-        this.sprite.setInteractive(new Phaser.Geom.Rectangle(x - 50, y, xSize, ySize), Phaser.Geom.Rectangle.Contains)
-        //.on('pointerdown', () => console.log("hahh"))
-        .on('pointerover', () => this.sprite.fillStyle(0xF39C12))
-        .on('pointerover', () => console.log("hi"))
-        .on('pointerout', () => this.sprite.fillStyle(0xFFFFFF));
-
-        this.sprite.on('pointerover', () => this.sprite.setStyle({ backgroundColor: '#111' }));
-*/
         this.sprite.depth = 1;
         this.sprite.visible = false;
     }
 
     addText(dialogue=undefined, textStyle={fill:"black"}) {
         //console.log(dialogue);
+        //console.log(this.text);
         if (this.text){
             this.text.destroy();
         }
         if (dialogue){
             this.sprite.visible = true;
-            this.text = this.context.add.text(this.x,this.y,dialogue,textStyle);
+            this.text = this.context.add.text(this.x,this.y,dialogue).setStyle(textStyle);
             this.text.depth = 2;
         }else{
             this.sprite.visible = false;
@@ -57,10 +46,12 @@ class textSprite {
         this.sprite.fillRoundedRect(this.x - 50, this.y, this.xSize, this.ySize, 32);
         this.sprite.setInteractive(new Phaser.Geom.Rectangle(this.x - 50, this.y, this.xSize, this.ySize), Phaser.Geom.Rectangle.Contains)
             //.on('pointerdown', () => console.log("hahh"))
-           /* .on('pointerover', () => this.drawRect(0xF39C12))
+            /*
+            .on('pointerover', () => this.text.setStyle({fill: '#f39c12'}))
             .on('pointerover', () => console.log("hi"))
-            .on('pointerout', () => this.drawRect(0xFFFFFF))*/;
-
+            .on('pointerout', () => console.log("hi2"))
+            .on('pointerout', () => this.text.setStyle({fill: color}));
+*/
     }
 
 }

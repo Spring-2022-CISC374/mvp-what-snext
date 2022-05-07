@@ -8,26 +8,26 @@ class TraverseMap extends Phaser.Scene {
   }
 
   create() {
+
     gameSettings.txtBox.dialogueBox = new textSprite(this,locations.left,locations.top,config.width*.75,locations.top, "whiteSquare");
     gameSettings.txtBox.answer1 = new textSprite(this, locations.left,locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
     gameSettings.txtBox.answer2 = new textSprite(this, locations.midWidth - locations.left,locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
     gameSettings.txtBox.answer3 = new textSprite(this, locations.right - (locations.left * 2),locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
-    gameSettings.headRoom = gameSettings.defaultHeadRoom;
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-
-    const button = this.add.text(45, 15, 'Restart')
+    const restartButton = this.add.text(45, 15, 'Restart')
             .setOrigin(0.5)
             .setPadding(10)
             .setStyle({ backgroundColor: '#111' })
+            .setDepth(1)
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => this.restart())
-            .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
-            .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
+            .on('pointerover', () => restartButton.setStyle({ fill: '#f39c12' }))
+            .on('pointerout', () => restartButton.setStyle({ fill: '#FFF' }));
     
   
-          //TODO: Abstract this
+          //TODO: figure out how to Abstract this
           
     gameSettings.txtBox.dialogueBox.sprite.on('pointerdown',function(pointer){      
       if (!gameSettings.txtBox.answer1.sprite.visible){
@@ -38,7 +38,7 @@ class TraverseMap extends Phaser.Scene {
                 gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
                 gameSettings.activeNpc.sentenceNum ++;
               }
-            } else {}
+            } 
     });
         
     gameSettings.txtBox.answer1.sprite.on('pointerdown',function(pointer){
@@ -87,21 +87,22 @@ class TraverseMap extends Phaser.Scene {
       }
     });
        
+    gameSettings.player = new npc('player','player skin', '');
     this.loadRoom();
   }
 
   update() {
-    this.movePlayerManager(this.player,'player');
+    this.movePlayerManager(gameSettings.player.sprite,'player');
     this.timePlayerSteps++;
 
     //checks for and moves following npcs
     if (gameSettings.headRoom.npcs){
       for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
         if (info[2].maxFollowingDistance != -999 && this.npcs[name]){
-          if (info[2].maxFollowingDistance < Math.abs(this.npcs[name].x - this.player.x)){
+          if (info[2].maxFollowingDistance < Math.abs(this.npcs[name].x - gameSettings.player.sprite.x)){
             this.movePlayerManager(this.npcs[name], name,
-                      this.npcs[name].x > this.player.x,
-                      this.npcs[name].x < this.player.x );
+                      this.npcs[name].x > gameSettings.player.sprite.x,
+                      this.npcs[name].x < gameSettings.player.sprite.x );
           }
 
         }
@@ -114,14 +115,18 @@ class TraverseMap extends Phaser.Scene {
   }
 
   restart(){
-    gameSettings.headRoom = gameSettings.defaultHeadRoom;
-    gameSettings.changeRoom = true;
+    //this.scene.restart("bootGame");
+    console.log("rs");
+    var lg = new LoadGame();
+    lg.initStory();
+
+    //gameSettings.headRoom = gameSettings.defaultHeadRoom;
+    //gameSettings.changeRoom = true;
   }
 
   loadRoom(){
     this.background = this.add.tileSprite(0, 0, config.width, config.height, gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
-
     
     //Scaling rooms
 
@@ -167,13 +172,7 @@ class TraverseMap extends Phaser.Scene {
       Align.scaleToGameW(this.background,1.5);
     }
 
-    //Initialize Room Objects
-    if (gameSettings.txtBox.dialogueBox.text){
-      gameSettings.txtBox.dialogueBox.addText();
-      gameSettings.txtBox.answer1.addText();
-      gameSettings.txtBox.answer2.addText();
-      gameSettings.txtBox.answer3.addText();
-    } 
+
 
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
@@ -192,8 +191,6 @@ class TraverseMap extends Phaser.Scene {
       }
       
     }
-
-
 
     this.npcs = new Object();
     if (gameSettings.headRoom.npcs){
@@ -218,10 +215,38 @@ class TraverseMap extends Phaser.Scene {
     }
 
     this.physics.world.setBoundsCollision();
-    this.player = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player_left");
-    this.player.setCollideWorldBounds(true);
- 
-   
+
+    //Initializes player sprite
+    gameSettings.player.dialogue = gameSettings.headRoom.starterDialogue;
+    gameSettings.player.sprite = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player_left").setInteractive();
+    gameSettings.player.sprite.setCollideWorldBounds(true);
+
+    if (gameSettings.player.dialogue){
+      if (gameSettings.headRoom.showStarterDialogue){
+            //set default dialogue
+        gameSettings.activeNpc = gameSettings.player;
+        gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+      }
+
+      gameSettings.player.sprite.on('pointerdown', function(pointer){
+        //Allows for iteration of personal dialogue
+        gameSettings.activeNpc = gameSettings.player;
+        if (!gameSettings.txtBox.answer1.sprite.visible){
+
+          if (gameSettings.activeNpc.sentenceNum >= gameSettings.activeNpc.dialogue.length){
+            gameSettings.activeNpc.sentenceNum = 0;
+            gameSettings.dialogue = undefined;
+          } else {
+            gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
+            gameSettings.activeNpc.sentenceNum++;
+          }
+        }
+      });
+
+    } else {
+      gameSettings.dialogue = '';
+    }
+       
   }
   
   changeRoom(){
@@ -229,8 +254,8 @@ class TraverseMap extends Phaser.Scene {
     //checks if you click on a door, if you do it changes the room accordingly
     if (gameSettings.changeRoom){
       //deletes previous room
+
       gameSettings.changeRoom = false;
-      gameSettings.dialogue = undefined;
 
       if (this.npcs){
         for (var name in this.npcs){
@@ -239,7 +264,7 @@ class TraverseMap extends Phaser.Scene {
       }
 
       this.background.destroy();
-      this.player.destroy();
+      gameSettings.player.sprite.destroy();
 
       //creates new room
       this.loadRoom();
@@ -265,9 +290,39 @@ class TraverseMap extends Phaser.Scene {
           || (gameSettings.dialogue.includes("**")))){  
           //change text style
           textStyle = {fontStyle:"italic",fill:"black"};          
-      } if (gameSettings.dialogue.includes("&&&")){
-        //this indicates a conditional which could require a special function call
+      }
+      
+      //console.log(gameSettings.dialogue);
+      if (gameSettings.dialogue.includes("&&&")){
+        //this indicates a conditional which could require a special function call in the form "text&&&functionName&imputs"
         //TODO: implement this
+        for (var c in choices){
+          if(choices[c].includes('&&&')){
+            var parts = choices[c].split('&');
+            choices[c] = parts[0];
+            
+            switch(parts[3]){ 
+              //parts[3] == function/action name 
+              //parts[4:] == parameters for functions
+              case 'death':
+                //launch death screen
+
+              case 'removeNPCs':
+                //removes all npcs
+                if (this.npcs){
+                  for (var name in this.npcs){
+                    this.npcs[name].destroy();
+                  }
+                }
+                //TODO: add mechanic of them leaving?
+                break;
+              case '':
+
+            }
+          }
+
+        }
+
       }
       
     }
@@ -328,8 +383,8 @@ class TraverseMap extends Phaser.Scene {
 
         //checks if you're standing still on a door and switches rooms
         for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
-          if (location[0] > this.player.x - 10 
-              && location[0] < this.player.x + 10 ){//todo: abstract the 10 to scale
+          if (location[0] > gameSettings.player.sprite.x - 10 
+              && location[0] < gameSettings.player.sprite.x + 10 ){//todo: abstract the 10 to scale
             gameSettings.headRoom = location[2];
             gameSettings.changeRoom = true;
           }
@@ -339,8 +394,8 @@ class TraverseMap extends Phaser.Scene {
         //checks if you're standing still on a npc and starts a conversation
         for (const [room,location] of Object.entries(gameSettings.headRoom.npcs)){
           //console.log(this.npcs[room].x);
-          if (location[2].x > this.player.x - 10 
-              && location[2].x < this.player.x + 10 ){//todo: abstract the 10 to scale
+          if (location[2].x > gameSettings.player.x - 10 
+              && location[2].x < gameSettings.player.x + 10 ){//todo: abstract the 10 to scale
             if (gameSettings.activeNpc != this.npcs[room] && this.npcs[room].sentenceNum == 0) { 
               // only starts conversations to keep things from getting confusing
               gameSettings.activeNpc = this.npcs[room];
