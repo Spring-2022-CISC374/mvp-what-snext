@@ -2,7 +2,7 @@ var config = {
   width: window.innerWidth,
   height: window.innerHeight,
   backgroundColor: 0x10AA44,
-  scene: [LoadGame,TraverseMap,MainMenu,Align],
+  scene: [LoadGame,TraverseMap,MainMenu,Align,DeathScreen],
   pixelArt: true,
   // 1.1 set the physics to arcade
   physics: {
@@ -48,6 +48,7 @@ var gameSettings = {
     dialogue: '', 
     changeRoom: false,
     activeNpc: undefined,
+    startDeathScreen: false,
     txtBox: {
       dialogueBox: undefined,
       answer1: undefined,

@@ -27,7 +27,7 @@ class TraverseMap extends Phaser.Scene {
             .on('pointerout', () => restartButton.setStyle({ fill: '#FFF' }));
     
   
-          //TODO: figure out how to Abstract this
+          //TODO: figure out how to Abstract this?
           
     gameSettings.txtBox.dialogueBox.sprite.on('pointerdown',function(pointer){      
       if (!gameSettings.txtBox.answer1.sprite.visible){
@@ -115,13 +115,7 @@ class TraverseMap extends Phaser.Scene {
   }
 
   restart(){
-    //this.scene.restart("bootGame");
-    console.log("rs");
-    var lg = new LoadGame();
-    lg.initStory();
-
-    //gameSettings.headRoom = gameSettings.defaultHeadRoom;
-    //gameSettings.changeRoom = true;
+    this.scene.start("mainMenu");
   }
 
   loadRoom(){
@@ -166,13 +160,7 @@ class TraverseMap extends Phaser.Scene {
       this.background.y=0;
       Align.scaleToGameW(this.background,1.5);
     }
-    else if(gameSettings.headRoom.background == "killerAnimBG") {
-      this.background.x=-100;
-      this.background.y=0;
-      Align.scaleToGameW(this.background,1.5);
-    }
-
-
+    
 
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
@@ -267,7 +255,11 @@ class TraverseMap extends Phaser.Scene {
       gameSettings.player.sprite.destroy();
 
       //creates new room
-      this.loadRoom();
+      if (gameSettings.startDeathScreen){
+        this.scene.start("deathScreen");        
+      } else {
+        this.loadRoom();
+      }
     }
     
   } 
@@ -292,21 +284,31 @@ class TraverseMap extends Phaser.Scene {
           textStyle = {fontStyle:"italic",fill:"black"};          
       }
       
-      //console.log(gameSettings.dialogue);
       if (gameSettings.dialogue.includes("&&&")){
-        //this indicates a conditional which could require a special function call in the form "text&&&functionName&imputs"
-        //TODO: implement this
+        //this indicates a conditional which could require a special function call in the form "text&&&functionName&inputs"
         for (var c in choices){
           if(choices[c].includes('&&&')){
             var parts = choices[c].split('&');
             choices[c] = parts[0];
-            
+
             switch(parts[3]){ 
               //parts[3] == function/action name 
               //parts[4:] == parameters for functions
               case 'death':
                 //launch death screen
+                if (parts[4] == 'creep'){
+                  for (var d in this.doors){
+                    this.doors[d].on('pointerdown', function(pointer){
+                      //this.background.destroy();
+                      //gameSettings.player.sprite.destroy();  
+                      var killerAnim = new npc("killerAnim","assets/spritesheets/killerAnimSprite.png",[]);
+                      gameSettings.headRoom = new Room("killerAnimBG",{},{killerAnim:[locations.midWidthLeft, locations.midHeight, killerAnim]}, ["1asd","123","1234"]);
+                      gameSettings.startDeathScreen = true;
 
+                    });
+                  }
+                }
+                break;
               case 'removeNPCs':
                 //removes all npcs
                 if (this.npcs){
@@ -316,7 +318,11 @@ class TraverseMap extends Phaser.Scene {
                 }
                 //TODO: add mechanic of them leaving?
                 break;
-              case '':
+              case 'policeCall':
+                if (parts[4] == 'answerHere'){
+
+                }
+
 
             }
           }

@@ -48,6 +48,8 @@ class MainMenu extends Phaser.Scene {
         
       this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+      var lg = new LoadGame();
+      lg.initStory();
     }
 
 
