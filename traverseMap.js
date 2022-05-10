@@ -87,12 +87,12 @@ class TraverseMap extends Phaser.Scene {
       }
     });
        
-    gameSettings.player = new npc('player','player skin', '');
+    gameSettings.player = new npc('girl1','player skin', '');
     this.loadRoom();
   }
 
   update() {
-    this.movePlayerManager(gameSettings.player.sprite,'player');
+    this.movePlayerManager(gameSettings.player.sprite, gameSettings.player.name);
     this.timePlayerSteps++;
 
     //checks for and moves following npcs
@@ -318,6 +318,9 @@ class TraverseMap extends Phaser.Scene {
                   }
                 }
                 //TODO: add mechanic of them leaving?
+                break;
+              case 'setPlayerSkin':
+                gameSettings.player.name = gameSettings.activeNpc.name;
                 break;
               case 'policeCall':
                 if (parts[4] == 'answerHere'){

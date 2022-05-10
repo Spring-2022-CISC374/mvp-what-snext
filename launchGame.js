@@ -18,6 +18,7 @@ config.height = 640;
 
 var locations = {
   left: config.width / 10,
+  oneFifthWidth: config.width / 5,
   right: config.width - config.width / 10,
   lessRight: config.width - config.width / 8,
   furtherRight: config.width  - config.width / 15,
@@ -26,6 +27,7 @@ var locations = {
   midLowerHeight: config.height / 1.5,
   midUpperHeight: config.height / 3.5,
   lessLowHeight: config.height / 1.25,
+  playerSelectionLowHeight: config.height / 1.3,
   lowHeight: config.height / 1.2,
   lowerHeight: config.height / 1.15,
   moreLowerHeight: config.height / 1.10,

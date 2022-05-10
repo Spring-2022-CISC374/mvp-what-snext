@@ -28,61 +28,21 @@ class LoadGame extends Phaser.Scene {
     this.load.image("stairsBG", "assets/images/stairs.png");
     this.load.image("whiteSquare", "assets/images/whiteSquare.png"); 
     this.load.image("title", "assets/images/title.png");
+    this.load.image("grass", "assets/images/grass.png");
 
     //load in charactors here
 
-      //load player
-    this.load.spritesheet("player_right", "assets/spritesheets/youSprite/legsTogetherFacingRight.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    this.load.spritesheet("player_left", "assets/spritesheets/youSprite/legsTogetherFacingLeft.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    this.load.spritesheet("player_left_left", "assets/spritesheets/youSprite/leftLegFrontFacingLeft.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    this.load.spritesheet("player_left_right", "assets/spritesheets/youSprite/leftLegFrontFacingRight.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });    
-    this.load.spritesheet("player_right_left", "assets/spritesheets/youSprite/rightLegFrontFacingLeft.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    this.load.spritesheet("player_right_right", "assets/spritesheets/youSprite/rightLegFrontFacingRight.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    
-    //load creep
-    this.load.spritesheet("creep_right", "assets/spritesheets/creepSprite/legsTogetherFacingRight.png",{
-      frameWidth: gameSettings.playerSize*2,
-      frameHeight: gameSettings.playerSize*2
-    });
-    this.load.spritesheet("creep_left", "assets/spritesheets/creepSprite/legsTogetherFacingLeft.png",{
-      frameWidth: gameSettings.playerSize*2,
-      frameHeight: gameSettings.playerSize*2
-    });
-    this.load.spritesheet("creep_left_left", "assets/spritesheets/creepSprite/leftLegFrontFacingLeft.png",{
-      frameWidth: gameSettings.playerSize*2,
-      frameHeight: gameSettings.playerSize*2
-    });
-    this.load.spritesheet("creep_left_right", "assets/spritesheets/creepSprite/leftLegFrontFacingRight.png",{
-      frameWidth: gameSettings.playerSize*2,
-      frameHeight: gameSettings.playerSize*2
-    });    
-    this.load.spritesheet("creep_right_left", "assets/spritesheets/creepSprite/rightLegFrontFacingLeft.png",{
-      frameWidth: gameSettings.playerSize*2,
-      frameHeight: gameSettings.playerSize*2
-    });
-    this.load.spritesheet("creep_right_right", "assets/spritesheets/creepSprite/rightLegFrontFacingRight.png",{
-      frameWidth: gameSettings.playerSize*2,
-      frameHeight: gameSettings.playerSize*2
-    });
-
+    //load player
+    this.loadMovableCharacters('creep',2);
+    this.loadMovableCharacters('boy1');
+    this.loadMovableCharacters('boy2');
+    this.loadMovableCharacters('boy3');
+    this.loadMovableCharacters('boy4');
+    this.loadMovableCharacters('girl1');
+    this.loadMovableCharacters('girl2');
+    this.loadMovableCharacters('girl3');
+    this.loadMovableCharacters('girl4');
+    this.loadMovableCharacters('girl5');
 
     this.load.spritesheet("whiteSquareSprite", "assets/spritesheets/whiteSquareS.png",{
       frameWidth: gameSettings.playerSize,
@@ -163,6 +123,38 @@ class LoadGame extends Phaser.Scene {
     });
   }   
 
+  loadMovableCharacters(name, playerSizeMultiplyer=1){
+    var startPath = 'assets/spritesheets/' + name;
+
+    this.load.spritesheet(name, (startPath +  '/legsTogetherFacingLeft.png'),{
+      frameWidth: gameSettings.playerSize * playerSizeMultiplyer,
+      frameHeight: gameSettings.playerSize * playerSizeMultiplyer
+    });
+    this.load.spritesheet((name + '_right'), (startPath +  '/legsTogetherFacingRight.png'),{
+      frameWidth: gameSettings.playerSize * playerSizeMultiplyer,
+      frameHeight: gameSettings.playerSize * playerSizeMultiplyer
+    });
+    this.load.spritesheet((name + '_left'), (startPath +  '/legsTogetherFacingLeft.png'),{
+      frameWidth: gameSettings.playerSize * playerSizeMultiplyer,
+      frameHeight: gameSettings.playerSize * playerSizeMultiplyer
+    });
+    this.load.spritesheet((name + '_left_left'), (startPath +  '/leftLegFrontFacingLeft.png'),{
+      frameWidth: gameSettings.playerSize * playerSizeMultiplyer,
+      frameHeight: gameSettings.playerSize * playerSizeMultiplyer
+    });
+    this.load.spritesheet((name + '_left_right'), (startPath +  '/leftLegFrontFacingRight.png'),{
+      frameWidth: gameSettings.playerSize * playerSizeMultiplyer,
+      frameHeight: gameSettings.playerSize * playerSizeMultiplyer
+    });    
+    this.load.spritesheet((name + '_right_left'), (startPath +  '/rightLegFrontFacingLeft.png'),{
+      frameWidth: gameSettings.playerSize * playerSizeMultiplyer,
+      frameHeight: gameSettings.playerSize * playerSizeMultiplyer
+    });
+    this.load.spritesheet((name + '_right_right'), (startPath +  '/rightLegFrontFacingRight.png'),{
+      frameWidth: gameSettings.playerSize * playerSizeMultiplyer,
+      frameHeight: gameSettings.playerSize * playerSizeMultiplyer
+    });    
+  }
 
   initStory (){
     //Initializes story
@@ -267,9 +259,23 @@ class LoadGame extends Phaser.Scene {
       gameSettings.headRoom = this.city;
       gameSettings.changeRoom = true;
 
+
+      var selectionDialogue = ["Do you want to pick me? **yes **no", "&&&setPlayerSkin", "Choose a player"];
+      var playerSelect = new Room("grass",{city:[locations.left, locations.top, this.city]},
+        {'girl1': [locations.oneFifthWidth,locations.playerSelectionLowHeight, new npc('girl1','', selectionDialogue)]        
+        ,'girl2': [locations.oneFifthWidth,locations.midHeight, new npc('girl2','',selectionDialogue)]        
+        ,'girl3': [locations.oneFifthWidth * 2,locations.playerSelectionLowHeight, new npc('girl3','',selectionDialogue)]        
+        ,'girl4': [locations.oneFifthWidth * 2,locations.midHeight, new npc('girl4','',selectionDialogue)]        
+        ,'girl5': [locations.oneFifthWidth * 3,locations.playerSelectionLowHeight, new npc('girl5','',selectionDialogue)]        
+        ,'boy1': [locations.oneFifthWidth * 3,locations.midHeight, new npc('boy1','',selectionDialogue)]        
+        ,'boy2': [locations.oneFifthWidth * 4,locations.playerSelectionLowHeight, new npc('boy2','',selectionDialogue)]        
+        ,'boy3': [locations.oneFifthWidth * 4,locations.midHeight, new npc('boy3','',selectionDialogue)]        
+        ,'boy4': [locations.oneFifthWidth * 4.5,locations.midHeight + locations.top, new npc('boy4','',selectionDialogue)]        
+        ,'girl3': [locations.oneFifthWidth * .5,locations.midHeight + locations.top, new npc('girl3','',selectionDialogue)]        
+        },["Choose a player"],true);
+      gameSettings.headRoom = playerSelect;
+
   }
-
-
 
   create() {
 
