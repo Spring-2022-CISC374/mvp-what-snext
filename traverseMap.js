@@ -115,6 +115,7 @@ class TraverseMap extends Phaser.Scene {
   }
 
   restart(){
+    game.sound.stopAll();
     this.scene.start("mainMenu");
   }
 
