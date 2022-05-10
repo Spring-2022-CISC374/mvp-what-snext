@@ -261,7 +261,7 @@ class LoadGame extends Phaser.Scene {
 
 
       var selectionDialogue = ["Do you want to pick me? **yes **no", "&&&setPlayerSkin", "Choose a player"];
-      var playerSelect = new Room("grass",{city:[locations.left, locations.top, this.city]},
+      var playerSelect = new Room("grass",{city:[locations.right, locations.top, this.city]},
         {'girl1': [locations.oneFifthWidth,locations.playerSelectionLowHeight, new npc('girl1','', selectionDialogue)]        
         ,'girl2': [locations.oneFifthWidth,locations.midHeight, new npc('girl2','',selectionDialogue)]        
         ,'girl3': [locations.oneFifthWidth * 2,locations.playerSelectionLowHeight, new npc('girl3','',selectionDialogue)]        

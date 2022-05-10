@@ -207,7 +207,7 @@ class TraverseMap extends Phaser.Scene {
 
     //Initializes player sprite
     gameSettings.player.dialogue = gameSettings.headRoom.starterDialogue;
-    gameSettings.player.sprite = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, "player_left").setInteractive();
+    gameSettings.player.sprite = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, gameSettings.player.name).setInteractive();
     gameSettings.player.sprite.setCollideWorldBounds(true);
 
     if (gameSettings.player.dialogue){
