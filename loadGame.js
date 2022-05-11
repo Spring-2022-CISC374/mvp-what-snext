@@ -28,7 +28,7 @@ class LoadGame extends Phaser.Scene {
     this.load.image("stairsBG", "assets/images/stairs.png");
     this.load.image("whiteSquare", "assets/images/whiteSquare.png"); 
     this.load.image("title", "assets/images/title.png");
-    this.load.image("grass", "assets/images/grass.png");
+    this.load.image("selectionBG", "assets/images/selectRoom.png");
 
     //load in charactors here
 
@@ -261,17 +261,17 @@ class LoadGame extends Phaser.Scene {
 
 
       var selectionDialogue = ["Do you want to pick me? **yes **no", "&&&setPlayerSkin", "Choose a player"];
-      var playerSelect = new Room("grass",{city:[locations.right, locations.top, this.city]},
-        {'girl1': [locations.oneFifthWidth,locations.playerSelectionLowHeight, new npc('girl1','', selectionDialogue)]        
-        ,'girl2': [locations.oneFifthWidth,locations.midHeight, new npc('girl2','',selectionDialogue)]        
-        ,'girl3': [locations.oneFifthWidth * 2,locations.playerSelectionLowHeight, new npc('girl3','',selectionDialogue)]        
-        ,'girl4': [locations.oneFifthWidth * 2,locations.midHeight, new npc('girl4','',selectionDialogue)]        
-        ,'girl5': [locations.oneFifthWidth * 3,locations.playerSelectionLowHeight, new npc('girl5','',selectionDialogue)]        
-        ,'boy1': [locations.oneFifthWidth * 3,locations.midHeight, new npc('boy1','',selectionDialogue)]        
-        ,'boy2': [locations.oneFifthWidth * 4,locations.playerSelectionLowHeight, new npc('boy2','',selectionDialogue)]        
-        ,'boy3': [locations.oneFifthWidth * 4,locations.midHeight, new npc('boy3','',selectionDialogue)]        
-        ,'boy4': [locations.oneFifthWidth * 4.5,locations.midHeight + locations.top, new npc('boy4','',selectionDialogue)]        
-        ,'girl3': [locations.oneFifthWidth * .5,locations.midHeight + locations.top, new npc('girl3','',selectionDialogue)]        
+      var playerSelect = new Room("selectionBG",{city:[locations.right, locations.top, this.city]},
+        {'girl1': [locations.midWidthSlightRight,locations.lowerHeight, new npc('girl1','', selectionDialogue)]        
+        ,'girl2': [locations.midWidthFurtherLeft,locations.lowerHeight, new npc('girl2','',selectionDialogue)]        
+        ,'girl3': [locations.midWidthEvenFurtherLeft,locations.lowerHeight, new npc('girl3','',selectionDialogue)]        
+        ,'girl4': [locations.midWidthEvenEvenFurtherLeft/1.45,locations.lowerHeight, new npc('girl4','',selectionDialogue)]        
+        ,'girl5': [locations.midWidthEvenEvenFurtherLeft/3.6,locations.lowerHeight, new npc('girl5','',selectionDialogue)]        
+        ,'boy1': [locations.right/1.12,locations.lowerHeight, new npc('boy1','',selectionDialogue)]        
+        ,'boy2': [locations.right/1.35,locations.lowerHeight, new npc('boy2','',selectionDialogue)]        
+        ,'boy3': [locations.right/0.97,locations.lowerHeight, new npc('boy3','',selectionDialogue)]        
+        ,'boy4': [locations.midWidth/1.6,locations.midSlightLower*1.15, new npc('boy4','',selectionDialogue)]        
+        ,'girl3': [locations.midWidth/1.12,locations.midSlightLower*1.15, new npc('girl3','',selectionDialogue)]        
         },["Choose a player"],true);
       gameSettings.headRoom = playerSelect;
 
