@@ -8,6 +8,7 @@ class TraverseMap extends Phaser.Scene {
   }
 
   create() {
+   
 
     gameSettings.txtBox.dialogueBox = new textSprite(this,locations.left,locations.top,config.width*.75,locations.top, "whiteSquare");
     gameSettings.txtBox.answer1 = new textSprite(this, locations.left,locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
@@ -89,6 +90,7 @@ class TraverseMap extends Phaser.Scene {
        
     gameSettings.player = new npc('girl1','player skin', '');
     this.loadRoom();
+    
   }
 
   update() {
@@ -238,6 +240,8 @@ class TraverseMap extends Phaser.Scene {
        
   }
   
+
+
   changeRoom(){
 
     //checks if you click on a door, if you do it changes the room accordingly
@@ -347,6 +351,9 @@ class TraverseMap extends Phaser.Scene {
   movePlayerManager(player,name,left=true,right=true){
     //allows player movement with arrow keys
 
+    
+
+
     if (this.timePlayerSteps > 40){
       this.timePlayerSteps = 0;
     }
@@ -382,10 +389,53 @@ class TraverseMap extends Phaser.Scene {
         }
 
     }
+    var destinyX;
+    //this.input.on('pointerdown', (destinyX) => destinyX = this.input.x);
+    if (this.input.mousePointer.isDown){
+      destinyX = this.input.x;
+      if (player.x > destinyX){
+        console.log('X:' + destinyX);
+          player.setVelocityX(-gameSettings.playerSpeed);
+          direction = '_left';
+      }
+      else if (player.x < destinyX){
+          player.setVelocityX(gameSettings.playerSpeed);
+          direction = '_right';
+      }
+      else {
+          player.setVelocityX(0);
+          frontLeg = '';
+  
+          if (player.texture.key.endsWith('right')){
+            direction = '_right';
+          } else {
+            direction = '_left';
+          }
+    }
+    player.setTexture(name + frontLeg + direction);
+  }
+
+  
 
     player.setTexture(name + frontLeg + direction);
-
+      
+  //var siren = false;
+    //if (this.input.mousePointer.isDown){
+        //console.log("siren");
+        //siren = true;
+      //}
+    //if (siren){
+      //this.background.alpha-=0.1;
+        //if(this.background.alpha==0){
+          //this.background.alpha = 1.0;
+        //}
+    //}else{
+      //this.background.alpha = 1.0;
+    //}
+    
+   
   }
+  
 
 
   checkForCollisions(){
