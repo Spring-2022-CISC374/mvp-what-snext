@@ -163,7 +163,11 @@ class TraverseMap extends Phaser.Scene {
       this.background.y=0;
       Align.scaleToGameW(this.background,1.5);
     }
-    
+    else if(gameSettings.headRoom.background == "selectionBG") {
+      this.background.x=-80;
+      this.background.y=0;
+      Align.scaleToGameW(this.background,1.35);
+    }    
 
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
@@ -209,7 +213,7 @@ class TraverseMap extends Phaser.Scene {
 
     //Initializes player sprite
     gameSettings.player.dialogue = gameSettings.headRoom.starterDialogue;
-    gameSettings.player.sprite = this.physics.add.sprite(locations.midWidth, locations.lowestHeight, gameSettings.player.name).setInteractive();
+    gameSettings.player.sprite = this.physics.add.sprite(locations.midWidth/0.85, locations.lowestHeight, gameSettings.player.name).setInteractive();
     gameSettings.player.sprite.setCollideWorldBounds(true);
 
     if (gameSettings.player.dialogue){
