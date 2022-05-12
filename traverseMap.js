@@ -171,6 +171,11 @@ class TraverseMap extends Phaser.Scene {
       this.background.y=0;
       Align.scaleToGameW(this.background,1.35);
     }    
+    else if(gameSettings.headRoom.background == "elevatorAnimBG") {
+      this.background.x=0;
+      this.background.y=0;
+      Align.scaleToGameW(this.background,2.5);
+    }
 
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
@@ -314,12 +319,87 @@ class TraverseMap extends Phaser.Scene {
                       //this.background.destroy();
                       //gameSettings.player.sprite.destroy();  
                       var killerAnim = new npc("killerAnim","assets/spritesheets/killerAnimSprite.png",[]);
-                      gameSettings.headRoom = new Room("killerAnimBG",{},{killerAnim:[locations.midWidthLeft, locations.midHeight, killerAnim]}, ["1asd","123","1234"]);
+                      gameSettings.headRoom = new Room("killerAnimBG",{},{elevatorAnim:[locations.midWidthLeft, locations.midHeight, elevatorAnim]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: Two bodies were found at the Bestie residence at 5pm on a Friday.","REPORTER: Suspect was seen, following one of the children into the apartment.","REPORTER: The victim remained oblivious to the suspicious man behind them."]);
                       gameSettings.startDeathScreen = true;
 
                     });
                   }
                 }
+
+                if (parts[4] == 'fire'){
+                  for (var d in this.doors){
+                    this.doors[d].on('pointerdown', function(pointer){
+                      //this.background.destroy();
+                      //gameSettings.player.sprite.destroy();  
+                      var fireAnim = new npc("fireAnim","assets/spritesheets/fireAnimSprite.png",[]);
+                      //game.sound.stopAll();
+                      //this.creepBgm= this.sound.add("creepBgm");
+                      //this.creepBgm.play(musicConfig);
+
+
+                      gameSettings.headRoom = new Room("fireAnimBG",{},{fireAnim:[locations.midWidthLeft, locations.midHeight, fireAnim]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: Four of the bodies were identified as the burning room's residence.","REPORTER: The last body seemed to belong to a child who ran into the fire.","REPORTER: The child didn't seem to realize that fire could hurt them."]);
+                      gameSettings.startDeathScreen = true;
+
+                    });
+                  }
+                }
+
+                if (parts[4] == 'elevator'){
+                  for (var d in this.doors){
+                    this.doors[d].on('pointerdown', function(pointer){
+                      //this.background.destroy();
+                      //gameSettings.player.sprite.destroy();  
+                      var elevatorAnim = new npc("elevatorAnim","assets/spritesheets/elevatorAnimSprite.png",[]);
+                      
+                      //game.sound.stopAll();
+                      //this.creepBgm= this.sound.add("creepBgm");
+                      //this.creepBgm.play(musicConfig);
+
+
+                      gameSettings.headRoom = new Room("elevatorAnimBG",{},{elevatorAnim:[locations.midWidthLeft, locations.midHeight, elevatorAnim]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                      gameSettings.startDeathScreen = true;
+
+                    });
+                  }
+                }
+
+                if (parts[4] == 'drug'){
+                  for (var d in this.doors){
+                    this.doors[d].on('pointerdown', function(pointer){
+                      //this.background.destroy();
+                      //gameSettings.player.sprite.destroy();  
+                      var drugAnim = new npc("drugAnim","assets/spritesheets/drugAnimSprite.png",[]);
+                      
+                      //game.sound.stopAll();
+                      //this.creepBgm= this.sound.add("creepBgm");
+                      //this.creepBgm.play(musicConfig);
+
+
+                      gameSettings.headRoom = new Room("drugAnimBG",{},{drugAnim:[locations.midWidthLeft, locations.midHeight, drugAnim]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The cause of death appeared to be a mysterious substance the victim had eaten.","REPORTER: Upon further inspection the substance seemed to be laced with drugs.","REPORTER: No suspects have been found."]);
+                      gameSettings.startDeathScreen = true;
+
+                    });
+
+              
+                      const hsv = Phaser.Display.Color.HSVColorWheel();
+              
+                      this.background.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
+              
+                      this.input.on('pointerdown', function (pointer) {
+              
+                          const a = Phaser.Math.Between(0, 359);
+                          const b = Phaser.Math.Between(0, 359);
+                          const c = Phaser.Math.Between(0, 359);
+                          const d = Phaser.Math.Between(0, 359);
+              
+                          image.setTint(hsv[a].color, hsv[b].color, hsv[c].color, hsv[d].color);
+              
+                      });
+                
+                  }
+                }
+
+
                 break;
               case 'removeNPCs':
                 //removes all npcs
