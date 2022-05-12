@@ -15,6 +15,9 @@ class LoadGame extends Phaser.Scene {
     this.load.audio("BGM", ["assets/sounds/BGM.mp3"]);
 
     //load background images
+    this.load.image("drugAnimBG", "assets/images/drugAnim.png");
+    this.load.image("elevatorAnimBG", "assets/images/elevatorAnim.png");
+    this.load.image("fireAnimBG", "assets/images/fireAnim.png");
     this.load.image("killerAnimBG", "assets/images/killerAnim.png");
     this.load.image("eighthFloorBG", "assets/images/eighthFloor.png");
     this.load.image("sixthFloorBG", "assets/images/sixthFloor.png");
@@ -85,23 +88,15 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
-    this.load.spritesheet("babyAgain", "assets/spritesheets/babySprite.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    }); 
     this.load.spritesheet("babyStanding", "assets/spritesheets/baby2Sprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
     this.load.spritesheet("pettyMom", "assets/spritesheets/pettyMomSprite.png",{
-      frameWidth: gameSettings.playerSize*2,
-      frameHeight: gameSettings.playerSize*2
+      frameWidth: gameSettings.playerSize*3,
+      frameHeight: gameSettings.playerSize*3
     }); 
     this.load.spritesheet("helplessMan", "assets/spritesheets/helplessManSprite.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    }); 
-    this.load.spritesheet("helplessManAgain", "assets/spritesheets/helplessManSprite.png",{
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
@@ -109,15 +104,15 @@ class LoadGame extends Phaser.Scene {
       frameWidth: gameSettings.playerSize,
       frameHeight: gameSettings.playerSize
     }); 
-    this.load.spritesheet("speech", "assets/spritesheets/speechSprite.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
-    this.load.spritesheet("speechAgain", "assets/spritesheets/speechSprite.png",{
-      frameWidth: gameSettings.playerSize,
-      frameHeight: gameSettings.playerSize
-    });
     this.load.spritesheet("killerAnim", "assets/spritesheets/killerAnimSprite.png",{
+      frameWidth: gameSettings.playerSize*8,
+      frameHeight: gameSettings.playerSize*8
+    });
+    this.load.spritesheet("elevatorAnim", "assets/spritesheets/elevatorAnimSprite.png",{
+      frameWidth: gameSettings.playerSize*8,
+      frameHeight: gameSettings.playerSize*8
+    });
+    this.load.spritesheet("drugAnim", "assets/spritesheets/drugAnimSprite.png",{
       frameWidth: gameSettings.playerSize*8,
       frameHeight: gameSettings.playerSize*8
     });
@@ -170,15 +165,14 @@ class LoadGame extends Phaser.Scene {
       var baby = new npc("baby","assets/spritesheets/babySprite.png",["BABY: Goo goo ga ga \n**Talk to baby. \n**Ignore baby.",                       
         ["YOU: Are you lost?", "Yes!","Wow this baby can talk??", "YOU: Where is your mom?", "BABY: Yes!", "YOU: Is yes the only word you can say?","BABY: Yes!","Okay maybe this baby can't talk..."],
         [""]]);
-      var pettyMom = new npc("pettyMom","assets/spritesheets/pettyMomSprite.png", ["PETTY MOM: Thank you so much for bringing Baby to me!", "PETTY MOM: I didn't think he could even climb up to the tenth floor by himself.", "PETTY MOM: How did that baby even climb 2 up two whole flights of stairs??","YOU: Yep that's one strange baby.", "PETTY MOM: Excuse me??", "YOU: ...","PETTY MOM: Well climbing 2 flights up is better than 3 flights down.", "PETTY MOM: That's where the real danger is after all.", "YOU: Excuse me??","PETTY MOM: Oh look at the time...", "PETTY MOM: I've got to go get my weird baby out of this burning building", "BABY: Bye bye!"]);
-      var helplessManAgain = new npc("helplessManAgain","assets/spritesheets/helplessManSprite.png", []);  
+      var pettyMom = new npc("pettyMom","assets/spritesheets/pettyMomSprite.png", ["PETTY MOM: Thank you so much for bringing Baby to me!", "PETTY MOM: I didn't think he could even climb up to the tenth floor by himself.", "PETTY MOM: How did that baby even climb 2 up two whole flights of stairs??","YOU: Yep that's one strange baby.", "PETTY MOM: Excuse me??", "YOU: ...","PETTY MOM: Well climbing 2 flights up is better than 3 flights down.", "PETTY MOM: That's where the real danger is after all.", "YOU: Excuse me??","PETTY MOM: Oh look at the time...", "PETTY MOM: I've got to go get my weird baby out of this burning building", "BABY: Bye bye!"]); 
       var helplessMan = new npc("helplessMan","assets/spritesheets/helplessManSprite.png", ["HELPLESS MAN: Hey, you!","HELPLESS MAN: Me?","HELPLESS MAN: Where did everyone go?", "YOU: Uh, the building is on fire, Sir.", "HELPLESS MAN: Oh...", "HELPLESS MAN: Well this isn't good for my business.", "YOU: Business?", "HELPLESS MAN: Yeah, I sell candy to children.","That's concerning", "HELPLESS MAN: But now my customers are gone!", "HELPLESS MAN: I hope those children in apartment room 68 will come back.", "HELPLESS MAN: With a big family of 5 their parents were always working.","HELPLESS MAN: So the 3 children were always left with their babysitter.", "YOU: So you would buy candy and sell it to them?", "How nice", "HELPLESS MAN: Nope, I make the candy myself.", "HELPLESS MAN: You can tell it's my candy by the green wrappers.", "HELPLESS MAN: Want to try some, it's my newest recipe? \n**Eat it. \n**Don't eat it.", 
-        [" "],
+        ["I feel strange.","You'll be fine.","In fact as my newest customer I won't even charge you!", "*Weird stomach noises* Uh thanks.&&&death&drug"],
         ["YOU: No thanks.","HELPLESS MAN: Suit yourself"]]);
       var babyStanding = new npc("babyStanding","assets/spritesheets/baby2Sprite.png",[]);
 
       var smoke = new npc("smoke","assets/spritesheets/smokeSprite.png",["What should I do? \n**Go inside. \n**Call 911. \n**Leave.", 
-      ["DEATH"],
+      ["There's no time", "I've got to help them &&&death&fire"],
       ["RING...RING...RING...","POLICE OFFICER: 911, what’s your emergency?", "YOU: Ahh I’m too scared to speak","What happened \n** YOU: There’s a fire! \n**YOU: YOU: People are dying! \n**YOU: RED ORANGE! BOOM, ROAR!",
       ["POLICE OFFICER: Okay", "POLICE OFFICER: What is the address of your emergency??", "YOU: Oh I know this!!", "YOU: And Bestie called me weird for memorizing his address","YOU: Street ---- --- Apartment --- Floor number... \**n 7 \**n 6 \**n 5",
       ["incorrect","POLICE OFFICER: Okay, and how many people are in the room?", "YOU: There are... \n** 5 \n** 4 \n** 3",
@@ -233,22 +227,22 @@ class LoadGame extends Phaser.Scene {
       ["correct","POLICE OFFICER: Alright, we are sending the firemen over, now!"],
       ],],
       ],
-      ["Leave building - end"]]);
+      ["I should get out of here! &&&death&leave"]]);
 
-      var speech = new npc("speech","assets/spritesheets/speechSprite.png",["Where'd Bestie go?","Note to self, take applications for a new bestie", "Now, I need to get out of this building"]);
-      var speechAgain = new npc("speechAgain","assets/spritesheets/speechSprite.png",["Hmm, stairs or elevator?"]);
       var killerAnim = new npc("killerAnim","assets/spritesheets/killerAnimSprite.png",[]);
 
-      var fifthFloor = new Room("fifthFloorBG",{},{smoke:[locations.left, locations.midSlightLower, smoke]});
-      var sixthFloor = new Room("sixthFloorBG",{fifthFloor:[locations.left, locations.midHeight, fifthFloor]},{ helplessMan:[locations.left, locations.lowHeight, helplessMan], helplessManAgain:[locations.left, locations.lowHeight, helplessManAgain]});
+      var insideFire = new Room("elevatorAnimBG",{},{smoke:[locations.left, locations.midSlightLower, smoke]});
+      var exit = new Room("grass",{},{smoke:[locations.left, locations.midSlightLower, smoke]});
+
+      var fifthFloor = new Room("fifthFloorBG",{insideFire:[locations.left, locations.midHeight, insideFire], exit:[locations.right, locations.midHeight, exit]},{smoke:[locations.left, locations.midSlightLower, smoke]});
+      var sixthFloor = new Room("sixthFloorBG",{fifthFloor:[locations.left, locations.midHeight, fifthFloor]},{ helplessMan:[locations.left, locations.lowHeight, helplessMan]});
       var eighthFloor = new Room("eighthFloorBG",{sixthFloor:[locations.midWidthLeft, locations.midHeight, sixthFloor]},{ pettyMom:[locations.furtherRight, locations.lowHeight,  pettyMom], babyStanding:[locations.furtherRight, locations.moreLowerHeight,  babyStanding]});
-      var stairs = new Room("stairsBG",{eighthFloor:[locations.left, locations.midHeight, eighthFloor]},{ baby:[locations.furtherRight, locations.lowHeight,  baby]});
-      var elevator2 = new Room("elevatorBG",{},{});
-      var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight, stairs], elevator2:[locations.right, locations.midHeight, elevator2]}, {speechAgain:[locations.lessRight, locations.lessTop, speechAgain]});
-      var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight, stairsAndElevator]},{speech:[locations.lessRight, locations.lessTop, speech]});
+      var stairs = new Room("stairsBG",{eighthFloor:[locations.left, locations.midHeight, eighthFloor]},{ baby:[locations.furtherRight, locations.lowHeight,  baby]},["A baby?"],true);
+      var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight, stairs]}, {},["Hmm, stairs or elevator? \n** Elevator. \n** Stairs.",["Taking the stairs does seem safer"],["Taking the elevator does seem faster &&&death&elevator"]],true);
+      var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight, stairsAndElevator]},{},["Where'd Bestie go?","Note to self, take applications for a new bestie", "Now, I need to get out of this building"],true); 
       var friendRoom = new Room("friendRoomBG",{tenthFloor2:[locations.right, locations.midHeight, tenthFloor2]},{ boy:[locations.left, locations.lowHeight, boy]});
       var killerRoom = new Room("killerAnimBG",{},{killerAnim:[locations.midWidthLeft, locations.midHeight, killerAnim]});
-      var tenthFloor = new Room("tenthFloorBG",{friendRoom:[locations.left, locations.midHeight, friendRoom], killerRoom:[locations.furtherRight, locations.midHeight, killerRoom]},{creep:[locations.furtherRight,locations.midLowerHeight, creepyDude], people:[locations.midWidthRight,locations.midHeight, people]});
+      var tenthFloor = new Room("tenthFloorBG",{friendRoom:[locations.left, locations.midHeight, friendRoom]},{creep:[locations.furtherRight,locations.midLowerHeight, creepyDude], people:[locations.midWidthRight,locations.midHeight, people]});
       var elevator = new Room("elevatorBG",{tenthFloor:[locations.left, locations.midHeight, tenthFloor]},{creep:[locations.midWidthSlightRight,locations.lowerHeight, creepyDude2]});
       this.city = new Room("cityBG"
         ,{elevator:[locations.left, locations.midHeight, elevator]}
