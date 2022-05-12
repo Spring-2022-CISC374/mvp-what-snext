@@ -97,16 +97,19 @@ class TraverseMap extends Phaser.Scene {
     this.movePlayerManager(gameSettings.player.sprite, gameSettings.player.name);
     this.timePlayerSteps++;
 
-    //checks for and moves following npcs
+    //checks for and moves following npcs if the player is moving
     if (gameSettings.headRoom.npcs){
       for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
         if (info[2].maxFollowingDistance != -999 && this.npcs[name]){
           if (info[2].maxFollowingDistance < Math.abs(this.npcs[name].x - gameSettings.player.sprite.x)){
-            this.movePlayerManager(this.npcs[name], name,
-                      this.npcs[name].x > gameSettings.player.sprite.x,
-                      this.npcs[name].x < gameSettings.player.sprite.x );
+            if (Math.abs(gameSettings.player.sprite.body.velocity.x) > 0){
+              this.movePlayerManager(this.npcs[name], name,
+                (this.npcs[name].x > gameSettings.player.sprite.x),
+                (this.npcs[name].x < gameSettings.player.sprite.x) );
+            } else {
+              this.movePlayerManager(this.npcs[name], name, false, false);
+            }
           }
-
         }
       }
     }
@@ -373,10 +376,10 @@ class TraverseMap extends Phaser.Scene {
     
     var direction = '';
 
-    if ((this.cursorKeys.left.isDown || (this.input.mousePointer.isDown && player.x > this.input.x)) && left){
+    if ((this.cursorKeys.left.isDown || (this.input.mousePointer.isDown && player.x > this.input.x + 10)) && left){
         player.setVelocityX(-gameSettings.playerSpeed);
         direction = '_left';
-    } else if((this.cursorKeys.right.isDown || (this.input.mousePointer.isDown && player.x < this.input.x))&& right){
+    } else if((this.cursorKeys.right.isDown || (this.input.mousePointer.isDown && player.x + 10 < this.input.x))&& right){
         player.setVelocityX(gameSettings.playerSpeed);
         direction = '_right';
     } else {
