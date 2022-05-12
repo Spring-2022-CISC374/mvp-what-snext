@@ -19,6 +19,7 @@ class DeathScreen extends Phaser.Scene{
             .setStyle({ backgroundColor: '#111' })
             .setDepth(1)
             .setInteractive({ useHandCursor: true })
+            .on('pointerdown', () => gameSettings.startDeathScreen = false)
             .on('pointerdown', () => this.scene.start("mainMenu"))
             .on('pointerover', () => restartButton.setStyle({ fill: '#f39c12' }))
             .on('pointerout', () => restartButton.setStyle({ fill: '#FFF' }));
@@ -33,24 +34,26 @@ class DeathScreen extends Phaser.Scene{
     }
 
     update() {
+        if (gameSettings.startDeathScreen){
+            if (this.timeScrolling % 100 == 0 && this.dialogueIndex < gameSettings.headRoom.starterDialogue.length){
+                if (this.blurbs[this.dialogueIndex]){
+                    this.blurbs[this.dialogueIndex].destroy();
+                }
+                this.blurbs[this.dialogueIndex] = this.add.text( locations.left, config.height - locations.top, gameSettings.headRoom.starterDialogue[this.dialogueIndex]);
+                this.dialogueIndex++;
+            }
+            if (this.dialogueIndex >= gameSettings.headRoom.starterDialogue.length){
+                if (this.blurbs[gameSettings.headRoom.starterDialogue.length-1].y > locations.midHeight){
+                    this.dialogueIndex = 0;
+                }
+            }
+            for (var b in this.blurbs){
+                if (this.blurbs[b].y > -20){
+                    this.blurbs[b].y -= 1;
+                }
+            }
+            this.timeScrolling++;
+        }
         
-        if (this.timeScrolling % 100 == 0 && this.dialogueIndex < gameSettings.headRoom.starterDialogue.length){
-            if (this.blurbs[this.dialogueIndex]){
-                this.blurbs[this.dialogueIndex].destroy();
-            }
-            this.blurbs[this.dialogueIndex] = this.add.text( locations.left, config.height - locations.top, gameSettings.headRoom.starterDialogue[this.dialogueIndex]);
-            this.dialogueIndex++;
-        }
-        if (this.dialogueIndex >= gameSettings.headRoom.starterDialogue.length){
-            if (this.blurbs[gameSettings.headRoom.starterDialogue.length-1].y > locations.midHeight){
-                this.dialogueIndex = 0;
-            }
-        }
-        for (var b in this.blurbs){
-            if (this.blurbs[b].y > -20){
-                this.blurbs[b].y -= 1;
-            }
-        }
-        this.timeScrolling++;
     }
 }
