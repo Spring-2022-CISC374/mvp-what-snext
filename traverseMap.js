@@ -15,7 +15,7 @@ class TraverseMap extends Phaser.Scene {
     gameSettings.txtBox.answer2 = new textSprite(this, locations.midWidth - locations.left,locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
     gameSettings.txtBox.answer3 = new textSprite(this, locations.right - (locations.left * 2),locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
     this.cursorKeys = this.input.keyboard.createCursorKeys();
-    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    //this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
     const restartButton = this.add.text(45, 15, 'Restart')
             .setOrigin(0.5)
@@ -355,9 +355,6 @@ class TraverseMap extends Phaser.Scene {
   movePlayerManager(player,name,left=true,right=true){
     //allows player movement with arrow keys
 
-    
-
-
     if (this.timePlayerSteps > 40){
       this.timePlayerSteps = 0;
     }
@@ -376,10 +373,10 @@ class TraverseMap extends Phaser.Scene {
     
     var direction = '';
 
-    if (this.cursorKeys.left.isDown && left){
+    if ((this.cursorKeys.left.isDown || (this.input.mousePointer.isDown && player.x > this.input.x)) && left){
         player.setVelocityX(-gameSettings.playerSpeed);
         direction = '_left';
-    } else if(this.cursorKeys.right.isDown && right){
+    } else if((this.cursorKeys.right.isDown || (this.input.mousePointer.isDown && player.x < this.input.x))&& right){
         player.setVelocityX(gameSettings.playerSpeed);
         direction = '_right';
     } else {
@@ -393,33 +390,6 @@ class TraverseMap extends Phaser.Scene {
         }
 
     }
-    var destinyX;
-    //this.input.on('pointerdown', (destinyX) => destinyX = this.input.x);
-    if (this.input.mousePointer.isDown){
-      destinyX = this.input.x;
-      if (player.x > destinyX){
-        console.log('X:' + destinyX);
-          player.setVelocityX(-gameSettings.playerSpeed);
-          direction = '_left';
-      }
-      else if (player.x < destinyX){
-          player.setVelocityX(gameSettings.playerSpeed);
-          direction = '_right';
-      }
-      else {
-          player.setVelocityX(0);
-          frontLeg = '';
-  
-          if (player.texture.key.endsWith('right')){
-            direction = '_right';
-          } else {
-            direction = '_left';
-          }
-    }
-    player.setTexture(name + frontLeg + direction);
-  }
-
-  
 
     player.setTexture(name + frontLeg + direction);
       
