@@ -319,7 +319,7 @@ class TraverseMap extends Phaser.Scene {
                       //this.background.destroy();
                       //gameSettings.player.sprite.destroy();  
                       var killerAnim = new npc("killerAnim","assets/spritesheets/killerAnimSprite.png",[]);
-                      gameSettings.headRoom = new Room("killerAnimBG",{},{elevatorAnim:[locations.midWidthLeft, locations.midHeight, elevatorAnim]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: Two bodies were found at the Bestie residence at 5pm on a Friday.","REPORTER: Suspect was seen, following one of the children into the apartment.","REPORTER: The victim remained oblivious to the suspicious man behind them."]);
+                      gameSettings.headRoom = new Room("killerAnimBG",{},{killerAnim:[locations.midWidthLeft, locations.midHeight, killerAnim]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: Two bodies were found at the Bestie residence at 5pm on a Friday.","REPORTER: Suspect was seen, following one of the children into the apartment.","REPORTER: The victim remained oblivious to the suspicious man behind them."]);
                       gameSettings.startDeathScreen = true;
 
                     });
