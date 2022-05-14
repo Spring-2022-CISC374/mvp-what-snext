@@ -8,7 +8,6 @@ class TraverseMap extends Phaser.Scene {
   }
 
   create() {
-   
 
     gameSettings.txtBox.dialogueBox = new textSprite(this,locations.left,locations.top,config.width*.75,locations.top, "whiteSquare");
     gameSettings.txtBox.answer1 = new textSprite(this, locations.left,locations.midUpperHeight,config.width/4,locations.top, "whiteSquare");
@@ -127,7 +126,7 @@ class TraverseMap extends Phaser.Scene {
   loadRoom(){
     this.background = this.add.tileSprite(0, 0, config.width, config.height, gameSettings.headRoom.background);
     this.background.setOrigin(0, 0);
-    
+    //console.log("BG NAME.....   ", gameSettings.headRoom.sprit);
     //Scaling rooms
 
    if (gameSettings.headRoom.background == "elevatorBG") {
@@ -244,6 +243,7 @@ class TraverseMap extends Phaser.Scene {
             gameSettings.activeNpc.sentenceNum++;
           }
         }
+        console.log("** ", gameSettings.dialogue);
       });
 
     } else {
@@ -283,7 +283,6 @@ class TraverseMap extends Phaser.Scene {
 
   checkNPCDialogue(){
     //Creates necesary charactor dialogue
-        
     var choices = [gameSettings.dialogue];
     var textStyle = {fill:"black"};
     if (gameSettings.dialogue){
@@ -301,23 +300,33 @@ class TraverseMap extends Phaser.Scene {
           textStyle = {fontStyle:"italic",fill:"black"};          
       }
       
-      if (gameSettings.dialogue.includes("&&&")){
+      
+      if (gameSettings.dialogue.includes('&&&')){
         //this indicates a conditional which could require a special function call in the form "text&&&functionName&inputs"
+        console.log("hi ");
         for (var c in choices){
           if(choices[c].includes('&&&')){
             var parts = choices[c].split('&');
             choices[c] = parts[0];
 
+            
             switch(parts[3]){ 
               //parts[3] == function/action name 
               //parts[4:] == parameters for functions
               case 'death':
+                console.log("***** ", choices);
                 //launch death screen
                 if (parts[4] == 'creep'){
                   for (var d in this.doors){
                     this.doors[d].on('pointerdown', function(pointer){
                       //this.background.destroy();
                       //gameSettings.player.sprite.destroy();  
+                      //game.sound.stopAll();
+                     // game.BGM = this.killerBgm;
+                      //game.sound.killerBgm.play("killerBgm");
+                      //killerBgm.play();
+                      //game.loadRoom.killerBgm.play();
+                      //this.killerBgm.play(musicConfig);
                       var killerAnim = new npc("killerAnim","assets/spritesheets/killerAnimSprite.png",[]);
                       gameSettings.headRoom = new Room("killerAnimBG",{},{killerAnim:[locations.midWidthLeft, locations.midHeight, killerAnim]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: Two bodies were found at the Bestie residence at 5pm on a Friday.","REPORTER: Suspect was seen, following one of the children into the apartment.","REPORTER: The victim remained oblivious to the suspicious man behind them."]);
                       gameSettings.startDeathScreen = true;
@@ -332,7 +341,7 @@ class TraverseMap extends Phaser.Scene {
                       //this.background.destroy();
                       //gameSettings.player.sprite.destroy();  
                       var fireAnim = new npc("fireAnim","assets/spritesheets/fireAnimSprite.png",[]);
-                      //game.sound.stopAll();
+                      game.sound.stopAll();
                       //this.creepBgm= this.sound.add("creepBgm");
                       //this.creepBgm.play(musicConfig);
 
@@ -351,12 +360,28 @@ class TraverseMap extends Phaser.Scene {
                       //gameSettings.player.sprite.destroy();  
                       var elevatorAnim = new npc("elevatorAnim","assets/spritesheets/elevatorAnimSprite.png",[]);
                       
-                      //game.sound.stopAll();
+                      game.sound.stopAll();
                       //this.creepBgm= this.sound.add("creepBgm");
                       //this.creepBgm.play(musicConfig);
 
 
                       gameSettings.headRoom = new Room("elevatorAnimBG",{},{elevatorAnim:[locations.midWidthLeft, locations.midHeight, elevatorAnim]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                      gameSettings.startDeathScreen = true;
+
+                    });
+                  }
+                }
+
+                if (parts[4] == 'end'){
+                  for (var d in this.doors){
+                    this.doors[d].on('pointerdown', function(pointer){
+                      //this.background.destroy();
+                      //gameSettings.player.sprite.destroy();  
+                      var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                      
+                      game.sound.stopAll();
+
+                      gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: Our main story today includes a burning building and one heroic child","REPORTER: The big apartments caught fire at 5pm on a Friday.", "REPORTER: It trapped the children of apartment 68 among the flames.","REPORTER: They would have died...","REPORTER:However an observant child managed to get 911 the information the needed","REPORTER: Thus ends our segment for today.","REPORTER: Thank you for tuning in!"]);
                       gameSettings.startDeathScreen = true;
 
                     });
@@ -370,7 +395,7 @@ class TraverseMap extends Phaser.Scene {
                       //gameSettings.player.sprite.destroy();  
                       var drugAnim = new npc("drugAnim","assets/spritesheets/drugAnimSprite.png",[]);
                       
-                      //game.sound.stopAll();
+                      game.sound.stopAll();
                       //this.creepBgm= this.sound.add("creepBgm");
                       //this.creepBgm.play(musicConfig);
 
@@ -398,9 +423,7 @@ class TraverseMap extends Phaser.Scene {
                 
                   }
                 }
-
-
-                break;
+              break;
               case 'removeNPCs':
                 //removes all npcs
                 if (this.npcs){
@@ -414,10 +437,301 @@ class TraverseMap extends Phaser.Scene {
                 gameSettings.player.name = gameSettings.activeNpc.name;
                 break;
               case 'policeCall':
-                if (parts[4] == 'answerHere'){
+/*              
+                if (parts[4] == 'correct'){
+                  if (parts[5] == 'correct'){
+                    if (parts[6] == 'correct'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
 
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if (parts[6] == 'tooLittle'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if (parts[6] == 'tooMuch'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                  }
+                    else if(parts[4] == 'wrongFloor') {
+                      if (parts[6] == 'correct'){
+                        for (var d in this.doors){
+                          this.doors[d].on('pointerdown', function(pointer){
+                            //this.background.destroy();
+                            //gameSettings.player.sprite.destroy();  
+                            var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                            
+                            game.sound.stopAll();
+  
+                            gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                            gameSettings.startDeathScreen = true;
+      
+                          });
+                        }
+                      }
+                      else if (parts[6] == 'tooLittle'){
+                        for (var d in this.doors){
+                          this.doors[d].on('pointerdown', function(pointer){
+                            //this.background.destroy();
+                            //gameSettings.player.sprite.destroy();  
+                            var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                            
+                            game.sound.stopAll();
+  
+                            gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                            gameSettings.startDeathScreen = true;
+      
+                          });
+                        }
+                      }
+                      else if (parts[6] == 'tooMuch'){
+                        for (var d in this.doors){
+                          this.doors[d].on('pointerdown', function(pointer){
+                            //this.background.destroy();
+                            //gameSettings.player.sprite.destroy();  
+                            var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                            
+                            game.sound.stopAll();
+  
+                            gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                            gameSettings.startDeathScreen = true;
+      
+                          });
+                        }
+                      }
+                    }
+                
                 }
 
+
+                 else if (parts[4] == 'Slow'){
+                  if (parts[5] == 'correct'){
+                    if (parts[6] == 'correct'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if(parts[6] == 'tooLittle'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if(parts[6] == 'tooMuch'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                  }
+                  else if (parts[4] == 'wrongFloor') {
+                    if (parts[6] == 'correct'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if (parts[6] == 'tooLittle'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if (parts[6] == 'tooMuch'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                  }
+                }
+
+
+                else if (parts[4] == 'verySlow'){
+                  if (parts[5] == 'correct'){
+                    if (parts[6] == 'correct'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if (parts[6] == 'tooLittle'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if (parts[6] == 'tooMuch'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                  }
+                  else if(parts[4] == 'wrongFloor') {
+                    if (parts[6] == 'correct'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if (parts[6] == 'tooLittle'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                    else if (parts[6] == 'tooMuch'){
+                      for (var d in this.doors){
+                        this.doors[d].on('pointerdown', function(pointer){
+                          //this.background.destroy();
+                          //gameSettings.player.sprite.destroy();  
+                          var endScreen = new npc("endScreen","assets/spritesheets/endScreen.png",[]);
+                          
+                          game.sound.stopAll();
+
+                          gameSettings.headRoom = new Room("endScreenBG",{},{endScreen:[locations.midWidthLeft, locations.midHeight, endScreen]}, ["                       REPORTER: BREAKING NEWS!","REPORTER: One body was found at the big apartments at 5pm on a Friday.","REPORTER: The victim had tried to use the elevator to escape the fire.","REPORTER: However, the elevator had short circuited and dropped.","REPORTER: The child was killed on impact."]);
+                          gameSettings.startDeathScreen = true;
+    
+                        });
+                      }
+                    }
+                  }
+                } 
+*/
 
             }
           }
