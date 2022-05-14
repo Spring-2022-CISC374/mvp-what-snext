@@ -29,6 +29,36 @@ class DeathScreen extends Phaser.Scene{
             this.background.y=0;
             Align.scaleToGameW(this.background,1.5);
         }
+        if (gameSettings.headRoom.background == "elevatorAnimBG") {
+            this.background.x=-100;
+            this.background.y=0;
+            Align.scaleToGameW(this.background,1.7);
+        }
+        if (gameSettings.headRoom.background == "drugAnimBG") {
+            this.background.x=0;
+            this.background.y=0;
+            Align.scaleToGameW(this.background,1);
+        }
+        if (gameSettings.headRoom.background == "fireAnimBG") {
+            this.background.x=-100;
+            this.background.y=0;
+            Align.scaleToGameW(this.background,1.7);
+        }
+
+
+
+        this.killerBgm = this.sound.add("killerBgm");
+        if (gameSettings.headRoom.background == "killerAnimBG") {
+            console.log("hi");
+            game.sound.stopAll();
+            this.killerBgm.play();
+          }
+          this.titleMusic = this.sound.add("titleMusic");
+          if (gameSettings.headRoom.background == "endScreen") {
+            console.log("hi");
+            game.sound.stopAll();
+            this.titleMusic.play();
+          }
 
         this.blurbs = new Object();
     }
