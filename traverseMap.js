@@ -176,6 +176,7 @@ class TraverseMap extends Phaser.Scene {
       Align.scaleToGameW(this.background,2.5);
     }
 
+    /*
     this.doors = new Object();
     if (gameSettings.headRoom.doors){
       for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
@@ -191,9 +192,8 @@ class TraverseMap extends Phaser.Scene {
 
         });
       }
-      
     }
-
+*/
     this.npcs = new Object();
     if (gameSettings.headRoom.npcs){
       for (const [name,info] of Object.entries(gameSettings.headRoom.npcs)){
@@ -303,7 +303,6 @@ class TraverseMap extends Phaser.Scene {
       
       if (gameSettings.dialogue.includes('&&&')){
         //this indicates a conditional which could require a special function call in the form "text&&&functionName&inputs"
-        console.log("hi ");
         for (var c in choices){
           if(choices[c].includes('&&&')){
             var parts = choices[c].split('&');
@@ -313,6 +312,24 @@ class TraverseMap extends Phaser.Scene {
             switch(parts[3]){ 
               //parts[3] == function/action name 
               //parts[4:] == parameters for functions
+              case 'death':
+              case 'addDoors':
+                this.doors = new Object();
+                if (gameSettings.headRoom.doors){
+                  for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
+                    //Adds doors and door click listener to change room
+                    this.doors[room] = this.add.sprite(location[0],location[1],"click").setInteractive(); //TODO: change rightArrow to custom door graphic
+                    this.doors[room].on('pointerdown', function(pointer){
+
+                      for (var r in this.doors){
+                          this.doors[r].destroy();
+                      }
+                      gameSettings.headRoom = location[2];
+                      gameSettings.changeRoom = true;
+
+                    });
+                  }
+                }
               case 'death':
                 console.log("***** ", choices);
                 //launch death screen
@@ -433,6 +450,7 @@ class TraverseMap extends Phaser.Scene {
                 }
                 //TODO: add mechanic of them leaving?
                 break;
+              
               case 'setPlayerSkin':
                 gameSettings.player.name = gameSettings.activeNpc.name;
                 break;

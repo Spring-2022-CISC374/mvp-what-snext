@@ -161,12 +161,12 @@ class LoadGame extends Phaser.Scene {
     //Initializes story
       var people = new npc("people", "assets/spritesheets/peopleSprite.png", ["I could try to capture their attention, so he leaves"]);
       var concernedMom = new npc("concernedMom", "assets/spritesheets/momSprite.png", ['CONCERNED MOM: I charged your phone, call me if you need anything.', "YOU: Ill be fine mom.",'CONCERNED MOM: Just be careful, Honey.','CONCERNED MOM: Remember to use your arrow keys to move.', 'YOU: I know how to cross the street, Mom.', 'CONCERNED MOM: I know, but its your first sleepover.','CONCERNED MOM: I want you to be prepared.', 'YOU: Dont worry, Im not a little kid anymore.', 'CONCERNED MOM: Just promise me that you will click on things if you ever need help.', 'YOU: I promise.', 'CONCERNED MOM: You can even click on people!!', 'YOU: Bye Mom!!', 'Its justa sleepover','What could go wrong?']);
-      var creepyDude2 = new npc("creep","assets/spritesheets/creep2Sprite.png",['Who is this guy?', "Why is he so close?", "He's been following me ever since I left Mom", "I better get out quick"],100);
+      var creepyDude2 = new npc("creep","assets/spritesheets/creep2Sprite.png",['Who is this guy?', "Why is he so close?", "He's been following me ever since I left Mom", "I better get out quick&&&addDoors"],100);
       var creepyDude = new npc("creep","assets/spritesheets/creep2Sprite.png",["He's still here, this is getting weird.", "What should I do? \n**Start yelling. \n**Call Mom. \n**Ignore.",
-                            ["YOU: WHY ARE YOU FOLLOWING ME?","RANDOM GUY: Dude I think that kid is being harrassed.","OTHER RANDOM GUY: Maybe we should keep an eye on him."],
-                            ["CONCERNED MOM: Hi Sweetie, is everything alright?","CONCERNED MOM: Do you want me to come get you?","YOU: No, I'm almost at Bestie's house.","CONCERNED MOM: Okay, I'll stay on the phone with you, until you get there then."],
+                            ["YOU: WHY ARE YOU FOLLOWING ME?","RANDOM GUY: Dude I think that kid is being harrassed.","OTHER RANDOM GUY: Maybe we should keep an eye on him.&&&addDoors"],
+                            ["CONCERNED MOM: Hi Sweetie, is everything alright?","CONCERNED MOM: Do you want me to come get you?","YOU: No, I'm almost at Bestie's house.","CONCERNED MOM: Okay, I'll stay on the phone with you, until you get there then.&&&addDoors"],
                             ["I'm sure he just lives in the building.&&&death&creep","Screaming for help would be embarrassing anyways."]],100);
-      var boy = new npc("boy","assets/spritesheets/boySprite.png", ["BESTIE: You made it!!","YOU: It was hard but I'm here in one piece.","BESTIE: Of course you did, we have the best security out there.","BESTIE: Absolutely nothing can go wrong.","FIRE ALARM: BEEP BEEP BEEEEEEEEP BEEPERS BEEPING BEP!!", "BESTIE: Well then...","BESTIE: Gotta blast!","&&&removeNPCs"]);
+      var boy = new npc("boy","assets/spritesheets/boySprite.png", ["BESTIE: You made it!!","YOU: It was hard but I'm here in one piece.","BESTIE: Of course you did, we have the best security out there.","BESTIE: Absolutely nothing can go wrong.","FIRE ALARM: BEEP BEEP BEEEEEEEEP BEEPERS BEEPING BEP!!", "BESTIE: Well then...","BESTIE: Gotta blast!&&&addDoors","&&&removeNPCs"]);
       var car = new npc();
       var baby = new npc("baby","assets/spritesheets/babySprite.png",["BABY: Goo goo ga ga \n**Talk to baby. \n**Ignore baby.",                       
         ["YOU: Are you lost?", "Yes!","Wow this baby can talk??", "YOU: Where is your mom?", "BABY: Yes!", "YOU: Is yes the only word you can say?","BABY: Yes!","Okay maybe this baby can't talk..."],
@@ -242,15 +242,15 @@ class LoadGame extends Phaser.Scene {
       var sixthFloor = new Room("sixthFloorBG",{fifthFloor:[locations.left, locations.midHeight, fifthFloor]},{ helplessMan:[locations.left, locations.lowHeight, helplessMan]});
       var eighthFloor = new Room("eighthFloorBG",{sixthFloor:[locations.midWidthLeft, locations.midHeight, sixthFloor]},{ pettyMom:[locations.furtherRight, locations.lowHeight,  pettyMom], babyStanding:[locations.furtherRight, locations.moreLowerHeight,  babyStanding]});
       var stairs = new Room("stairsBG",{eighthFloor:[locations.left, locations.midHeight, eighthFloor]},{ baby:[locations.furtherRight, locations.lowHeight,  baby]},["A baby?"],true);
-      var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight, stairs]}, {},["Hmm, stairs or elevator? ** Elevator. ** Stairs.",["Taking the stairs does seem safer"],["Taking the elevator does seem faster &&&death&elevator"]],true);
-      var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight, stairsAndElevator]},{},["Where'd Bestie go?","Note to self, take applications for a new bestie", "Now, I need to get out of this building"],true); 
+      var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight, stairs]}, {},["Hmm, stairs or elevator? ** Elevator. ** Stairs.",["Taking the stairs does seem safer&&&addDoors"],["Taking the elevator does seem faster &&&death&elevator"]],true);
+      var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight, stairsAndElevator]},{},["Where'd Bestie go?&&&addDoors","Note to self, take applications for a new bestie", "Now, I need to get out of this building"],true); 
       var friendRoom = new Room("friendRoomBG",{tenthFloor2:[locations.right, locations.midHeight, tenthFloor2]},{ boy:[locations.left, locations.lowHeight, boy]});
       var tenthFloor = new Room("tenthFloorBG",{friendRoom:[locations.left, locations.midHeight, friendRoom]},{creep:[locations.furtherRight,locations.midLowerHeight, creepyDude], people:[locations.midWidthRight,locations.midHeight, people]});
       var elevator = new Room("elevatorBG",{tenthFloor:[locations.left, locations.midHeight, tenthFloor]},{creep:[locations.midWidthSlightRight,locations.lowerHeight, creepyDude2]});
       this.city = new Room("cityBG"
         ,{elevator:[locations.left, locations.midHeight, elevator]}
         ,{concernedMom:[locations.niceWidth, locations.lowHeight,  concernedMom],car:[locations.midWidth, locations.lowHeight,  car]}
-        ,["I should talk to mom before I leave or she'll get worried"],true);
+        ,["I should talk to mom before I leave or she'll get worried&&&addDoors"],true);
       //var characterSelect = new Room("selectionBG",{city:[locations.midWidth,locations.lowHeight, city]},{girl:[locations.left, locations.midHeight, girl],boy:[locations.left, locations.midHeight, boy]});
 
       gameSettings.changeRoom = true;
@@ -268,7 +268,7 @@ class LoadGame extends Phaser.Scene {
         ,'boy3': [locations.right/0.97,locations.lowerHeight, new npc('boy3','',selectionDialogue)]        
         ,'boy4': [locations.midWidth/1.6,locations.midSlightLower*1.15, new npc('boy4','',selectionDialogue)]        
         ,'girl3': [locations.midWidth/1.12,locations.midSlightLower*1.15, new npc('girl3','',selectionDialogue)]        
-        },["Choose a player"],true);
+        },["Choose a player&&&addDoors"],true);
       
         gameSettings.headRoom = playerSelect;
 
