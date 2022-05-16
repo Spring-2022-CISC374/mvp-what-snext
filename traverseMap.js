@@ -829,10 +829,10 @@ class TraverseMap extends Phaser.Scene {
     if (!this.cursorKeys.right.isDown && this.cursorKeys.left.isDown){
 
         //checks if you're standing still on a door and switches rooms
-        for (const [room,location] of Object.entries(gameSettings.headRoom.doors)){
-          if (location[0] > gameSettings.player.sprite.x - 10 
-              && location[0] < gameSettings.player.sprite.x + 10 ){//todo: abstract the 10 to scale
-            gameSettings.headRoom = location[2];
+        for (var r in this.rooms){//const [room,location] of Object.entries(gameSettings.headRoom.doors)){
+          if (this.rooms[r].x > gameSettings.player.sprite.x - 10 
+              && this.rooms[r].x < gameSettings.player.sprite.x + 10 ){//todo: abstract the 10 to scale
+            gameSettings.headRoom = gameSettings.headRoom.doors[r];
             gameSettings.changeRoom = true;
           }
         }
