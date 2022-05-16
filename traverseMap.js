@@ -27,7 +27,7 @@ class TraverseMap extends Phaser.Scene {
             .on('pointerout', () => restartButton.setStyle({ fill: '#FFF' }));
     
   
-          //TODO: figure out how to Abstract this?
+    //TODO: figure out how to Abstract this? maybe with constant functions?
           
     gameSettings.txtBox.dialogueBox.sprite.on('pointerdown',function(pointer){      
       if (!gameSettings.txtBox.answer1.sprite.visible){
@@ -46,9 +46,7 @@ class TraverseMap extends Phaser.Scene {
               gameSettings.activeNpc.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
               gameSettings.activeNpc.sentenceNum = 1;
               gameSettings.dialogue = gameSettings.activeNpc.dialogue[0];
-    
         } else {
-              
               gameSettings.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum];
               if (gameSettings.txtBox.answer3.sprite.visible) {
                 gameSettings.activeNpc.sentenceNum += 3;
@@ -59,7 +57,7 @@ class TraverseMap extends Phaser.Scene {
     });
 
     gameSettings.txtBox.answer2.sprite.on('pointerdown',function(pointer){
-      if (typeof(gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum]) == typeof(["a","b"])){
+      if (typeof(gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 1]) == typeof(["a","b"])){
         gameSettings.activeNpc.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 1];
         gameSettings.activeNpc.sentenceNum = 1;
         gameSettings.dialogue = gameSettings.activeNpc.dialogue[0];
@@ -76,7 +74,7 @@ class TraverseMap extends Phaser.Scene {
     });
     
     gameSettings.txtBox.answer3.sprite.on('pointerdown',function(pointer){
-      if (typeof(gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum]) == typeof(["a","b"])){
+      if (typeof(gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 2]) == typeof(["a","b"])){
         gameSettings.activeNpc.dialogue = gameSettings.activeNpc.dialogue[gameSettings.activeNpc.sentenceNum + 2];
         gameSettings.activeNpc.sentenceNum = 1;
         gameSettings.dialogue = gameSettings.activeNpc.dialogue[0];
@@ -243,7 +241,7 @@ class TraverseMap extends Phaser.Scene {
             gameSettings.activeNpc.sentenceNum++;
           }
         }
-        console.log("** ", gameSettings.dialogue);
+        //console.log("** ", gameSettings.dialogue);
       });
 
     } else {
@@ -331,7 +329,7 @@ class TraverseMap extends Phaser.Scene {
                   }
                 }
               case 'death':
-                console.log("***** ", choices);
+                //console.log("***** ", choices);
                 //launch death screen
                 if (parts[4] == 'creep'){
                   for (var d in this.doors){

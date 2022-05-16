@@ -1,7 +1,5 @@
 class LoadGame extends Phaser.Scene {
 
-  city;
-
   constructor() {
     super("bootGame");
   }
@@ -242,12 +240,12 @@ class LoadGame extends Phaser.Scene {
       var sixthFloor = new Room("sixthFloorBG",{fifthFloor:[locations.left, locations.midHeight, fifthFloor]},{ helplessMan:[locations.left, locations.lowHeight, helplessMan]});
       var eighthFloor = new Room("eighthFloorBG",{sixthFloor:[locations.midWidthLeft, locations.midHeight, sixthFloor]},{ pettyMom:[locations.furtherRight, locations.lowHeight,  pettyMom], babyStanding:[locations.furtherRight, locations.moreLowerHeight,  babyStanding]});
       var stairs = new Room("stairsBG",{eighthFloor:[locations.left, locations.midHeight, eighthFloor]},{ baby:[locations.furtherRight, locations.lowHeight,  baby]},["A baby?"],true);
-      var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight, stairs]}, {},["Hmm, stairs or elevator? ** Elevator. ** Stairs.",["Taking the stairs does seem safer&&&addDoors"],["Taking the elevator does seem faster &&&death&elevator"]],true);
+      var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight, stairs]}, {},["Hmm, stairs or elevator? ** Elevator. ** Stairs.",["Taking the stairs does seem safer &&&addDoors"],["Taking the elevator does seem faster &&&death&elevator"]],true);
       var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight, stairsAndElevator]},{},["Where'd Bestie go?&&&addDoors","Note to self, take applications for a new bestie", "Now, I need to get out of this building"],true); 
       var friendRoom = new Room("friendRoomBG",{tenthFloor2:[locations.right, locations.midHeight, tenthFloor2]},{ boy:[locations.left, locations.lowHeight, boy]});
       var tenthFloor = new Room("tenthFloorBG",{friendRoom:[locations.left, locations.midHeight, friendRoom]},{creep:[locations.furtherRight,locations.midLowerHeight, creepyDude], people:[locations.midWidthRight,locations.midHeight, people]});
       var elevator = new Room("elevatorBG",{tenthFloor:[locations.left, locations.midHeight, tenthFloor]},{creep:[locations.midWidthSlightRight,locations.lowerHeight, creepyDude2]});
-      this.city = new Room("cityBG"
+      var city = new Room("cityBG"
         ,{elevator:[locations.left, locations.midHeight, elevator]}
         ,{concernedMom:[locations.niceWidth, locations.lowHeight,  concernedMom],car:[locations.midWidth, locations.lowHeight,  car]}
         ,["I should talk to mom before I leave or she'll get worried&&&addDoors"],true);
@@ -257,7 +255,7 @@ class LoadGame extends Phaser.Scene {
 
 
       var selectionDialogue = ["Do you want to pick me? **yes **no", "&&&setPlayerSkin", "Choose a player"];
-      var playerSelect = new Room("selectionBG",{city:[locations.right, locations.top, this.city]},
+      var playerSelect = new Room("selectionBG",{city:[locations.right, locations.top, city]},
         {'girl1': [locations.midWidthSlightRight,locations.lowerHeight, new npc('girl1','', selectionDialogue)]        
         ,'girl2': [locations.midWidthFurtherLeft,locations.lowerHeight, new npc('girl2','',selectionDialogue)]        
         ,'girl3': [locations.midWidthEvenFurtherLeft,locations.lowerHeight, new npc('girl3','',selectionDialogue)]        
