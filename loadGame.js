@@ -286,7 +286,7 @@ class LoadGame extends Phaser.Scene {
         , comingAgain: [locations.midWidth/0.7,locations.midSlightLower*1.15,comingAgain]     
         },["Choose a player &&&death&addDoors"],true);
       
-        gameSettings.headRoom = eighthFloor;
+        gameSettings.headRoom = playerSelect;
 
   }
 
