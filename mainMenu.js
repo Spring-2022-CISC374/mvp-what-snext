@@ -4,6 +4,7 @@ class MainMenu extends Phaser.Scene {
     }
 
     create() {
+      game.sound.stopAll();
       function touchStarted() {
         getAudioContext().resume();
       }
