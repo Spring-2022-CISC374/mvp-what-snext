@@ -252,63 +252,7 @@ class LoadGame extends Phaser.Scene {
       var insideFire = new Room("fireAnimBG",{},{smoke:[locations.left, locations.midSlightLower, smoke]});
       var exit = new Room("endScreenBG",{},{});
 
-      var fifthFloor = new Room("fifthFloorBG",{insideFire:[locations.left, locations.midHeight, insideFire], exit:[locations.right, locations.midHeight, exit]},{smoke:[locations.left, locations.midSlightLower, smoke]}, ["What should I do? \n**Leave. \n**Go inside. \n**Call 911.", 
-      ["There's no time", "I've got to help them &&&death&addDoors&fire"],
-
-
-      ["RING...RING...RING...","POLICE OFFICER: 911, what’s your emergency??", "YOU: Ahh I’m too scared to speak","What happened \n** YOU: There’s a fire! \n**YOU: YOU: People are dying! \n**YOU: AAAAAAAAH",
-      ["POLICE OFFICER: Okay", "POLICE OFFICER: What is the address of your emergency??", "YOU: Oh I know this!!", "YOU: And Bestie called me weird for memorizing his address","YOU: Street ---- --- Apartment --- Floor number... ** 7 ** 6 ** 5",
-      ["incorrect","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
-      ["incorrect &&&death&addDoors&correct&wrongFloor&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["correct &&&death&addDoors&correct&wrongFloor&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["incorrect &&&death&addDoors&correct&wrongFloor&tooLittle","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ],
-      ["incorrect","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
-      ["incorrect &&&death&addDoors&correct&wrongFloor&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["correct &&&death&addDoors&correct&wrongFloor&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["incorrect &&&death&addDoors&correct&wrongFloor&tooLittle","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ],
-      ["correct","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
-      ["incorrect &&&death&addDoors&correct&correct&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["correct &&&death&addDoors&correct&correct&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["incorrect &&&death&addDoors&correct&correct&tooLittle","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ],],
-
-      ["POLICE OFFICER: Do you know why people are dying??", "YOU: Because their room is on fire!!", "POLICE OFFICER: What is the address of your emergency??", "YOU: Oh I know this!", "YOU: And Bestie called me weird for memorizing his address","YOU: Street --- ---- Apartment --- Floor number... \**n 7 \**n 6 \**n 5",
-      ["incorrect","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
-      ["incorrect &&&death&addDoors&slow&wrongFloor&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["correct &&&death&addDoors&slow&wrongFloor&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["incorrect &&&death&addDoors&slow&wrongFloor&tooLittle","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ],
-      ["incorrect","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
-      ["incorrect &&&death&addDoors&slow&wrongFloor&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["correct &&&death&addDoors&slow&wrongFloor&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["incorrect &&&death&addDoors&slow&wrongFloor&tooLittle","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ],
-      ["correct","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
-      ["incorrect &&&death&addDoors&slow&correct&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["correct &&&death&addDoors&slow&correct&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["incorrect &&&death&addDoors&slow&correct&tooLittle","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ],],
-
-      ["POLICE OFFICER: Please try to calm down and tell me the situation??", "YOU: FIRE!!", "POLICE OFFICER: What is the address of your emergency??", "YOU: Oh I know this!!", "YOU: And Bestie called me weird for memorizing his address","YOU: Street --- --- Apartment --- Floor number... \**n 7 \**n 6 \**n 5",
-      ["incorrect","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
-      ["incorrect &&&death&addDoors&verySlow&wrongFloor&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["correct &&&death&addDoors&verySlow&wrongFloor&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["incorrect &&&death&addDoors&verySlow&wrongFloor&tooLittle","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ],
-      ["incorrect","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
-      ["incorrect &&&death&addDoors&verySlow&wrongFloor&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["correct &&&death&addDoors&verySlow&wrongFloor&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["incorrect &&&death&addDoors&verySlow&wrongFloor&tooLittle","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ],
-      ["correct","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
-      ["incorrect &&&death&addDoors&verySlow&correct&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["incorrect &&&death&addDoors&verySlow&correct&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ["correct &&&death&addDoors&verySlow&correct&correct","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
-      ],],
-      ],
-      ["I should get out of here! &&&death&addDoors&leave"]],true);
+      var fifthFloor = new Room("fifthFloorBG",{insideFire:[locations.left, locations.midHeight, insideFire], exit:[locations.right, locations.midHeight, exit]},{smoke:[locations.left, locations.midSlightLower, smoke]});
       var sixthFloor = new Room("sixthFloorBG",{fifthFloor:[locations.left, locations.midHeight, fifthFloor]},{ helplessMan:[locations.left, locations.lowHeight, helplessMan],candy:[locations.lessRight, locations.lowHeight, candy]},["HELPLESS MAN: Hey, you!"],true);
       var eighthFloor = new Room("eighthFloorBG",{sixthFloor:[locations.midWidthLeft, locations.midHeight, sixthFloor]},{ pettyMom:[locations.furtherRight, locations.lowHeight,  pettyMom], babyStanding:[locations.furtherRight, locations.moreLowerHeight,  babyStanding]},["PETTY MOM: Thank you so much for bringing Baby to me!!&&&death&addDoors"],true);
       var stairs = new Room("stairsBG",{eighthFloor:[locations.left, locations.midHeight, eighthFloor]},{ baby:[locations.furtherRight, locations.lowHeight,  baby]},["A baby?"],true);
