@@ -196,7 +196,7 @@ class LoadGame extends Phaser.Scene {
       var insideFire = new Room("fireAnimBG",{},{smoke:[locations.left, locations.midSlightLower, smoke]});
       var exit = new Room("endScreenBG",{},{});
 
-      var fifthFloor = new Room("fifthFloorBG",{insideFire:[locations.left, locations.midHeight, insideFire], exit:[locations.right, locations.midHeight, exit]},{smoke:[locations.left, locations.midSlightLower, smoke]}, ["What should I do? \n**Leave. \n**Go inside. \n**Call 911.", 
+      var fifthFloor = new Room("fifthFloorBG",{insideFire:[locations.left, locations.midHeight, insideFire], exit:[locations.right, locations.midHeight, exit]},{smoke:[locations.left, locations.midSlightLower, smoke]}, ["What should I do? \n**Go inside. \n**Call 911. \n**Leave.", 
       ["There's no time", "I've got to help them &&&death&addDoors&fire"],
 
 
