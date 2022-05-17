@@ -188,7 +188,15 @@ class LoadGame extends Phaser.Scene {
         ["YOU: No thanks.","HELPLESS MAN: Suit yourself. &&&death&addDoors"]]);
       var babyStanding = new npc("babyStanding","assets/spritesheets/baby2Sprite.png",[]);
 
-      var smoke = new npc("smoke","assets/spritesheets/smokeSprite.png",["What should I do? \n**Leave. \n**Go inside. \n**Call 911.", 
+      var smoke = new npc("smoke","assets/spritesheets/smokeSprite.png",[]);
+
+      var killerAnim = new npc("killerAnim","assets/spritesheets/killerAnimSprite.png",[]);
+      var coming = new npc();
+      var comingAgain = new npc();
+      var insideFire = new Room("fireAnimBG",{},{smoke:[locations.left, locations.midSlightLower, smoke]});
+      var exit = new Room("endScreenBG",{},{});
+
+      var fifthFloor = new Room("fifthFloorBG",{insideFire:[locations.left, locations.midHeight, insideFire], exit:[locations.right, locations.midHeight, exit]},{smoke:[locations.left, locations.midSlightLower, smoke]}, ["What should I do? \n**Leave. \n**Go inside. \n**Call 911.", 
       ["There's no time", "I've got to help them &&&death&addDoors&fire"],
 
 
@@ -245,16 +253,8 @@ class LoadGame extends Phaser.Scene {
       ],],
       ],
       ["I should get out of here! &&&death&addDoors&leave"]],true);
-
-      var killerAnim = new npc("killerAnim","assets/spritesheets/killerAnimSprite.png",[]);
-      var coming = new npc();
-      var comingAgain = new npc();
-      var insideFire = new Room("fireAnimBG",{},{smoke:[locations.left, locations.midSlightLower, smoke]});
-      var exit = new Room("endScreenBG",{},{});
-
-      var fifthFloor = new Room("fifthFloorBG",{insideFire:[locations.left, locations.midHeight, insideFire], exit:[locations.right, locations.midHeight, exit]},{smoke:[locations.left, locations.midSlightLower, smoke]});
       var sixthFloor = new Room("sixthFloorBG",{fifthFloor:[locations.left, locations.midHeight, fifthFloor]},{ helplessMan:[locations.left, locations.lowHeight, helplessMan],candy:[locations.lessRight, locations.lowHeight, candy]},["HELPLESS MAN: Hey, you!"],true);
-      var eighthFloor = new Room("eighthFloorBG",{sixthFloor:[locations.midWidthLeft, locations.midHeight, sixthFloor]},{ pettyMom:[locations.furtherRight, locations.lowHeight,  pettyMom], babyStanding:[locations.furtherRight, locations.moreLowerHeight,  babyStanding]});
+      var eighthFloor = new Room("eighthFloorBG",{sixthFloor:[locations.midWidthLeft, locations.midHeight, sixthFloor]},{ pettyMom:[locations.furtherRight, locations.lowHeight,  pettyMom], babyStanding:[locations.furtherRight, locations.moreLowerHeight,  babyStanding]},["PETTY MOM: Thank you so much for bringing Baby to me!!&&&death&addDoors"],true);
       var stairs = new Room("stairsBG",{eighthFloor:[locations.left, locations.midHeight, eighthFloor]},{ baby:[locations.furtherRight, locations.lowHeight,  baby]},["A baby?"],true);
       var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight, stairs]}, {},["Hmm, stairs or elevator? ** Elevator. ** Stairs.",["Taking the stairs does seem safer &&&death&addDoors"],["Taking the elevator does seem faster&&&death&addDoors&elevator"]],true);
       var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight, stairsAndElevator]},{},["Where'd Bestie go?","Note to self, take applications for a new bestie", "Now, I need to get out of this building &&&death&addDoors"],true); 
