@@ -185,10 +185,10 @@ class LoadGame extends Phaser.Scene {
       var pettyMom = new npc("pettyMom","assets/spritesheets/pettyMomSprite.png", ["PETTY MOM: Thank you so much for bringing Baby to me!! &&&death&addDoors","Did the baby follow me down?","PETTY MOM: I didn't think he could even climb up to the tenth floor by himself.", "YOU: Yep that's one strange baby.", "PETTY MOM: Excuse me??", "YOU: ...","PETTY MOM: Well atleast he went to the tenth floor instead of the fifth floor.", "PETTY MOM: That's where the real danger is after all.", "YOU: Excuse me??","PETTY MOM: Oh look at the time...", "PETTY MOM: I need to get my weird baby out of this burning building.", "BABY: Bye bye!!"]); 
       var helplessMan = new npc("helplessMan","assets/spritesheets/helplessManSprite.png", ["YOU: Me??","HELPLESS MAN: Where did everyone go??", "YOU: Uh, the building is on fire, Sir.", "HELPLESS MAN: Oh.", "HELPLESS MAN: Well this isn't good for my business.", "YOU: Business??", "HELPLESS MAN: Yeah, I sell candy to children.","That's concerning", "HELPLESS MAN: But now my customers are gone!!", "HELPLESS MAN: I hope those children in apartment room 68 will come back.", "HELPLESS MAN: With a big family of 5 their parents were always working.","HELPLESS MAN: So the 3 children were always left with their babysitter.", "YOU: So you would buy candy and sell it to them??", "How nice", "HELPLESS MAN: Nope, I make the candy myself.", "HELPLESS MAN: Want to try some, it's my newest recipe. \n**Eat it. \n**Don't eat it.", 
         ["I feel strange.","You'll be fine.","In fact as my newest customer I won't even charge you!!", "*Weird stomach noises* Uh thanks.","&&&death&addDoors&drug"],
-        ["YOU: No thanks.","HELPLESS MAN: Suit yourself. &&&death&addDoors"]]);
+        ["YOU: No thanks.","HELPLESS MAN: Suit yourself.", "&&&death&addDoors"]]);
       var babyStanding = new npc("babyStanding","assets/spritesheets/baby2Sprite.png",[]);
 
-      var smoke = new npc("smoke","assets/spritesheets/smokeSprite.png",[]);
+      var smoke = new npc("smoke","assets/spritesheets/smokeSprite.png",["Oh no! There's so much smoke"]);
 
       var killerAnim = new npc("killerAnim","assets/spritesheets/killerAnimSprite.png",[]);
       var coming = new npc();
