@@ -200,7 +200,7 @@ class LoadGame extends Phaser.Scene {
       ["There's no time", "I've got to help them &&&death&addDoors&fire"],
 
 
-      ["RING...RING...RING...","POLICE OFFICER: 911, what’s your emergency??", "YOU: Ahh I’m too scared to speak","What happened \n** YOU: There’s a fire! \n**YOU: YOU: People are dying! \n**YOU: AAAAAAAAH",
+      ["RING...RING...RING...","POLICE OFFICER: 911, whats your emergency??", "YOU: Ahh Im too scared to speak","What happened \n** YOU: Theres a fire! \n**YOU: YOU: People are dying! \n**YOU: AAAAAAAAH",
       ["POLICE OFFICER: Okay", "POLICE OFFICER: What is the address of your emergency??", "YOU: Oh I know this!!", "YOU: And Bestie called me weird for memorizing his address","YOU: Street ---- --- Apartment --- Floor number... ** 7 ** 6 ** 5",
       ["incorrect","POLICE OFFICER: Okay, and how many people are in the room??", "YOU: There are... ** 5 ** 4 ** 3",
       ["incorrect &&&death&addDoors&correct&wrongFloor&tooMuch","POLICE OFFICER: Alright, we are sending the firemen over, now!!"],
