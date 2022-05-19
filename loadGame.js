@@ -196,7 +196,8 @@ class LoadGame extends Phaser.Scene {
       var insideFire = new Room("fireAnimBG",{},{smoke:[locations.left, locations.midSlightLower, smoke]});
       var exit = new Room("endScreenBG",{},{});
 
-      var fifthFloor = new Room("fifthFloorBG",{insideFire:[locations.left, locations.midHeight, insideFire], exit:[locations.right, locations.midHeight, exit]},{smoke:[locations.left, locations.midSlightLower, smoke]}, ["What should I do? **Go inside. **Call 911. **Leave.", 
+      var fifthFloor = new Room("fifthFloorBG",{insideFire:[locations.left, locations.midHeight, insideFire], exit:[locations.right, locations.midHeight, exit]},{smoke:[locations.left, locations.midSlightLower, smoke]}, 
+      ["Oh no a fire!","What should I do? **Go inside. **Call 911. **Leave.", 
       ["There's no time", "I've got to help them &&&death&addDoors&fire"],
 
 
@@ -256,7 +257,7 @@ class LoadGame extends Phaser.Scene {
       var sixthFloor = new Room("sixthFloorBG",{fifthFloor:[locations.left, locations.midHeight, fifthFloor]},{ helplessMan:[locations.left, locations.lowHeight, helplessMan],candy:[locations.lessRight, locations.lowHeight, candy]},["HELPLESS MAN: Hey, you!"],true);
       var eighthFloor = new Room("eighthFloorBG",{sixthFloor:[locations.midWidthLeft, locations.midHeight, sixthFloor]},{ pettyMom:[locations.furtherRight, locations.lowHeight,  pettyMom], babyStanding:[locations.furtherRight, locations.moreLowerHeight,  babyStanding]},["PETTY MOM: Thank you so much for bringing Baby to me!!&&&death&addDoors"],true);
       var stairs = new Room("stairsBG",{eighthFloor:[locations.left, locations.midHeight, eighthFloor]},{ baby:[locations.furtherRight, locations.lowHeight,  baby]},["A baby?"],true);
-      var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight, stairs]}, {},["Hmm, stairs or elevator? ** Elevator. ** Stairs.",["Taking the stairs does seem safer","&&&death&addDoors"],["Taking the elevator does seem faster","&&&death&addDoors&elevator"]],true);
+      var stairsAndElevator = new Room("stairsAndElevatorBG",{stairs:[locations.left, locations.midHeight, stairs]}, {},["I need to escape soon!", "Hmm, stairs or elevator? ** Stairs. ** Elevator.",["Taking the stairs does seem safer","&&&death&addDoors"],["Taking the elevator does seem faster","&&&death&addDoors&elevator"]],true);
       var tenthFloor2 = new Room("tenthFloorBG",{stairsAndElevator:[locations.right, locations.midHeight, stairsAndElevator]},{},["Where'd Bestie go?","Note to self, take applications for a new bestie", "Now, I need to get out of this building","&&&death&addDoors"],true); 
       var friendRoom = new Room("friendRoomBG",{tenthFloor2:[locations.right, locations.midHeight, tenthFloor2]},{ boy:[locations.left, locations.lowHeight, boy]});
       var tenthFloor = new Room("tenthFloorBG",{friendRoom:[locations.left, locations.midHeight, friendRoom]},{creep:[locations.furtherRight,locations.midLowerHeight, creepyDude], people:[locations.midWidthRight,locations.midHeight, people]});
